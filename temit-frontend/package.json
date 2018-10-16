@@ -24,6 +24,7 @@
   ],
   "devDependencies": {
     "node-sass": "^4.9.4",
-    "react-materialize": "^2.4.6"
+    "react-materialize": "^2.4.6",
+    "react-router-dom": "^4.3.1"
   }
 }
