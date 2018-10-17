@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './scss/App.scss';
-import { App, Home } from './containers';
+import { App, Home, Editor } from './containers';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 ReactDOM.render(
@@ -10,6 +10,7 @@ ReactDOM.render(
       <Route path='/' component={App}/>
       <div className="content-wrapper">
         <Route exact path='/' component={Home}/>
+        <Route exact path='/post' component={Editor}/>
       </div>
     </>
   </Router>

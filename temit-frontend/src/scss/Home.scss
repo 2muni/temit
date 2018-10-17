@@ -1,13 +1,23 @@
 @import '_variables';
 
-.main-aside{
-  width: 290px;
-  background-color: beige;  
+.main-column{
+  width: 290px; 
+  padding: 0 $padding;
+  
+  &.left{
+    background: #fff;
+    box-shadow: 0 0 2px 0 rgba(0,0,0,.14);
+  }
+
+  &.right{
+    margin: 47px auto;
+  }
 }
 
 .postcard-list{
   flex: 1;
-  margin-left: 32px;
+  padding: 0 $padding;
+  margin: 47px auto;
 
   .postcard{
     width: 100%;
@@ -16,6 +26,6 @@
     -webkit-box-shadow: 0 0 4px rgba(0,0,0,.05);
     box-shadow: 0 0 4px rgba(0,0,0,.05);
     margin-bottom: 21px;
-    box-sizing: border-box;
+    
   }
 }
