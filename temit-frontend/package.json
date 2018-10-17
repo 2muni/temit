@@ -23,8 +23,11 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "marked": "^0.5.1",
     "node-sass": "^4.9.4",
+    "prismjs": "^1.15.0",
     "react-materialize": "^2.4.6",
-    "react-router-dom": "^4.3.1"
+    "react-router-dom": "^4.3.1",
+    "react-simplemde-editor": "^3.6.16"
   }
 }

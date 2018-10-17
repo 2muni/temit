@@ -1,5 +1,6 @@
 @import '_variables';
 @import 'Home';
+@import 'Editor';
 
 body{
   margin: 0;
@@ -12,22 +13,28 @@ body{
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
 }
+#root{
+  width: 100%;
+  height: 100%;
+}
 
 nav{
   display: flex;
   justify-content: center;
   background-color: $color-1;
+  position: relative;
+  z-index: 999;
 
   .nav-wrapper{
-    width: $width;
+    width: 100%;
     margin: 0 -6px;
+    padding: 0 $padding;
   }
 }
 
 .content-wrapper{
   display: flex;
-  justify-content: space-between;
-  width: $width;
+  justify-content: center;
+  width: 100%;
   height: 100%;
-  margin: 47px auto;
 }
