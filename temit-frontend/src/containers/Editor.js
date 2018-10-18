@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { articlePost, articlePostValue } from '../actions/article'
+import { articlePostRequest, articlePostValue } from '../actions/article'
 
 import tui from 'tui-editor'
 import "tui-editor/dist/tui-editor-Editor.js";
@@ -23,6 +23,7 @@ class Editor extends Component {
         initialEditType: 'markdown',
         previewStyle: 'vertical',
         height: '100%',
+        usageStatistics: false,
         events: {
           change: () => { this.props.articlePostValue(this.editor.getValue()) }
         }
@@ -33,6 +34,7 @@ class Editor extends Component {
         initialEditType: 'markdown',
         previewStyle: 'tab',
         height: '100%',
+        usageStatistics: false,
         events: {
           change: () => { this.props.articlePostValue(this.editor.getValue()) }
         }
@@ -60,8 +62,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    articlePost: (data) => (
-      dispatch(articlePost(data))
+    articlePostRequest: (data) => (
+      dispatch(articlePostRequest(data))
     ),
     articlePostValue: (value) => (
       dispatch(articlePostValue(value))
