@@ -2,17 +2,16 @@ import {
   ARTICLE_POST,
   ARTICLE_POST_SUCCESS,
   ARTICLE_POST_FAILURE,
-  ARTICLE_POST_VALUE
 } from './ActionTypes';
 import axios from 'axios';
 
-const POST_URL = '';
+axios.defaults.baseURL = "http://localhost:8000/api"
 
 export function articlePostRequest(data) {
   return (dispatch) => {
     dispatch(articlePost());
 
-    return axios.post(POST_URL, data)
+    return axios.post('/articles', data)
     .then((res) => {
       dispatch(articlePostSuccess());
     }).catch((err) => {
@@ -36,10 +35,4 @@ export function articlePostFailure(error) {
     type: ARTICLE_POST_FAILURE,
     error
   };
-}
-export function articlePostValue(value) {
-  return {
-    type: ARTICLE_POST_VALUE,
-    value
-  }
 }
