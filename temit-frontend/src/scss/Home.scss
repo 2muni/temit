@@ -9,8 +9,6 @@
     box-shadow: 0 0 2px 0 rgba(0,0,0,.14);
     }
 
-
-
   &.right{
 
     .user-profile{
@@ -55,16 +53,19 @@
     -webkit-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.14);
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.14);
     margin: 1rem;
-    width: calc(100% - 5rem);
-
-    @media (min-width: 1200px) {
-      width: calc(50% - 5rem)
+    
+   
+    @media (max-width: 1920px) {
+      width: calc(25% - 2rem)
     }
-    @media (min-width: 1600px) {
-      width: calc(33.333% - 5rem)
+    @media (max-width: 1600px) {
+      width: calc(33.333% - 2rem)
     }
-    @media (min-width: 1920px) {
-      width: calc(25% - 5rem)
+    @media (max-width: 1200px) {
+      width: calc(50% - 2rem)
+    }
+    @media (max-width: 1024px) {
+      width: calc(100% - 2rem);
     }
   }
 }
