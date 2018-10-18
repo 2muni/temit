@@ -69,7 +69,7 @@ class Home extends Component {
 
   render() {
     return (
-      <>
+      <div className="content-wrapper">
         <div className="posts-column">
           <PostList/>
         </div>
@@ -81,7 +81,7 @@ class Home extends Component {
             <div className="user-name">relesinc</div>
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }

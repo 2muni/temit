@@ -18,10 +18,8 @@ ReactDOM.render(
     <Router>
       <>
         <Route path='/' component={App}/>
-        <div className="content-wrapper">
-          <Route exact path='/' component={Home}/>
-          <Route exact path='/post' component={Editor}/>
-        </div>
+        <Route exact path='/' component={Home}/>
+        <Route exact path='/post' component={Editor}/>
       </>
     </Router>
   </Provider>

@@ -1,9 +1,73 @@
 @import '_variables';
 @import '_md';
 
+/* initial style */
+.input-field input,
+.input-field textarea{
+  border-bottom: 1px solid darken(#fff, 40%) !important;
+  box-shadow: 0 1px 0 0 darken(#fff, 50%) !important;
+}
+.input-field input:focus + label,
+.input-field textarea:focus + label{
+  color: darken(#fff, 30%) !important; 
+}
+.input-field input:focus,
+.input-field textarea:focus{
+  border-bottom: 1px solid $color-2 !important;
+  box-shadow: 0 1px 0 0 $color-2 !important;
+}
+.btn, .btn-large{
+  color: #000;
+  font-weight: bold;
+  background-color: darken(#fff, 20%)
+}
+.btn:hover, .btn-large:hover{
+  background-color: darken(#fff, 10%)
+}
+
+
+.input-field{
+  color: #fff;
+
+  label{
+    color: darken(#fff, 40%);
+  }
+}
+
+.submit-wrapper{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, .7);
+  position: absolute;
+  z-index: 999;
+
+  .submit-card{
+    background-color: #4A5158;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px;
+    padding: 1.5rem;
+
+    .submit-header{
+      margin-bottom: 3rem;
+      font-weight: bold;
+      font-size: 2rem;
+      color: darken(#fff, 10%);
+    }
+
+    .file-field{
+      margin-top: 1rem;
+      padding: 0;
+    }
+  }
+}
+
 #editSection{
   width: 100%;
-  
+
   .tui-editor-contents{ 
     font-size: 16px; 
 

@@ -4,7 +4,6 @@ import { produce } from 'immer';
 const initialState = {
   post: {
     status: 'INIT',
-    value: '',
     error: -1
   },
   list: {
@@ -46,12 +45,6 @@ export default function article(state = initialState, action) {
         draft.post = {
           status:'FAILURE',
           error: action.error
-        }
-      });
-    case types.ARTICLE_POST_VALUE:
-      return produce(state, draft => {
-        draft.post = {
-          value: action.value
         }
       });
     default:
