@@ -38,9 +38,6 @@ class ArticleController extends Controller
         $data = $request->validate([
             'title' => 'required|string',
             'body' => 'required|string',
-            'thumbnail' => 'required|string',
-            'tags' => 'integer',
-            'url_slug' => 'required|string',
             'user' => 'required|string',
         ]);
 

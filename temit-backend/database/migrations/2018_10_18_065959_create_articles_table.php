@@ -18,10 +18,7 @@ class CreateArticlesTable extends Migration
             $table->string('title');
             $table->text('body');
             $table->string('thumbnail')->nullable();
-            $table->integer('tags')->nullable();
-            $table->string('url_slug');
             $table->integer('like')->default(0);
-            $table->integer('comments')->default(0);
             $table->boolean('is_temp')->default(false);
             $table->string('user');
             $table->timestamps();
