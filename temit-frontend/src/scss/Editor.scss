@@ -17,12 +17,12 @@
   box-shadow: 0 1px 0 0 $color-2 !important;
 }
 .btn, .btn-large{
-  color: #000;
+  color: #fefefe;
   font-weight: bold;
-  background-color: darken(#fff, 20%)
+  background-color: darken($color-1, 10%)
 }
 .btn:hover, .btn-large:hover{
-  background-color: darken(#fff, 10%)
+  background-color: darken($color-1, 0%)
 }
 
 
@@ -46,21 +46,62 @@
 
   .submit-card{
     background-color: #4A5158;
-    border-radius: 12px;
     width: 100%;
-    max-width: 400px;
-    padding: 1.5rem;
+    max-width: 350px;
+    border-radius: 12px;
 
     .submit-header{
-      margin-bottom: 3rem;
       font-weight: bold;
       font-size: 2rem;
+      padding: 0 1.5rem;
+      padding-top: 1.5rem;
       color: darken(#fff, 10%);
     }
 
-    .file-field{
-      margin-top: 1rem;
-      padding: 0;
+    .submit-form{
+      padding-top: 2rem;
+
+      .submit-title, .submit-tags, .submit-thumbnail, .submit-btns{
+        padding: 0 1.5rem;
+      }
+      .file-field{
+        margin-top: 1rem;
+      }
+    }
+
+    .submit-footer{
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      background-color: darken(#4A5158, 10%);
+
+      .btns-group{
+        padding: 1.5rem;
+        padding-bottom: 0;
+        display: flex;
+        justify-content: space-around;
+
+        .submit{
+          color: #fff;
+          background-color: darken($color-2, 15%)
+        }
+        .submit:hover{
+          background-color: darken($color-2, 0%)
+        }
+      }
+      
+      .option{
+        padding: 1rem 1.5rem;
+        text-align: right;
+
+        span{
+          color: darken($color-2, 15%);
+          cursor: pointer;
+
+          &:hover {
+            color: darken($color-2, 0%);
+          }
+        }
+      }
     }
   }
 }
@@ -80,7 +121,7 @@
       border-radius: 5px;
     }
   }
-  
+
   .CodeMirror{
     font-size: 16px;
     background-color: #282a36 !important;
