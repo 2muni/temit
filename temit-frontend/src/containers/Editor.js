@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Navbar, NavItem, Button, Input, Autocomplete, Row } from 'react-materialize';
 import { connect } from 'react-redux';
 import { articlePostRequest } from '../actions/article'
+import { produce } from 'immer';
 
 import tui from 'tui-editor'
 import "tui-editor/dist/tui-editor-Editor.js";
@@ -14,10 +15,12 @@ require('highlight.js/styles/vs2015.css'); // code block highlight
 class Editor extends Component {
 
   state = {
-    'title': '',
-    'body': '',
-    'thumbnail': '',
-    'tags': '',
+    post: {
+      title: '',
+      body: '',
+      thumbnail: '',
+      tags: '',
+    }
   }
 
   componentDidMount() {
@@ -47,43 +50,64 @@ class Editor extends Component {
       })
   } 
 
-  handlePost = () => {
-    console.log(this.editor.getValue());
+  handleSubmitCard = (e) => {
+    const cn = /(post)/
+    const isPost = cn.test(e.target.className);
+    
+    if(isPost)
+      document.querySelector('.submit-wrapper').style.display = 'flex';
+    else if(e.target.className === 'submit-wrapper')
+      document.querySelector('.submit-wrapper').style.display = 'none'
   }
 
   handleChange = (e) => {
-    const nextState = {};
-    nextState[e.target.name] = e.target.value;
-    this.setState(nextState);
+    this.setState(
+      produce(this.state, draft => {
+        draft.post[e.target.name] = e.target.value;
+      })
+    );
   }
+
+  handlePost = () => {
+    console.log('Post Request');
+  }
+
+  Submit = () => (
+    <div className="submit-wrapper" style={{ display: 'none' }} onClick={this.handleSubmitCard}>
+      <div className="submit-card">
+        <div className="submit-header">새 글 작성하기</div>
+        <div className="submit-form">
+          <div className="submit-title">
+            <Input s={6} label="글 제목" name="title" onChange={this.handleChange} value={this.state.title} />
+          </div>
+          <div className="submit-tags">
+            <Input s={6} label="태그 설정" name="tags" onChange={this.handleChange} value={this.state.tags} />
+          </div>
+          <div className="submit-thumbnail">
+            <Row>
+              <Input s={12} type="file" label="업로드" name="thumbnail" onChange={this.handleChange} value={this.state.thumbnail} />
+            </Row>
+          </div>
+        </div>
+        <div className="submit-footer">
+          <div className="btns-group">
+            <Button className="save">임시저장</Button>
+            <Button className="submit" onClick={this.handlePost}>작성하기</Button>
+          </div>
+          <div className="option">
+            <span>추가설정</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
   
   render() {
     return ( 
       <>
-        <div className="submit-wrapper">
-          <div className="submit-card">
-            <div className="submit-header">새 글 작성하기</div>
-            <div className="submit-form">
-              <div class="submit-title">
-                <Input s={6} label="글 제목" />
-              </div>
-              <div class="submit-tags">
-                <Input s={6} label="태그 설정" />
-              </div>
-              <div class="submit-thumbnail">
-                <Row>
-                  <Input type="file" label="업로드" s={12} />
-                </Row>
-              </div>
-              <div class="submit-btns">
-                <button className="btn">임시저장</button>
-                <button className="btn">작성하기</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <this.Submit/>
         <Navbar brand='temit' right>
-          <NavItem><Button className="red" onClick={this.handlePost}>작성하기</Button></NavItem>
+          <Button className="red post" onClick={this.handleSubmitCard}>작성하기</Button>
         </Navbar>
         <div id="editSection"/>
       </>
