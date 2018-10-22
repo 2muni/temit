@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { PostList } from '../components';
+import { Link } from 'react-router-dom'
 
 class Home extends Component {
 
@@ -80,6 +81,7 @@ class Home extends Component {
             </div>
             <div className="user-name">relesinc</div>
           </div>
+          <Link to="/login">login</Link>
         </div>
       </div>
     );

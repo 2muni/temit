@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Navbar, NavItem, Button, Input, Autocomplete, Row } from 'react-materialize';
+import { Navbar, Button, Input, Row } from 'react-materialize';
 import { connect } from 'react-redux';
-import { articlePostRequest } from '../actions/article'
+import { bindActionCreators } from 'redux';
+import * as articleActions from '../store/modules/article'
 import { produce } from 'immer';
 
 import tui from 'tui-editor'
@@ -10,7 +11,6 @@ require('codemirror/lib/codemirror.css') // codemirror
 require('tui-editor/dist/tui-editor.css'); // editor ui
 require('tui-editor/dist/tui-editor-contents.css'); // editor content
 require('highlight.js/styles/vs2015.css'); // code block highlight
-
 
 class Editor extends Component {
 
@@ -23,31 +23,28 @@ class Editor extends Component {
     }
   }
 
+  tuiEditor = (preview) => (
+    this.editor = new tui({
+      el: document.getElementById('editSection'),
+      initialEditType: 'markdown',
+      previewStyle: preview,
+      height: 'calc(100% - 64px)',
+      usageStatistics: false,
+      events: {
+        change: () => { 
+          this.setState(
+            produce(this.state, draft => {
+              draft.post['body'] = this.editor.getValue()
+            })
+          );
+        }
+      }
+    })
+  )
+
   componentDidMount() {
     document.body.clientWidth > 992 ? 
-      this.editor = new tui({
-        el: document.getElementById('editSection'),
-        initialEditType: 'markdown',
-        previewStyle: 'vertical',
-        height: 'calc(100% - 64px)',
-        usageStatistics: false,
-        events: {
-          change: () => { this.setState({ body: this.editor.getValue() });
-          }
-        }
-      })
-    :
-      this.editor = new tui({
-        el: document.getElementById('editSection'),
-        initialEditType: 'markdown',
-        previewStyle: 'tab',
-        height: 'calc(100% - 64px)',
-        usageStatistics: false,
-        events: {
-          change: () => { this.setState({ body: this.editor.getValue() });
-          }
-        }
-      })
+      this.tuiEditor('vertical') : this.tuiEditor('tab')
   } 
 
   handleSubmitCard = (e) => {
@@ -68,37 +65,55 @@ class Editor extends Component {
     );
   }
 
-  handlePost = () => {
-    console.log('Post Request');
+
+  handleSubmit = (e) => {
+    e.preventDefault();
   }
 
   Submit = () => (
     <div className="submit-wrapper" style={{ display: 'none' }} onClick={this.handleSubmitCard}>
-      <div className="submit-card">
+      <form className="submit-card" onSubmit={this.handleSubmit}>
         <div className="submit-header">새 글 작성하기</div>
         <div className="submit-form">
-          <div className="submit-title">
-            <Input s={6} label="글 제목" name="title" onChange={this.handleChange} value={this.state.title} />
-          </div>
-          <div className="submit-tags">
-            <Input s={6} label="태그 설정" name="tags" onChange={this.handleChange} value={this.state.tags} />
-          </div>
-          <div className="submit-thumbnail">
-            <Row>
-              <Input s={12} type="file" label="업로드" name="thumbnail" onChange={this.handleChange} value={this.state.thumbnail} />
-            </Row>
-          </div>
+          <section>
+            <div className="section-title">글 제목</div>
+            <div className="text submit-title">
+              <input name="title" placeholder="제목을 입력하세요" required
+                onChange={this.handleChange}
+                value={this.state.title}  
+              />
+            </div>
+          </section>
+          <section>
+            <div className="section-title">태그 설정</div>
+            <div className="text submit-tags">
+              <input name="tags" placeholder="태그를 입력하세요"
+                onChange={this.handleChange}
+                value={this.state.tags} 
+              />
+              <div className="btn util">등록</div>
+            </div>
+          </section>
+          <section>
+          <div className="section-title">썸네일 지정</div>
+            <div className="submit-thumbnail">
+              <Row>
+                <Input s={12} type="file" label="업로드" name="thumbnail" 
+                  onChange={this.handleChange} 
+                  value={this.state.thumbnail}
+                  accept=".jpg, .jpeg, .png"
+                  />
+              </Row>
+            </div>
+          </section>
         </div>
         <div className="submit-footer">
           <div className="btns-group">
-            <Button className="save">임시저장</Button>
-            <Button className="submit" onClick={this.handlePost}>작성하기</Button>
-          </div>
-          <div className="option">
-            <span>추가설정</span>
+            <Button className="btn save">임시저장</Button>
+            <Button type="submit" className="submit">작성하기</Button>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   )
   
@@ -107,7 +122,7 @@ class Editor extends Component {
       <>
         <this.Submit/>
         <Navbar brand='temit' right>
-          <Button className="red post" onClick={this.handleSubmitCard}>작성하기</Button>
+          <Button className="btn post" onClick={this.handleSubmitCard}>작성하기</Button>
         </Navbar>
         <div id="editSection"/>
       </>
@@ -115,18 +130,12 @@ class Editor extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    postStatus: state.article.post
-  };
-}
+const mapStateToProps = ({ article }) => ({
+  postStatus: article.post
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    articlePostRequest: (data) => (
-      dispatch(articlePostRequest(data))
-    )
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  ArticleActions: bindActionCreators(articleActions, dispatch)
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Editor);

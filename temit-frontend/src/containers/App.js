@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { Navbar, NavItem, Icon } from 'react-materialize';
-import { connect } from 'react-redux'
-import {  } from '../actions/article'
-
-
+import { connect } from 'react-redux';
 
 class App extends Component {
 
@@ -14,11 +11,15 @@ class App extends Component {
   path = /(login|register|post)/;
   isHidden = this.path.test(this.props.location.pathname);
 
+  componentDidMount() {
+    
+  }
+
   render() {
     return (
-      this.isHidden ? <></> :
+      this.isHidden ? undefined :
       <header>
-        <Navbar brand='temit' right>
+        <Navbar brand="temit" right>
           <NavItem href='get-started.html'><Icon>search</Icon></NavItem>
           <NavItem href='get-started.html'><Icon>view_module</Icon></NavItem>
         </Navbar>

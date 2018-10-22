@@ -1,8 +1,7 @@
-@import '_variables';
-
 .main-column{
   width: 290px; 
   padding: 0 $padding;
+  margin: 47px auto;
   
   &.left{
     background: #fff;

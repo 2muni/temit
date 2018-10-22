@@ -1,110 +1,6 @@
 @import '_variables';
 @import '_md';
-
-/* initial style */
-.input-field input,
-.input-field textarea{
-  border-bottom: 1px solid darken(#fff, 40%) !important;
-  box-shadow: 0 1px 0 0 darken(#fff, 50%) !important;
-}
-.input-field input:focus + label,
-.input-field textarea:focus + label{
-  color: darken(#fff, 30%) !important; 
-}
-.input-field input:focus,
-.input-field textarea:focus{
-  border-bottom: 1px solid $color-2 !important;
-  box-shadow: 0 1px 0 0 $color-2 !important;
-}
-.btn, .btn-large{
-  color: #fefefe;
-  font-weight: bold;
-  background-color: darken($color-1, 10%)
-}
-.btn:hover, .btn-large:hover{
-  background-color: darken($color-1, 0%)
-}
-
-
-.input-field{
-  color: #fff;
-
-  label{
-    color: darken(#fff, 40%);
-  }
-}
-
-.submit-wrapper{
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, .7);
-  position: absolute;
-  z-index: 999;
-
-  .submit-card{
-    background-color: #4A5158;
-    width: 100%;
-    max-width: 350px;
-    border-radius: 12px;
-
-    .submit-header{
-      font-weight: bold;
-      font-size: 2rem;
-      padding: 0 1.5rem;
-      padding-top: 1.5rem;
-      color: darken(#fff, 10%);
-    }
-
-    .submit-form{
-      padding-top: 2rem;
-
-      .submit-title, .submit-tags, .submit-thumbnail, .submit-btns{
-        padding: 0 1.5rem;
-      }
-      .file-field{
-        margin-top: 1rem;
-      }
-    }
-
-    .submit-footer{
-      border-bottom-left-radius: 12px;
-      border-bottom-right-radius: 12px;
-      background-color: darken(#4A5158, 10%);
-
-      .btns-group{
-        padding: 1.5rem;
-        padding-bottom: 0;
-        display: flex;
-        justify-content: space-around;
-
-        .submit{
-          color: #fff;
-          background-color: darken($color-2, 15%)
-        }
-        .submit:hover{
-          background-color: darken($color-2, 0%)
-        }
-      }
-      
-      .option{
-        padding: 1rem 1.5rem;
-        text-align: right;
-
-        span{
-          color: darken($color-2, 15%);
-          cursor: pointer;
-
-          &:hover {
-            color: darken($color-2, 0%);
-          }
-        }
-      }
-    }
-  }
-}
+@import 'Submit';
 
 #editSection{
   width: 100%;
@@ -155,4 +51,9 @@
 
   .CodeMirror-activeline-background { background: rgba(255,255,255,0.1); }
   .CodeMirror-matchingbracket { text-decoration: underline; color: white !important; }
+}
+
+.text{
+  display: flex;
+
 }
