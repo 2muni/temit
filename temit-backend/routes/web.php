@@ -15,6 +15,6 @@ Route::get('/', 'HomeController@index')->name('index');
 
 Route::get('/{path?}', function () {
     return view('index');
-})->where('path', 'login');
+})->where('path', '[^api]+');
 
 Auth::routes();
