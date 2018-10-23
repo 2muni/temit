@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Navbar, Button } from 'react-materialize';
+import { Button } from 'react-materialize';
 import { PostSubmit } from '../components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router-dom';
 import * as articleActions from '../store/modules/article'
 import { produce } from 'immer';
 
@@ -95,7 +96,7 @@ class Editor extends Component {
         />
         <nav>
         <div className="nav-wrapper">
-          <a href="/" className="brand-logo">temit</a>
+          <Link to="/" className="brand-logo">temit</Link>
           <ul className="right">
           <li>
           <Button className="btn post" onClick={this.handleSubmitCard}>작성하기</Button>
