@@ -3,24 +3,55 @@ import { PostList } from '../components';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import * as articleActions from '../store/modules/article'
 import axios from 'axios';
 
 class Home extends Component {
 
   constructor(props) {
     super(props)
+    this.page = 1;
 
     this.state = {
-      posts: []
+      isLoading: false,
+      list: []
     }
+
+    this.onScroll = this.onScroll.bind(this);
   }
 
+  componentDidMount() {
+    this.props.ArticleActions.listRequest(this.page)
+    .then(() => this.setState({ list: this.props.articleList.data }))
+    .then(() => window.addEventListener('scroll', this.onScroll, false));
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll, false);
+  }
+
+  onScroll() {
+    
+    console.log('first', window.innerHeight + window.scrollY);
+    console.log('second', document.body.offsetHeight)
+    if (
+      (window.innerHeight + window.scrollY) >= (document.body.offsetHeight) &&
+      this.state.list.length &&
+      !this.state.isLoading
+    ) {
+      this.setState({isLoading: true});
+      this.page++;
+      this.props.ArticleActions.listRequest(this.page)
+      .then(() => this.setState({list: this.state.list.concat(this.props.articleList.data)}))
+      .then(() => this.setState({isLoading: false}));
+    }
+  }
 
   render() {
     return (
       <div className="content-wrapper">
         <div className="posts-column">
-          <PostList/>
+          <PostList list={this.state.list}/>
         </div>
         <div className="main-column right">
           <div className="user-profile">
@@ -37,11 +68,11 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  
+  articleList: state.article.list
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  
+  ArticleActions: bindActionCreators(articleActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

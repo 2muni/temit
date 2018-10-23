@@ -24,6 +24,21 @@ const LIKE_FAILURE = 'article/LIKE_FAILURE';
 export const post = createAction(POST);
 export const postSuccess = createAction(POST_SUCCESS);
 export const postFailure = createAction(POST_FAILURE, err => err);
+export const list = createAction(LIST);
+export const listSuccess = createAction(LIST_SUCCESS, res => res);
+export const listFailure = createAction(LIST_FAILURE);
+export const view = createAction(VIEW);
+export const viewSuccess = createAction(VIEW_SUCCESS);
+export const viewFailure = createAction(VIEW_FAILURE, err => err);
+export const edit = createAction(EDIT);
+export const editSuccess = createAction(EDIT_SUCCESS);
+export const editFailure = createAction(EDIT_FAILURE, err => err);
+export const remove = createAction(REMOVE);
+export const removeSuccess = createAction(REMOVE_SUCCESS);
+export const removeFailure = createAction(REMOVE_FAILURE, err => err);
+export const like = createAction(LIKE);
+export const likeSuccess = createAction(LIKE_SUCCESS);
+export const likeFailure = createAction(LIKE_FAILURE, err => err);
 
 export const postRequest = data => (
   dispatch => {
@@ -31,10 +46,21 @@ export const postRequest = data => (
 
     return axios.post('/api/articles', data)
       .then((res) => {
-        console.log(res);
         dispatch(postSuccess());
       }).catch((err) => {
         dispatch(postFailure(err));
+      })
+  }
+);
+export const listRequest = (page) => (
+  dispatch => {
+    dispatch(list());
+
+    return axios.get(`/api/articles?page=${page}`)
+      .then((res) => {
+        dispatch(listSuccess(res));
+      }).catch((err) => {
+        dispatch(listFailure());
       })
   }
 );
@@ -46,8 +72,7 @@ const initialState = {
   },
   list: {
     status: 'INIT',
-    data: [],
-    isLast: false
+    data: []
   },
   article: {
     status: 'INIT',
@@ -83,6 +108,25 @@ export default handleActions(
         draft.post = {
           status:'FAILURE',
           error: action.error
+        }
+      }),
+    [LIST]: (state) => 
+      produce(state, draft => {
+        draft.list = {
+          status: 'WAITING',
+        }
+      }),
+    [LIST_SUCCESS]: (state, action) =>
+      produce(state, draft => {
+        draft.list = {
+          status:'SUCCESS',
+          data: action.payload.data.data
+        }
+      }),
+    [LIST_FAILURE]: (state) =>
+      produce(state, draft => {
+        draft.post = {
+          status:'FAILURE',
         }
       }),
   },

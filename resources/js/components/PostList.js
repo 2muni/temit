@@ -1,21 +1,12 @@
 import React from 'react'
 
-const PostList = ({ posts }) => (
+const PostList = ({ list }) => (
   <div className="postcard-list">
-    <div className="postcard"></div>
-    <div className="postcard"></div>
-    <div className="postcard"></div>
-    <div className="postcard"></div>
-    <div className="postcard"></div>
-    <div className="postcard"></div>
-    <div className="postcard"></div>
-    <div className="postcard"></div>
-    <div className="postcard"></div>
-    <div className="postcard"></div>
-    <div className="postcard"></div>
-    <div className="postcard"></div>
-    <div className="postcard"></div>
-    <div className="postcard"></div>
+    {list.map((post) => (
+      <div key={post.id} className="postcard">
+        {post.title}
+      </div>
+    ))}
   </div>
 )
 
