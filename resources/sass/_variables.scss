@@ -1,20 +1,32 @@
+$width: 1000px;
+$padding: 15px;
 
-// Body
-$body-bg: #f8fafc;
+$color-1: #38435A;
+$color-2: #4A5158;
+$btnColor: #338CCD;
+$btnHover: lighten(#338CCD, 10%);
 
-// Typography
-$font-family-sans-serif: "Nunito", sans-serif;
-$font-size-base: 0.9rem;
-$line-height-base: 1.6;
+$header: 64px;
+$content: 768px;
 
-// Colors
-$blue: #3490dc;
-$indigo: #6574cd;
-$purple: #9561e2;
-$pink: #f66D9b;
-$red: #e3342f;
-$orange: #f6993f;
-$yellow: #ffed4a;
-$green: #38c172;
-$teal: #4dc0b5;
-$cyan: #6cb2eb;
+@keyframes cardAppear{
+  from{
+    margin-bottom: 10%;
+    opacity: 0;
+  }
+  to{
+    margin-bottom: 0%;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes cardAppear{
+  from{
+    margin-bottom: 10%;
+    opacity: 0;
+  }
+  to{
+    margin-bottom: 0%;
+    opacity: 1;
+  }
+}

@@ -11,6 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('home', function () {
+    return redirect('/');
 });
+Route::get('/', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/{path?}', function () {
+    return view('home');
+})->where('path', '[^api]+');
