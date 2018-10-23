@@ -23,4 +23,17 @@
     margin-top: 1rem;
     width: 100%;
   }
+  .input-field{
+    margin-bottom: 1.5rem;
+  }
+  input[type=email]:not(.browser-default),
+  input[type=text]:not(.browser-default),
+  input[type=password]:not(.browser-default),{
+    margin-bottom: 0px;
+  }
+}
+
+.invalid-feedback{
+  font-size: .8rem;
+  color: red;
 }

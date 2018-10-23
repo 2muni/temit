@@ -9,7 +9,7 @@
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="input-field email">
-                    <label>{{ __('이메일') }}</label>
+                    <label for="email">{{ __('이메일') }}</label>
                     <input id="email" type="email" class="validate form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
 
                     @if ($errors->has('email'))
@@ -19,7 +19,7 @@
                     @endif
                 </div>
                 <div class="input-field">
-                <label>{{ __('비밀번호') }}</label>
+                <label for="password">{{ __('비밀번호') }}</label>
                 <input id="password" type="password" class="validate orm-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
                 @if ($errors->has('password'))
                     <span class="invalid-feedback" role="alert">

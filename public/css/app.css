@@ -1212,3 +1212,18 @@ nav .nav-wrapper {
   width: 100%;
 }
 
+.auth .input-field {
+  margin-bottom: 1.5rem;
+}
+
+.auth input[type=email]:not(.browser-default),
+.auth input[type=text]:not(.browser-default),
+.auth input[type=password]:not(.browser-default) {
+  margin-bottom: 0px;
+}
+
+.invalid-feedback {
+  font-size: .8rem;
+  color: red;
+}
+
