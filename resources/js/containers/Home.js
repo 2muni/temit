@@ -13,14 +13,6 @@ class Home extends Component {
     this.state = {
       posts: []
     }
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
-    // axios.get('/api/usercheck').then(res=>console.log(res)).catch(err=>console.log(err));
-    const data = new FormData;
-    data.append('_token', 'gZ86NapCYe7vIrpEewumlCERKac9P5IRAP9UY7iG');
-    axios.post('/logout', data).then(console.log(success)).catch(err=>console.log(err))
   }
 
 
@@ -37,8 +29,7 @@ class Home extends Component {
             </div>
             <div className="user-name">relesinc</div>
           </div>
-          <Link to="/login">login</Link>
-          <div onClick={this.handleClick}>view</div>
+          <Link to="/post">글쓰기</Link>
         </div>
       </div>
     );

@@ -14,8 +14,9 @@ export const postRequest = data => (
   dispatch => {
     dispatch(post());
 
-    return axios.post('/articles', data)
+    return axios.post('/api/articles', data)
       .then((res) => {
+        console.log(res);
         dispatch(postSuccess());
       }).catch((err) => {
         dispatch(postFailure(err));

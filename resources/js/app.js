@@ -27,17 +27,17 @@ import thunk from 'redux-thunk';
 const store = createStore(reducers, applyMiddleware(thunk))
 
 if (document.getElementById('root')) {
-ReactDOM.render(
-  <Provider store={store}>
-    <Router>
-      <React.Fragment>
-          <Route path='/' component={App}/>
-          <Switch>
-            <Route path='/post' component={Editor}/>
-            <Route path='/' component={Home}/>
-          </Switch>
-      </React.Fragment>
-    </Router>
-  </Provider>
-, document.getElementById('root'));
+  ReactDOM.render(
+    <Provider store={store}>
+      <Router>
+        <React.Fragment>
+            <Route path='/' component={App}/>
+            <Switch>
+              <Route path='/post' component={Editor}/>
+              <Route path='/' component={Home}/>
+            </Switch>
+        </React.Fragment>
+      </Router>
+    </Provider>
+  , document.getElementById('root'));
 }

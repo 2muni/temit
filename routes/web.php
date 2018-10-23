@@ -13,11 +13,9 @@
 
 Route::get('home', function () {
     return redirect('/');
-});
-Route::get('/', 'HomeController@index')->name('home');
+}); 
 
 Auth::routes();
 
-Route::get('/{path?}', function () {
-    return view('home');
-})->where('path', '[^api]+');
+Route::get('/{path?}', 'HomeController@index')->where('path', '.*')->name('home');
+

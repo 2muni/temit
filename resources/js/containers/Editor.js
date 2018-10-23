@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Navbar, Button, Input, Row } from 'react-materialize';
+import { Navbar, Button } from 'react-materialize';
+import { PostSubmit } from '../components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as articleActions from '../store/modules/article'
@@ -29,7 +30,6 @@ class Editor extends Component {
     this.handleSubmitCard = this.handleSubmitCard.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-
   }
 
   tuiEditor(preview) {
@@ -40,7 +40,8 @@ class Editor extends Component {
       height: 'calc(100% - 64px)',
       usageStatistics: false,
       events: {
-        change: () => { 
+        change: () => {
+          console.log(this.state.post.body);
           this.setState(
             produce(this.state, draft => {
               draft.post['body'] = this.editor.getValue()
@@ -77,64 +78,31 @@ class Editor extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-  }
-
-  Submit() {
-    return(
-      <div className="submit-wrapper" style={{ display: 'none' }} onClick={this.handleSubmitCard}>
-        <form className="submit-card" onSubmit={this.handleSubmit}>
-          <div className="submit-header">새 글 작성하기</div>
-          <div className="submit-form">
-            <section>
-              <div className="section-title">글 제목</div>
-              <div className="text submit-title">
-                <input name="title" placeholder="제목을 입력하세요" required
-                  onChange={this.handleChange}
-                  value={this.state.title}  
-                />
-              </div>
-            </section>
-            <section>
-              <div className="section-title">태그 설정</div>
-              <div className="text submit-tags">
-                <input name="tags" placeholder="태그를 입력하세요"
-                  onChange={this.handleChange}
-                  value={this.state.tags} 
-                />
-                <div className="btn util">등록</div>
-              </div>
-            </section>
-            <section>
-            <div className="section-title">썸네일 지정</div>
-              <div className="submit-thumbnail">
-                <Row>
-                  <Input s={12} type="file" label="업로드" name="thumbnail" 
-                    onChange={this.handleChange} 
-                    value={this.state.thumbnail}
-                    accept=".jpg, .jpeg, .png"
-                    />
-                </Row>
-              </div>
-            </section>
-          </div>
-          <div className="submit-footer">
-            <div className="btns-group">
-              <Button className="btn save">임시저장</Button>
-              <Button type="submit" className="submit">작성하기</Button>
-            </div>
-          </div>
-        </form>
-      </div>
-    )
+    let data = new FormData(e.target);
+    data.append('user', 'teset');
+    data.append('body', this.state.post.body);
+    this.props.ArticleActions.postRequest(data)
   }
   
   render() {
     return ( 
       <React.Fragment>
-        <this.Submit/>
-        <Navbar brand='temit' right>
+        <PostSubmit
+            post={this.state.post}
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
+            handleSubmitCard={this.handleSubmitCard}
+        />
+        <nav>
+        <div className="nav-wrapper">
+          <a href="/" className="brand-logo">temit</a>
+          <ul className="right">
+          <li>
           <Button className="btn post" onClick={this.handleSubmitCard}>작성하기</Button>
-        </Navbar>
+          </li>
+          </ul>
+        </div>
+        </nav>
         <div id="editSection"/>
       </React.Fragment>
     );
