@@ -52,7 +52,7 @@ export const postRequest = data => (
       })
   }
 );
-export const listRequest = (page) => (
+export const listRequest = page => (
   dispatch => {
     dispatch(list());
 
@@ -64,11 +64,11 @@ export const listRequest = (page) => (
       })
   }
 );
-export const getRequest = (id) => (
+export const getRequest = article => (
   dispatch => {
     dispatch(get());
 
-    return axios.get(`/api/articles/${id}`)
+    return axios.get(`/api/articles/${article}`)
       .then((res) => {
         dispatch(getSuccess(res));
       }).catch((err) => {
@@ -119,7 +119,7 @@ export default handleActions(
       produce(state, draft => {
         draft.post = {
           status:'FAILURE',
-          error: action.error
+          error: action.payload.error
         }
       }),
     [LIST]: (state) => 

@@ -85,7 +85,7 @@ return [
     'min' => [
         'numeric' => 'The :attribute must be at least :min.',
         'file' => 'The :attribute must be at least :min kilobytes.',
-        'string' => '비밀번호는 :min 자 이상 작성하세요.',
+        'string' => '비밀번호가 :min 자리 보다 작습니다.',
         'array' => 'The :attribute must have at least :min items.',
     ],
     'not_in' => 'The selected :attribute is invalid.',

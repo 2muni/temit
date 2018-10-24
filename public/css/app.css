@@ -1244,13 +1244,13 @@ nav .nav-wrapper {
 }
 
 .posts-column .postcard .postcard-content .content-head {
-  height: 10rem;
   padding-bottom: 1.5rem;
   border-bottom: 1px solid #E9E9E9;
 }
 
-.posts-column .postcard .postcard-content .content-head a {
-  color: #000;
+.posts-column .postcard .postcard-content .content-head .username {
+  color: #338CCD;
+  font-weight: bold;
 }
 
 .posts-column .postcard .postcard-content .content-head .title {
@@ -1261,12 +1261,16 @@ nav .nav-wrapper {
   line-height: 2rem;
 }
 
+.posts-column .postcard .postcard-content .content-head .title a {
+  color: #000;
+}
+
 .posts-column .postcard .postcard-content .content-head .subinfo {
   margin-top: .5rem;
 }
 
 .posts-column .postcard .postcard-content .content-head .subinfo span {
-  font-size: 1.1rem;
+  font-size: .9rem;
   color: gray;
 }
 
@@ -1309,7 +1313,7 @@ nav .nav-wrapper {
 body {
   margin: 0;
   padding: 0;
-  font-size: 18px;
+  font-size: 16px;
   width: 100%;
   font-family: 'Nanum Gothic', sans-serif;
   box-sizing: border-box;

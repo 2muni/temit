@@ -30,11 +30,8 @@ class Home extends Component {
   }
 
   onScroll() {
-    
-    console.log('first', window.innerHeight + window.scrollY);
-    console.log('second', document.body.offsetHeight - 700)
     if (
-      (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 500) &&
+      (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 800) &&
       this.state.list.length &&
       !this.state.isLoading
     ) {
@@ -57,7 +54,7 @@ class Home extends Component {
             <div className="user-img-0">
               <img className="circle user-img-0" alt="user-profile" src="https://www.worldcrunch.com/assets/img/avatars/thumbnails/default-user-img-profile.jpg"/>
             </div>
-            <div className="user-name">relesinc</div>
+            <div className="user-name">{this.props.status.username}</div>
           </div>
           <Link to="/post">글쓰기</Link>
         </div>
@@ -67,6 +64,7 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  status: state.user.status,
   articleList: state.article.list
 });
 

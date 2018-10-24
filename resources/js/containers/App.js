@@ -1,28 +1,26 @@
 import React, { Component } from 'react';
-import { Navbar, NavItem, Icon } from 'react-materialize';
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
-import axios from 'axios';
+import { bindActionCreators } from 'redux';
+import * as userActions from '../store/modules/user';
+import { getMetaData } from '../lib/auth'
+
 class App extends Component {
 
   constructor(props) {
     super(props)
 
-    this.state = {
-      currentUser: document.head.querySelector('meta[name="user"]').content
-    }
-
-    this.handlePost = this.handlePost.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
   }
 
-  handlePost() {
-    this.props.articlePostValue('');
+  componentDidMount() {
+    this.props.UserActions.getStatusRequest(getMetaData('user'));
   }
 
   handleLogout() {
     const data = new FormData;
-    data.append('_token', document.head.querySelector('meta[name="csrf-token"]').content);
-    axios.post('/logout', data);
+    data.append('_token', getMetaData('csrf-token'));
+    this.props.UserActions.logoutRequest(data);
   }
 
   render() {
@@ -34,13 +32,11 @@ class App extends Component {
       isHidden ? <React.Fragment></React.Fragment> :
       <header>
         <nav>
-        <div className="nav-wrapper">
-          <a href="/" className="brand-logo">temit</a>
-          <ul className="right hide-on-med-and-down">
-          <li>
-          <a href='/login' onClick={this.handleLogout}>로그아웃</a>
-          </li>
-          </ul>
+          <div className="nav-wrapper">
+            <Link to="/" className="brand-logo">temit</Link>
+            <ul className="right hide-on-med-and-down">
+              <li><a href='/login' onClick={this.handleLogout}>로그아웃</a></li>
+            </ul>
           </div>
         </nav>
       </header>
@@ -48,15 +44,12 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-  }
-}
+const mapStateToProps = (state) => ({
+  status: state.user.status
+})
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  UserActions: bindActionCreators(userActions, dispatch)
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

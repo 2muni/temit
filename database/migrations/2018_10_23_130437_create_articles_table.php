@@ -20,7 +20,7 @@ class CreateArticlesTable extends Migration
             $table->string('thumbnail')->nullable();
             $table->integer('like')->default(0);
             $table->boolean('is_temp')->default(false);
-            $table->string('user');
+            $table->string('user_id');
             $table->timestamps();
         });
     }

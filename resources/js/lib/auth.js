@@ -10,12 +10,8 @@ export function getCookie(name) {
   if (parts.length === 2) return parts.pop().split(";").shift();
 }
 
-export function getToken() {
-  let token = document.head.querySelector('meta[name="csrf-token"]');
+export function getMetaData(name) {
+  let data = document.head.querySelector(`meta[name=${name}]`);
 
-  if (token) {
-    return token.content;
-  } else {
-    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
-  }
+  if (data) return data.content;
 }

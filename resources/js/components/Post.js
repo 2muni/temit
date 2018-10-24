@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom'
 const Post = ({ article }) => (
   <div className="article-wrapper">
     <div className="article-head">
-      <div className="userinfo"></div>
+      <div className="userinfo">
+        <Link to="#">{article.thumbnail}</Link>
+      </div>
       <div className="title"></div>
       <div className="date-and-likes"></div>
       <div className="divider"/>

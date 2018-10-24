@@ -50,11 +50,13 @@
       padding: 1.5rem;
 
       .content-head{
-        height: 10rem;
         padding-bottom: 1.5rem;
         border-bottom: 1px solid #E9E9E9;
 
-        a{ color: #000; }
+        .username{ 
+          color: $btnColor;
+          font-weight: bold;
+        }
 
         .title{
           max-height: 4rem;
@@ -62,10 +64,12 @@
           font-size: 1.5rem;
           overflow: hidden;
           line-height: 2rem;
+
+          a{ color: #000; }
         }
         .subinfo{ margin-top: .5rem; }
         .subinfo span{ 
-          font-size: 1.1rem;
+          font-size: .9rem;
           color: gray;
         }
       }

@@ -80,9 +80,10 @@ class Editor extends Component {
   handleSubmit(e) {
     e.preventDefault();
     let data = new FormData(e.target);
-    data.append('user', 'teset');
+    data.append('user_id', this.props.status.id);
     data.append('body', this.state.post.body);
     this.props.ArticleActions.postRequest(data)
+      .then(()=>this.props.history.push('/'))
   }
   
   render() {
@@ -95,14 +96,12 @@ class Editor extends Component {
             handleSubmitCard={this.handleSubmitCard}
         />
         <nav>
-        <div className="nav-wrapper">
-          <Link to="/" className="brand-logo">temit</Link>
-          <ul className="right">
-          <li>
-          <Button className="btn post" onClick={this.handleSubmitCard}>작성하기</Button>
-          </li>
-          </ul>
-        </div>
+          <div className="nav-wrapper">
+            <Link to="/" className="brand-logo">temit</Link>
+            <ul className="right">
+              <li><Button className="btn post" onClick={this.handleSubmitCard}>작성하기</Button></li>
+            </ul>
+          </div>
         </nav>
         <div id="editSection"/>
       </div>
@@ -110,8 +109,9 @@ class Editor extends Component {
   }
 }
 
-const mapStateToProps = ({ article }) => ({
-  postStatus: article.post
+const mapStateToProps = (state) => ({
+  status: state.user.status,
+  postStatus: state.article.post
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -14,7 +14,11 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return Article::orderBy('id', 'desc')->paginate(10);
+        $articles = Article::with('user')
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+            
+        return $articles;
     }
 
     /**
@@ -38,7 +42,7 @@ class ArticleController extends Controller
         $data = $request->validate([
             'title' => 'required|string',
             'body' => 'required|string',
-            'user' => 'required|string',
+            'user_id' => 'required|integer',
         ]);
 
         $article = Article::create($data);
@@ -54,6 +58,10 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
+        $article = Article::with('user')
+            ->get()
+            ->find($article);
+
         return response($article, 200);
     }
 
@@ -80,10 +88,7 @@ class ArticleController extends Controller
         $data = $request->validate([
             'title' => 'required|string',
             'body' => 'required|string',
-            'thumbnail' => 'required|string',
-            'tags' => 'integer',
-            'url_slug' => 'required|string',
-            'user' => 'required|string',
+            'user_id' => 'required|integer',
         ]);
 
         $article->update($data);
