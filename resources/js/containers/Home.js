@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as articleActions from '../store/modules/article'
-import axios from 'axios';
 
 class Home extends Component {
 
@@ -33,9 +32,9 @@ class Home extends Component {
   onScroll() {
     
     console.log('first', window.innerHeight + window.scrollY);
-    console.log('second', document.body.offsetHeight)
+    console.log('second', document.body.offsetHeight - 700)
     if (
-      (window.innerHeight + window.scrollY) >= (document.body.offsetHeight) &&
+      (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 500) &&
       this.state.list.length &&
       !this.state.isLoading
     ) {

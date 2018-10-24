@@ -87,7 +87,7 @@ class Editor extends Component {
   
   render() {
     return ( 
-      <React.Fragment>
+      <div id="editor">
         <PostSubmit
             post={this.state.post}
             handleChange={this.handleChange}
@@ -105,7 +105,7 @@ class Editor extends Component {
         </div>
         </nav>
         <div id="editSection"/>
-      </React.Fragment>
+      </div>
     );
   }
 }

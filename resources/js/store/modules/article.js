@@ -8,9 +8,9 @@ const POST_FAILURE = 'article/POST_FAILURE';
 const LIST = 'article/LIST';
 const LIST_SUCCESS = 'article/LIST_SUCCESS';
 const LIST_FAILURE = 'article/LIST_FAILURE';
-const VIEW = 'article/VIEW';
-const VIEW_SUCCESS = 'article/VIEW_SUCCESS';
-const VIEW_FAILURE = 'article/VIEW_FAILURE';
+const GET = 'article/GET';
+const GET_SUCCESS = 'article/GET_SUCCESS';
+const GET_FAILURE = 'article/GET_FAILURE';
 const EDIT = 'article/EDIT';
 const EDIT_SUCCESS = 'article/EDIT_SUCCESS';
 const EDIT_FAILURE = 'article/EDIT_FAILURE';
@@ -27,9 +27,9 @@ export const postFailure = createAction(POST_FAILURE, err => err);
 export const list = createAction(LIST);
 export const listSuccess = createAction(LIST_SUCCESS, res => res);
 export const listFailure = createAction(LIST_FAILURE);
-export const view = createAction(VIEW);
-export const viewSuccess = createAction(VIEW_SUCCESS);
-export const viewFailure = createAction(VIEW_FAILURE, err => err);
+export const get = createAction(GET);
+export const getSuccess = createAction(GET_SUCCESS, res => res);
+export const getFailure = createAction(GET_FAILURE);
 export const edit = createAction(EDIT);
 export const editSuccess = createAction(EDIT_SUCCESS);
 export const editFailure = createAction(EDIT_FAILURE, err => err);
@@ -64,6 +64,18 @@ export const listRequest = (page) => (
       })
   }
 );
+export const getRequest = (id) => (
+  dispatch => {
+    dispatch(get());
+
+    return axios.get(`/api/articles/${id}`)
+      .then((res) => {
+        dispatch(getSuccess(res));
+      }).catch((err) => {
+        dispatch(getFailure());
+      })
+  }
+);
 
 const initialState = {
   post: {
@@ -74,7 +86,7 @@ const initialState = {
     status: 'INIT',
     data: []
   },
-  article: {
+  get: {
     status: 'INIT',
     data: [],
   },
@@ -125,7 +137,26 @@ export default handleActions(
       }),
     [LIST_FAILURE]: (state) =>
       produce(state, draft => {
-        draft.post = {
+        draft.list = {
+          status:'FAILURE',
+        }
+      }),
+    [GET]: (state) => 
+      produce(state, draft => {
+        draft.get = {
+          status: 'WAITING',
+        }
+      }),
+    [GET_SUCCESS]: (state, action) =>
+      produce(state, draft => {
+        draft.get = {
+          status:'SUCCESS',
+          data: action.payload.data
+        }
+      }),
+    [GET_FAILURE]: (state) =>
+      produce(state, draft => {
+        draft.get = {
           status:'FAILURE',
         }
       }),

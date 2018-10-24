@@ -16,7 +16,7 @@ require('./bootstrap');
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { App, Home, Editor } from './containers';
+import { App, Home, Editor, Article } from './containers';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
@@ -34,6 +34,7 @@ if (document.getElementById('root')) {
             <Route path='/' component={App}/>
             <Switch>
               <Route path='/post' component={Editor}/>
+              <Route path='/articles/:id' component={Article}/>
               <Route path='/' component={Home}/>
             </Switch>
         </React.Fragment>

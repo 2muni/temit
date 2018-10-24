@@ -1,6 +1,20 @@
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic');
 @import '_variables';
-
 @import 'Home';
 @import 'Editor';
 @import 'Header';
 @import 'Authentication';
+@import 'Article';
+
+body {
+  
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+  width: 100%;
+  font-family: 'Nanum Gothic', sans-serif;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  background-color: #fafafa;
+}

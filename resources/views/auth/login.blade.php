@@ -28,7 +28,9 @@
                 @endif
                 </div>
                 <button type="submit" class="waves-effect waves-light btn">{{ __('로그인') }}</button>
+                <!--
                 <a class="btn btn-link" href="{{ route('password.request') }}">{{ __('비밀번호를 잊으셨나요?') }}</a>
+                -->
             </form>
         </div>
     </div>
