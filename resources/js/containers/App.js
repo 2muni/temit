@@ -19,7 +19,6 @@ class App extends Component {
 
   handleLogout() {
     const data = new FormData;
-    data.append('_token', getMetaData('csrf-token'));
     this.props.UserActions.logoutRequest(data);
   }
 

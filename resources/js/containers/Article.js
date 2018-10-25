@@ -11,7 +11,7 @@ class Article extends Component {
     super(props);
 
     this.state = {
-     // state 
+      
     }
   }
 
@@ -19,15 +19,18 @@ class Article extends Component {
     this.props.ArticleActions.getRequest(this.props.match.params.id)
   }
 
+//<Post article={this.state.data}/>
+
   render() {
-    return(
-      <Post article={this.props.article.data}/>
-    )
+    if(this.props.articleData)
+      return <Post article={this.props.articleData}/>
+    else
+      return <div></div>
   }
 }
 
 const mapStateToProps = (state) => ({
-  article: state.article.get
+  articleData: state.article.get.data
 })
 
 const mapDispatchToProps = (dispatch) => ({

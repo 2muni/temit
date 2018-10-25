@@ -6,6 +6,8 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import * as articleActions from '../store/modules/article'
 import { produce } from 'immer';
+import { resize } from '../lib/tool';
+import axios from 'axios';
 
 import tui from 'tui-editor'
 import "tui-editor/dist/tui-editor-Editor.js";
@@ -31,6 +33,28 @@ class Editor extends Component {
     this.handleSubmitCard = this.handleSubmitCard.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.requestImageURL = this.requestImageURL.bind(this);
+  }
+
+  requestImageURL(blob, callback) {
+    const src = blob;
+    let data = new FormData();
+    data.append('user_id', this.props.status.id);
+    data.append('path', 'articles');
+
+    const reader = new FileReader();
+    reader.onload = e => {
+      const image = new Image();
+      image.src = e.target.result;
+      image.onload = imageEvent => {
+        data.append('image', resize(image).blob, this.state.title);
+        if(callback)
+          axios.post('/api/images', data).then((res) => callback(res.data));
+        else
+          axios.post('/api/images', data).then((res) => {return res});
+      }
+    }
+    reader.readAsDataURL(src);
   }
 
   tuiEditor(preview) {
@@ -40,6 +64,12 @@ class Editor extends Component {
       previewStyle: preview,
       height: 'calc(100% - 64px)',
       usageStatistics: false,
+      hooks: {
+        'addImageBlobHook': (blob, callback) => {
+          this.requestImageURL(blob, callback)
+            
+        }
+    },
       events: {
         change: () => {
           console.log(this.state.post.body);

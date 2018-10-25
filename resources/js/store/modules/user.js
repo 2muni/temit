@@ -2,6 +2,8 @@ import { createAction, handleActions } from 'redux-actions';
 import axios from 'axios';
 import { produce } from 'immer';
 
+import { getMetaData } from '../../lib/auth'
+
 const GET_STATUS = 'user/GET_STATUS';
 const GET_USER = 'user/GET_USER';
 const LOGOUT = 'user/LOGOUT';
@@ -30,6 +32,7 @@ export const getUserRequest = user => (
 
 export const logoutRequest = data => 
   dispatch => {
+    data.append('_token', getMetaData('csrf-token'));
     return axios.post('/logout', data)
       .then((res) =>
         dispatch(logout())

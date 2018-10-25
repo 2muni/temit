@@ -67,7 +67,6 @@ export const listRequest = page => (
 export const getRequest = article => (
   dispatch => {
     dispatch(get());
-
     return axios.get(`/api/articles/${article}`)
       .then((res) => {
         dispatch(getSuccess(res));
@@ -84,11 +83,11 @@ const initialState = {
   },
   list: {
     status: 'INIT',
-    data: []
+    data: null
   },
   get: {
     status: 'INIT',
-    data: [],
+    data: null,
   },
   edit: {
     status: 'INIT',

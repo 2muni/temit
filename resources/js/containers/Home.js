@@ -13,7 +13,6 @@ class Home extends Component {
 
     this.state = {
       isLoading: false,
-      list: []
     }
 
     this.onScroll = this.onScroll.bind(this);
@@ -21,7 +20,6 @@ class Home extends Component {
 
   componentDidMount() {
     this.props.ArticleActions.listRequest(this.page)
-    .then(() => this.setState({ list: this.props.articleList.data }))
     .then(() => window.addEventListener('scroll', this.onScroll, false));
   }
 
@@ -32,13 +30,11 @@ class Home extends Component {
   onScroll() {
     if (
       (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 800) &&
-      this.state.list.length &&
-      !this.state.isLoading
+      this.state.list.length && !this.state.isLoading
     ) {
       this.setState({isLoading: true});
       this.page++;
       this.props.ArticleActions.listRequest(this.page)
-      .then(() => this.setState({list: this.state.list.concat(this.props.articleList.data)}))
       .then(() => this.setState({isLoading: false}));
     }
   }
@@ -47,7 +43,7 @@ class Home extends Component {
     return (
       <div className="content-wrapper">
         <div className="posts-column">
-          <PostList list={this.state.list}/>
+          {this.props.articleList.data ? <PostList list={this.props.articleList.data}/> : <div></div> }
         </div>
         <div className="main-column right">
           <div className="user-profile">
