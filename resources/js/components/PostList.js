@@ -7,7 +7,7 @@ const Post = ({post}) => (
   <div className="postcard">
     <Link className="post-thumbnail" to={`/articles/${post.id}`}>
       {post.thumbnail ?
-        <img src=""></img> :
+        <img src={post.thumbnail}/> :
         <Icon>image</Icon>    
       }
       <div className="white-mask"></div>

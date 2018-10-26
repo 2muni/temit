@@ -80,44 +80,55 @@
       background-color: #dee2e6;
       justify-content: center;
       align-items: center;
+      overflow: hidden;
+      
+      img{
+        @media (max-width: 1920px) {
+          max-width: 400px;
+        }
+        @media (max-width: 1600px) {
+          max-width: 500px;
+        }
+        @media (max-width: 1200px) {
+          max-width: 600px;
+        }
+        @media (max-width: 768px) {
+          max-width: 700px;
+        }
+      }
+      i{ color: #B2BECB; font-size: 102px; }
+    }
+    .postcard-content{ padding: 1.5rem; }
 
-      i{
-        color: #B2BECB;
-        font-size: 102px;
+    .content-head{
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #E9E9E9;
+
+      .username{ 
+        color: $btnColor;
+        font-weight: bold;
+      }
+
+      .title{
+        max-height: 4rem;
+        font-weight: 600;
+        font-size: 1.5rem;
+        overflow: hidden;
+        line-height: 2rem;
+        a{ color: #000; }
+      }
+
+      .subinfo{ margin-top: .5rem; }
+
+      .subinfo span{ 
+        font-size: .9rem;
+        color: gray;
       }
     }
-    .postcard-content{
-      padding: 1.5rem;
-
-      .content-head{
-        padding-bottom: 1.5rem;
-        border-bottom: 1px solid #E9E9E9;
-
-        .username{ 
-          color: $btnColor;
-          font-weight: bold;
-        }
-
-        .title{
-          max-height: 4rem;
-          font-weight: 600;
-          font-size: 1.5rem;
-          overflow: hidden;
-          line-height: 2rem;
-
-          a{ color: #000; }
-        }
-        .subinfo{ margin-top: .5rem; }
-        .subinfo span{ 
-          font-size: .9rem;
-          color: gray;
-        }
-      }
-      .description{
-        height: 80px;
-        margin-top: 1.5rem;
-        overflow: hidden;
-      }
+    .description{
+      height: 80px;
+      margin-top: 1.5rem;
+      overflow: hidden;
     }
   }
 }

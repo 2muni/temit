@@ -43,6 +43,7 @@ class ArticleController extends Controller
             'title' => 'required|string',
             'body' => 'required|string',
             'user_id' => 'required|integer',
+            'thumbnail' => 'string',
         ]);
 
         $article = Article::create($data);

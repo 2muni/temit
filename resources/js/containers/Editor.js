@@ -37,24 +37,29 @@ class Editor extends Component {
   }
 
   requestImageURL(blob, callback) {
-    const src = blob;
-    let data = new FormData();
-    data.append('user_id', this.props.status.id);
-    data.append('path', 'articles');
-
-    const reader = new FileReader();
-    reader.onload = e => {
-      const image = new Image();
-      image.src = e.target.result;
-      image.onload = imageEvent => {
-        data.append('image', resize(image).blob, this.state.title);
-        if(callback)
-          axios.post('/api/images', data).then((res) => callback(res.data));
-        else
-          axios.post('/api/images', data).then((res) => {return res});
+    return new Promise((res, rej) => {
+      const src = blob;
+      let data = new FormData();
+      data.append('user_id', this.props.status.id);
+      data.append('path', 'articles');
+  
+      const reader = new FileReader();
+      reader.onload = e => {
+        const image = new Image();
+        image.src = e.target.result;
+        image.onload = imageEvent => {
+          data.append('image', resize(image), this.props.status.username);
+          if(callback)
+            res(axios.post('/api/images', data).then((res) => 
+              callback(res.data)));
+          else{
+            res(axios.post('/api/images', data).then((res) => {
+              return res.data}));
+          }
+        }
       }
-    }
-    reader.readAsDataURL(src);
+      reader.readAsDataURL(src);
+    });
   }
 
   tuiEditor(preview) {
@@ -67,12 +72,10 @@ class Editor extends Component {
       hooks: {
         'addImageBlobHook': (blob, callback) => {
           this.requestImageURL(blob, callback)
-            
         }
     },
       events: {
         change: () => {
-          console.log(this.state.post.body);
           this.setState(
             produce(this.state, draft => {
               draft.post['body'] = this.editor.getValue()
@@ -86,6 +89,12 @@ class Editor extends Component {
   componentDidMount() {
     document.body.clientWidth > 992 ? 
       this.tuiEditor('vertical') : this.tuiEditor('tab')
+
+    if(this.props.match.params.id) {
+      this.props.ArticleActions.getRequest(this.props.match.params.id)
+      
+      // this.setState()
+    }
   } 
 
   handleSubmitCard(e) {
@@ -101,7 +110,11 @@ class Editor extends Component {
   handleChange(e) {
     this.setState(
       produce(this.state, draft => {
-        draft.post[e.target.name] = e.target.value;
+        if(e.target.name === 'thumbnail') {
+          draft.post['thumbnail'] = e.target.files[0];
+        }
+        else
+          draft.post[e.target.name] = e.target.value;
       })
     );
   }
@@ -109,11 +122,16 @@ class Editor extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let data = new FormData(e.target);
+    let data = new FormData();
     data.append('user_id', this.props.status.id);
+    data.append('title', this.state.post.title);
     data.append('body', this.state.post.body);
-    this.props.ArticleActions.postRequest(data)
-      .then(()=>this.props.history.push('/'))
+    this.requestImageURL(this.state.post.thumbnail)
+      .then((url) => {data.append('thumbnail', url)})
+      .then(() => this.props.ArticleActions.postRequest(data))
+      .then(() => this.props.history.push('/'))
+
+
   }
   
   render() {
@@ -141,7 +159,7 @@ class Editor extends Component {
 
 const mapStateToProps = (state) => ({
   status: state.user.status,
-  postStatus: state.article.post
+  articleData: state.article.get.data
 });
 
 const mapDispatchToProps = (dispatch) => ({

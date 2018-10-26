@@ -35,8 +35,7 @@ const PostSubmit = ({
         <div className="submit-thumbnail">
           <Row>
             <Input s={12} type="file" label="업로드" name="thumbnail" 
-              onChange={handleChange} 
-              value={post.thumbnail}
+              onChange={handleChange}
               accept=".jpg, .jpeg, .png"
               />
           </Row>

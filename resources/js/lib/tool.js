@@ -65,9 +65,6 @@ export function resize(imageData) {
     return canvas.toDataURL(contentType);
   }
 
-  return {
-    name: '',
-    blob: dataURLToBlob(resize_image(imageData))
-  };
+  return dataURLToBlob(resize_image(imageData))
 }
 

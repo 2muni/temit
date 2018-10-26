@@ -146,6 +146,31 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  overflow: hidden;
+}
+
+@media (max-width: 1920px) {
+  .posts-column .postcard .post-thumbnail img {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 1600px) {
+  .posts-column .postcard .post-thumbnail img {
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .posts-column .postcard .post-thumbnail img {
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 768px) {
+  .posts-column .postcard .post-thumbnail img {
+    max-width: 700px;
+  }
 }
 
 .posts-column .postcard .post-thumbnail i {
@@ -157,17 +182,17 @@
   padding: 1.5rem;
 }
 
-.posts-column .postcard .postcard-content .content-head {
+.posts-column .postcard .content-head {
   padding-bottom: 1.5rem;
   border-bottom: 1px solid #E9E9E9;
 }
 
-.posts-column .postcard .postcard-content .content-head .username {
+.posts-column .postcard .content-head .username {
   color: #338CCD;
   font-weight: bold;
 }
 
-.posts-column .postcard .postcard-content .content-head .title {
+.posts-column .postcard .content-head .title {
   max-height: 4rem;
   font-weight: 600;
   font-size: 1.5rem;
@@ -175,20 +200,20 @@
   line-height: 2rem;
 }
 
-.posts-column .postcard .postcard-content .content-head .title a {
+.posts-column .postcard .content-head .title a {
   color: #000;
 }
 
-.posts-column .postcard .postcard-content .content-head .subinfo {
+.posts-column .postcard .content-head .subinfo {
   margin-top: .5rem;
 }
 
-.posts-column .postcard .postcard-content .content-head .subinfo span {
+.posts-column .postcard .content-head .subinfo span {
   font-size: .9rem;
   color: gray;
 }
 
-.posts-column .postcard .postcard-content .description {
+.posts-column .postcard .description {
   height: 80px;
   margin-top: 1.5rem;
   overflow: hidden;
@@ -1329,7 +1354,7 @@ nav .nav-wrapper {
 }
 
 .article-wrapper .article-head img {
-  height: 5rem;
+  height: 4.5rem;
 }
 
 .article-wrapper .article-head .userinfo {
@@ -1386,12 +1411,12 @@ nav .nav-wrapper {
           align-items: center;
   border: 1px solid #38435A;
   color: #38435A;
-  background-color: #fafafa;
+  background-color: #fff;
   border-radius: 1.5rem;
 }
 
 .article-wrapper .article-head .like:hover {
-  color: #fafafa;
+  color: #fff;
   background-color: #38435A;
 }
 
@@ -1416,6 +1441,12 @@ nav .nav-wrapper {
 
 .article-wrapper .article-head .options a:hover {
   color: #338CCD;
+}
+
+.article-wrapper .article-thumbnail {
+  margin-top: 2rem;
+  max-width: 100%;
+  max-width: 100%;
 }
 
 .article-wrapper .article-content {
@@ -1444,6 +1475,6 @@ body {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  background-color: #fafafa;
+  background-color: #fff;
 }
 

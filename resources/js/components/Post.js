@@ -34,6 +34,7 @@ const Post = ({ article, user }) => (
         </div> : undefined
       }
     </div>
+    <img className="article-thumbnail" src={article.thumbnail}/>
     <div className="article-content" dangerouslySetInnerHTML={{__html: marked(article.body)}}/>
     <div className="article-tags">
     </div>
