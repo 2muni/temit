@@ -92,8 +92,13 @@ class Editor extends Component {
 
     if(this.props.match.params.id) {
       this.props.ArticleActions.getRequest(this.props.match.params.id)
-      
-      // this.setState()
+      .then(() => this.setState(
+        produce(this.state, draft => {
+          draft.post['title'] = this.props.articleData.title;
+          draft.post['body'] = this.props.articleData.body;
+        })
+      ))
+      .then(() => this.editor.setValue(this.state.post.body))
     }
   } 
 

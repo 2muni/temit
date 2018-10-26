@@ -76,6 +76,17 @@ export const getRequest = article => (
       })
   }
 );
+export const removeRequest = id => (
+  dispatch => {
+    dispatch(remove());
+    return axios.delete(`/api/articles/${id}`)
+      .then((res) => {
+        dispatch(removeSuccess());
+      }).catch((err) => {
+        dispatch(removeFailure(err));
+      })
+  }
+)
 
 const initialState = {
   post: {
@@ -158,6 +169,26 @@ export default handleActions(
       produce(state, draft => {
         draft.get = {
           status:'FAILURE',
+        }
+      }),
+    [REMOVE]: (state) => 
+      produce(state, draft => {
+        draft.remove = {
+          status: 'WAITING',
+          error: -1
+        }
+      }),
+    [REMOVE_SUCCESS]: (state) =>
+      produce(state, draft => {
+        draft.remove = {
+          status:'SUCCESS',
+        }
+      }),
+    [REMOVE_FAILURE]: (state, action) =>
+      produce(state, draft => {
+        draft.remove = {
+          status:'FAILURE',
+          error: action.payload.error
         }
       }),
   },

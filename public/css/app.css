@@ -121,7 +121,7 @@
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1440px) {
   .posts-column .postcard {
     width: calc(50% - 2rem);
   }

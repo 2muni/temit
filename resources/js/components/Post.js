@@ -5,7 +5,7 @@ import { Icon } from 'react-materialize';
 
 import { dateSplit } from '../lib/tool'
 
-const Post = ({ article, user }) => (
+const Post = ({ article, user, handleRemove }) => (
   <React.Fragment>
     <div className="article-head">
       <div className="userinfo">
@@ -30,7 +30,7 @@ const Post = ({ article, user }) => (
       {user === article.user.id ?
         <div className="options">
           <Link to={`/post/${article.id}`}>수정</Link>
-          <a href="/">삭제</a>
+          <a href="/" onClick={handleRemove}>삭제</a>
         </div> : undefined
       }
     </div>
