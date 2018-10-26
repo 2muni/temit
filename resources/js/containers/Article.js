@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as articleActions from '../store/modules/article'
-
-import { Post } from '../components'
+import { Post, Preloader } from '../components'
 
 class Article extends Component {
 
@@ -20,16 +19,21 @@ class Article extends Component {
   }
 
 //<Post article={this.state.data}/>
-
+//div className="article-wrapper"
   render() {
-    if(this.props.articleData)
-      return <Post article={this.props.articleData}/>
-    else
-      return <div></div>
+    return(
+      <div className="article-wrapper">
+        {this.props.articleData ?
+          <Post user={this.props.status.id} article={this.props.articleData}/> :
+          <Preloader/>
+        }
+      </div>
+    );
   }
 }
 
 const mapStateToProps = (state) => ({
+  status: state.user.status,
   articleData: state.article.get.data
 })
 

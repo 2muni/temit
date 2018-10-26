@@ -1,113 +1,78 @@
-.posts-column{
-  flex: 1;
-  width: 100%;
-  height: 100%;
-  padding: 0 $padding;
-  margin: 47px auto;
-
-  .postcard-list{
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    width: 100%;
-  }
-
-  .postcard{
-    height: 495px;
-    background-color: #fff;
-    -webkit-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.14);
-    box-shadow: 0 1.5px 1.5px rgba(0,0,0,.12), 0 3px 6px rgba(0,0,0,.1725); 
-    margin: 1rem;
-    
-    @media (max-width: 1920px) {
-      width: calc(25% - 2rem)
-    }
-    @media (max-width: 1600px) {
-      width: calc(33.333% - 2rem)
-    }
-    @media (max-width: 1200px) {
-      width: calc(50% - 2rem)
-    }
-    @media (max-width: 1024px) {
-      width: calc(100% - 2rem);
-    }
-
-    .post-thumbnail{
-      display: flex;
-      width: 100%;
-      height: 195px;
-      background-color: #dee2e6;
-      justify-content: center;
-      align-items: center;
-
-      i{
-        color: #B2BECB;
-        font-size: 102px;
-      }
-    }
-    .postcard-content{
-      padding: 1.5rem;
-
-      .content-head{
-        padding-bottom: 1.5rem;
-        border-bottom: 1px solid #E9E9E9;
-
-        .username{ 
-          color: $btnColor;
-          font-weight: bold;
-        }
-
-        .title{
-          max-height: 4rem;
-          font-weight: 600;
-          font-size: 1.5rem;
-          overflow: hidden;
-          line-height: 2rem;
-
-          a{ color: #000; }
-        }
-        .subinfo{ margin-top: .5rem; }
-        .subinfo span{ 
-          font-size: .9rem;
-          color: gray;
-        }
-      }
-      .description{
-        height: 80px;
-        margin-top: 1.5rem;
-        overflow: hidden;
-      }
-    }
-  }
-}
-
 .article-wrapper{
   width: 768px;
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 4rem;
 
   .article-head{
     width: 100%;
-    height: 500px;
-    margin-top: 4rem;
+
+    a{ line-height: 0 }
+    img{ height: 5rem; }
+
+    .userinfo{ display: flex; align-items: center; font-size: 1.2rem; }
+    .info{ padding-left: 1rem; }
+    .username{ font-weight: bold; color: #000 }
+    .title{
+      line-height: 1;
+      width: 100%;
+      margin-top: 1.5rem;
+      font-size: 3rem;
+      word-break:break-all;
+    }
+    .date-and-likes{
+      color: gray;
+      font-size: 1.3rem;
+      margin-top: .5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .like{
+      cursor: pointer;
+      padding: .5rem .875rem;
+      display: flex;
+      align-items: center;
+      border: 1px solid $color-1;
+      color: $color-1;
+      background-color: $bgColor;
+      border-radius: 1.5rem;
+
+      &:hover {
+        color: $bgColor;
+        background-color: $color-1;
+      }
+
+      i{ margin-right: 1rem; font-size: 1.5rem; }
+      span{ font-size: 1rem;}
+    }
+    .options{
+      text-align: right;
+      margin-top: .5rem;
+      a{ 
+        margin: 0 .3rem; 
+        color: #000;
+        &:hover{ color: $btnColor }
+      }
+    }
   }
 
   .article-content{
     width: 100%;
-    height: 500px;
-    background-color: blue
+    margin-top: 2rem;
+    img{ max-width: 100% }
   }
 
   .article-tags{
     width: 100%;
-    height: 500px;
-    background-color: yellow
   }
 
   .article-comments{
     width: 100%;
-    height: 500px;
-    background-color: green
   }
 
 }

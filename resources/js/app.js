@@ -34,6 +34,7 @@ if (document.getElementById('root')) {
             <Route path='/' component={App}/>
             <Switch>
               <Route path='/test' component={Test}/>
+              <Route path='/post/:id' component={Editor}/>
               <Route path='/post' component={Editor}/>
               <Route path='/articles/:id' component={Article}/>
               <Route path='/' component={Home}/>

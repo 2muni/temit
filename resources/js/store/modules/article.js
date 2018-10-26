@@ -83,7 +83,7 @@ const initialState = {
   },
   list: {
     status: 'INIT',
-    data: null
+    data: null,
   },
   get: {
     status: 'INIT',

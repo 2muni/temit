@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { PostList } from '../components';
+import { PostList, Preloader } from '../components';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -13,6 +13,7 @@ class Home extends Component {
 
     this.state = {
       isLoading: false,
+      list: [],
     }
 
     this.onScroll = this.onScroll.bind(this);
@@ -20,6 +21,7 @@ class Home extends Component {
 
   componentDidMount() {
     this.props.ArticleActions.listRequest(this.page)
+    .then(() => this.setState({ list: this.props.articleList.data }))
     .then(() => window.addEventListener('scroll', this.onScroll, false));
   }
 
@@ -32,9 +34,11 @@ class Home extends Component {
       (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 800) &&
       this.state.list.length && !this.state.isLoading
     ) {
+      console.log('scroll');
       this.setState({isLoading: true});
       this.page++;
       this.props.ArticleActions.listRequest(this.page)
+      .then(() => this.setState({ list: this.state.list.concat(this.props.articleList.data) }))
       .then(() => this.setState({isLoading: false}));
     }
   }
@@ -43,16 +47,19 @@ class Home extends Component {
     return (
       <div className="content-wrapper">
         <div className="posts-column">
-          {this.props.articleList.data ? <PostList list={this.props.articleList.data}/> : <div></div> }
+          <PostList list={this.state.list}/>
+          <Preloader/>
         </div>
         <div className="main-column right">
           <div className="user-profile">
             <div className="user-img-0">
-              <img className="circle user-img-0" alt="user-profile" src="https://www.worldcrunch.com/assets/img/avatars/thumbnails/default-user-img-profile.jpg"/>
+              <img className="circle" alt="user-profile" src="https://s3.ap-northeast-2.amazonaws.com/temit.s3/default-user-img-profile.jpg"/>
             </div>
             <div className="user-name">{this.props.status.username}</div>
           </div>
-          <Link to="/post">글쓰기</Link>
+          <div className="main-nav">
+            <Link to="/post">글쓰기</Link>
+          </div>
         </div>
       </div>
     );
