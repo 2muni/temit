@@ -72,11 +72,68 @@
   }
 
   .article-tags{
+    margin-top: 4rem;
     width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    a{
+      margin: .5rem;
+      padding: .5rem;
+      background-color: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      color: #000;
+      font-size: .9rem;
+      line-height: .9rem;
+    }
+    a:hover{ background-color: $gray }
+    a:first-child{ margin-left: 0; }
   }
 
   .article-comments{
+    margin-top: 3rem;
     width: 100%;
+    .btn-wrapepr{
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .btn{
+      background: $color-1;
+      color: #fff;
+      border-radius: 4px;
+      line-height: .7rem;
+      font-weight: normal;
+    }
+    textarea{
+      overflow: hidden;
+      overflow-wrap: break-word;
+      outline: none;
+      font-size: 1rem;
+      line-height: 1.5rem;
+      padding: 1rem;
+      border: 1px solid $gray;
+      border-radius: 4px;
+      resize: none;
+      &.autosize{ min-width: 100%; }
+    }
   }
+  .comment{
+    border-bottom: 1px solid $gray;
+    padding: 1rem;
 
+    a{ line-height: 0 }
+    .head{ display: flex; align-items: center;}
+    .name-and-date{ line-height: 1rem; }
+    img{ width: 3rem; height: 3rem; margin-right: .5rem; }
+    .body{ margin: 1rem 0; }
+    .replies-button{
+      color: $color-1;
+      font-size: 1rem;
+      padding: .5rem;
+      cursor: pointer;
+      &:hover{ background-color: $gray }
+    }
+  }
 }
