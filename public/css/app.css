@@ -1108,6 +1108,10 @@
   font-size: 16px;
 }
 
+#editSection .tui-editor-contents blockquote {
+  border-left: 4px solid #38435A;
+}
+
 #editSection .tui-editor-contents pre {
   display: block;
   overflow-x: auto;
@@ -1458,6 +1462,23 @@ nav .nav-wrapper {
   max-width: 100%;
 }
 
+.article-wrapper .article-content div {
+  font-size: 16px;
+}
+
+.article-wrapper .article-content blockquote {
+  border-left: 4px solid #38435A;
+}
+
+.article-wrapper .article-content pre {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #1E1E1E;
+  color: #DCDCDC;
+  border-radius: 5px;
+}
+
 .article-wrapper .article-tags {
   margin-top: 4rem;
   width: 100%;
@@ -1548,6 +1569,9 @@ nav .nav-wrapper {
 
 .article-wrapper .comment .name-and-date {
   line-height: 1rem;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 
 .article-wrapper .comment img {
@@ -1569,6 +1593,23 @@ nav .nav-wrapper {
 
 .article-wrapper .comment .replies-button:hover {
   background-color: #e9ecef;
+}
+
+.article-wrapper .comment .btns {
+  margin-bottom: .5rem;
+}
+
+.article-wrapper .comment .btns span {
+  font-size: .9rem;
+  cursor: pointer;
+}
+
+.article-wrapper .comment .btns span:first-child {
+  margin-right: .5rem;
+}
+
+.article-wrapper .comment .btns span:hover {
+  color: #338CCD;
 }
 
 body {

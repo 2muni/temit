@@ -128,7 +128,7 @@ export default handleActions(
       produce(state, draft => {
         draft.list = {
           status:'SUCCESS',
-          data: action.payload.data.data
+          data: action.payload.data
         }
       }),
     [LIST_FAILURE]: (state) =>

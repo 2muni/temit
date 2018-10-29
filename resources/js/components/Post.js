@@ -1,10 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
-import marked from 'marked';
 import { Icon, Button } from 'react-materialize';
-
 import { dateSplit } from '../lib/tool'
-
 
 const handleHeight = (e) => {
   e.target.style.height = '120px';
@@ -26,12 +23,41 @@ const handleBlur = (e) => {
   }
 }
 
+const Comment = ({
+  comment,
+  user,
+  handleCommentRemove
+}) => (
+  <div className="comment">
+    <div className="head">
+      <a href="#"><img className="circle" style={{backgroundColor: '#000'}}></img></a>
+      <div className="name-and-date">
+        <a href="#">{comment.user.name}</a>
+        <div>{comment.created_at}</div>
+      </div>
+      {user === comment.user.id &&
+        <div className="btns">
+          <span>수정</span>
+          <span data-id={comment.id} onClick={handleCommentRemove}>삭제</span>
+        </div>
+      }
+    </div>
+    <div className="body">{comment.comment.split('\n').map((line, i) => (
+      <span key={i}>{line}<br/></span>
+    ))}</div>
+    <span className="replies-button">+ 답글 달기</span>
+  </div>
+)
+
 const Post = ({ 
   article,
   user,
-  handleRemove,
-  handleSubmit,
+  handleArticleRemove,
+  handleCommentSubmit,
+  handleCommentRemove,
   handleChange,
+  replies,
+  comments
 }) => (
   <React.Fragment>
     <div className="article-head">
@@ -57,12 +83,12 @@ const Post = ({
       {user === article.user.id ?
         <div className="options">
           <Link to={`/post/${article.id}`}>수정</Link>
-          <a href="/" onClick={handleRemove}>삭제</a>
+          <a href="/" onClick={handleArticleRemove}>삭제</a>
         </div> : undefined
       }
     </div>
     <img className="article-thumbnail" src={article.thumbnail}/>
-    <div className="article-content" dangerouslySetInnerHTML={{__html: marked(article.body)}}/>
+    <div className="article-content"/>
     <div className="article-tags">
       <a href="#">teg 1</a>
       <a href="#">teg 1</a>
@@ -71,40 +97,24 @@ const Post = ({
       <a href="#">teg 1</a>
     </div>
     <div className="article-comments">
-      <div>24개의 댓글</div>
+      <div>{comments.length}개의 댓글</div>
       <textarea rows="1" style={{ height: '53px' }}
         onFocus={handleFocus}
         onBlur={handleBlur}
         onKeyUp={handleHeight}
         onChange={handleChange}
+        value={replies}
         />
-      <div className="btn-wrapepr"><Button onClick={handleSubmit}>댓글 작성</Button></div>
+      <div className="btn-wrapepr"><Button onClick={handleCommentSubmit}>댓글 작성</Button></div>
       <div className="comment-list">
-
-        <div className="comment">
-          <div className="head">
-            <a href="#"><img className="circle" style={{backgroundColor: '#000'}}></img></a>
-            <div className="name-and-date">
-              <a href="#">username</a>
-              <div>date</div>
-            </div>
-          </div>
-          <div className="body">comment body</div>
-          <span className="replies-button">+ 답글 달기</span>
-        </div>
-
-        <div className="comment">
-          <div className="head">
-            <a href="#"><img className="circle" style={{backgroundColor: '#000'}}></img></a>
-            <div className="name-and-date">
-              <a href="#">username</a>
-              <div>date</div>
-            </div>
-          </div>
-          <div className="body">comment body</div>
-          <span className="replies-button">+ 답글 달기</span>
-        </div>
-
+      {comments.map((comment, i) => (
+        <Comment
+          key={i}
+          comment={comment}
+          user={user}
+          handleCommentRemove={handleCommentRemove}
+          />
+      ))}
       </div>
     </div>
   </React.Fragment>

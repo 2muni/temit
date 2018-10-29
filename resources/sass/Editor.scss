@@ -11,7 +11,8 @@
 
   .tui-editor-contents{ 
     font-size: 16px; 
-
+    
+    blockquote { border-left: 4px solid $color-1; }
     pre{
       display: block;
       overflow-x: auto;

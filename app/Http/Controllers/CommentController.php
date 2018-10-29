@@ -40,6 +40,7 @@ class CommentController extends Controller
             'article_id' => 'required|string',
             'comment' => 'required|string',
             'reply_to' => 'string',
+            'user_id' => 'string'
         ]);
 
         $comment = Comment::create($data);
@@ -55,9 +56,9 @@ class CommentController extends Controller
      */
     public function show(Article $article)
     {
-        $comments = Article::find($article)->comments;
+        $comments = Comment::with('user')->where('article_id', $article->id)->get();
 
-        return reponse($comments, 200);
+        return response($comments, 200);
 
     }
 
@@ -92,6 +93,8 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        $comment->delete();
+
+        return response('Deleted Comment', 200);
     }
 }

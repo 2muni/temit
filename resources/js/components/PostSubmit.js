@@ -5,7 +5,7 @@ const PostSubmit = ({
   post,
   handleChange,
   handleSubmit,
-  handleSubmitCard,
+  handleSubmitCard
 }) => (
   <div className="submit-wrapper" style={{ display: 'none' }} onClick={handleSubmitCard}>
   <form className="submit-card" onSubmit={handleSubmit}>

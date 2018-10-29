@@ -18,6 +18,7 @@ class CreateCommentsTable extends Migration
             $table->string('article_id');
             $table->string('reply_to')->nullable();
             $table->text('comment');
+            $table->string('user_id');
             $table->timestamps();
         });
     }

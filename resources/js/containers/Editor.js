@@ -10,7 +10,6 @@ import { resize } from '../lib/tool';
 import axios from 'axios';
 
 import tui from 'tui-editor'
-import "tui-editor/dist/tui-editor-Editor.js";
 require('codemirror/lib/codemirror.css') // codemirror
 require('tui-editor/dist/tui-editor.css'); // editor ui
 require('tui-editor/dist/tui-editor-contents.css'); // editor content
@@ -30,9 +29,9 @@ class Editor extends Component {
       }
     }
 
-    this.handleSubmitCard = this.handleSubmitCard.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmitCard = this.handleSubmitCard.bind(this);
     this.requestImageURL = this.requestImageURL.bind(this);
   }
 
@@ -131,11 +130,15 @@ class Editor extends Component {
     data.append('user_id', this.props.status.id);
     data.append('title', this.state.post.title);
     data.append('body', this.state.post.body);
+    if(this.state.post.thumbnail) {
     this.requestImageURL(this.state.post.thumbnail)
       .then((url) => {data.append('thumbnail', url)})
       .then(() => this.props.ArticleActions.postRequest(data))
       .then(() => this.props.history.push('/'))
-
+    }else {
+      this.props.ArticleActions.postRequest(data)
+      .then(() => this.props.history.push('/'))
+    }
 
   }
   
