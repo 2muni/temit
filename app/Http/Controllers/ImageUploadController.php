@@ -40,11 +40,8 @@ class ImageUploadController extends Controller
             $path = $request->path;
 
             $filenamewithextension = $request->file('image')->getClientOriginalName();
-            // $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
-            // $extension = $request->file('image')->getClientOriginalExtension();
 
             if($path == 'articles') {
-                //$filenametostore = $user_id.'/'.'articles/'.$filename.'_'.time().'.'.$extension;
                 $filenametostore = $user_id.'/'.'articles/'.$filenamewithextension.'_'.(time()*(int)$user_id);
             }else if($path == 'avatar') {
                 $filenametostore = $user_id.'/'.'avatar/'.$filenamewithextension;
@@ -55,6 +52,8 @@ class ImageUploadController extends Controller
 
             return env("AWS_URL").$filenametostore;
         }
+
+        
     }
 
     /**

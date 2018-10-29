@@ -51,7 +51,7 @@ class Editor extends Component {
           data.append('image', resize(image), this.props.status.username);
           if(callback)
             res(axios.post('/api/images', data).then((res) => 
-              callback(res.data)));
+            callback(res.data)));
           else{
             res(axios.post('/api/images', data).then((res) => {
               return res.data}));
@@ -73,7 +73,7 @@ class Editor extends Component {
         'addImageBlobHook': (blob, callback) => {
           this.requestImageURL(blob, callback)
         }
-    },
+      },
       events: {
         change: () => {
           this.setState(

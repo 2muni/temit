@@ -27,3 +27,8 @@ Route::get('/users/{user}', 'UserController@show');
 Route::patch('/users/{user}', 'UserController@update');
 
 Route::post('/images', 'ImageUploadController@store');
+
+Route::post('/comments', 'CommentController@store');
+Route::get('/comments/{article}', 'CommentController@show');
+Route::patch('/comments/{comment}', 'CommentController@update');
+Route::delete('/comments/{comment}', 'CommentController@destroy');

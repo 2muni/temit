@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Article;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -35,18 +36,29 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'article_id' => 'required|string',
+            'comment' => 'required|string',
+            'reply_to' => 'string',
+        ]);
+
+        $comment = Comment::create($data);
+
+        return response($comment, 201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Comment  $comment
+     * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function show(Comment $comment)
+    public function show(Article $article)
     {
-        //
+        $comments = Article::find($article)->comments;
+
+        return reponse($comments, 200);
+
     }
 
     /**

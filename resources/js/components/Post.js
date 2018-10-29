@@ -26,7 +26,13 @@ const handleBlur = (e) => {
   }
 }
 
-const Post = ({ article, user, handleRemove }) => (
+const Post = ({ 
+  article,
+  user,
+  handleRemove,
+  handleSubmit,
+  handleChange,
+}) => (
   <React.Fragment>
     <div className="article-head">
       <div className="userinfo">
@@ -69,8 +75,10 @@ const Post = ({ article, user, handleRemove }) => (
       <textarea rows="1" style={{ height: '53px' }}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        onKeyUp={handleHeight}/>
-      <div className="btn-wrapepr"><Button>댓글 작성</Button></div>
+        onKeyUp={handleHeight}
+        onChange={handleChange}
+        />
+      <div className="btn-wrapepr"><Button onClick={handleSubmit}>댓글 작성</Button></div>
       <div className="comment-list">
 
         <div className="comment">
