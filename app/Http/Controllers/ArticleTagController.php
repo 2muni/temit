@@ -45,6 +45,7 @@ class ArticleTagController extends Controller
             $tag_id = Tag::where('tag', $tag)->first()->id;
             Article_Tag::craete(['article_id' => $article_id, 'tag_id' => $tag_id]);
         }
+        
         return $data;
     }
 
