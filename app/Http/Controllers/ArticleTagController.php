@@ -37,11 +37,7 @@ class ArticleTagController extends Controller
      */
     public function store(Request $request)
     {
-        $tags = explode(",", strtolower($request->tags));
-        $article_id = $request->article_id;
-
-
-        return $request;
+        //
     }
 
     /**

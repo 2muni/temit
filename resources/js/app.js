@@ -37,6 +37,7 @@ if (document.getElementById('root')) {
               <Route path='/post/:id' component={Editor}/>
               <Route path='/post' component={Editor}/>
               <Route path='/articles/:id' component={Article}/>
+              <Route path='/:tag' component={Home}/>
               <Route path='/' component={Home}/>
             </Switch>
         </React.Fragment>

@@ -5,6 +5,7 @@
   @media (max-width: 1024px) {
     display: none;
   }
+
   &.right{
 
     .user-profile{
@@ -33,7 +34,11 @@
     }
   }
 }
-
+.tag-header{
+  font-size: 4rem;
+  margin-bottom: 2rem;
+  color: gray;
+}
 .posts-column{
   flex: 1;
   width: 100%;

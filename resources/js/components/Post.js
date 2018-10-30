@@ -75,7 +75,7 @@ const Post = ({
     <div className="article-content"/>
     <div className="article-tags">
       {article.tags.map((tag, i) => (
-        <a key={i} href="#">{tag.tag}</a>
+        <Link key={i} to={`/${tag.id}`}>{tag.tag}</Link>
       ))}
     </div>
     <div className="article-comments">

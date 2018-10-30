@@ -32,7 +32,7 @@ class App extends Component {
       <header>
         <nav>
           <div className="nav-wrapper">
-            <Link to="/" className="brand-logo">temit</Link>
+            <a href="/" className="brand-logo">temit</a>
             <a href="#" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></a>
             <ul className="right hide-on-med-and-down">
               <li><a href='/login' onClick={this.handleLogout}>로그아웃</a></li>

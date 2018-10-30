@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as articleActions from '../store/modules/article'
+import axios from 'axios';
 
 class Home extends Component {
 
@@ -14,15 +15,24 @@ class Home extends Component {
     this.state = {
       isLoading: false,
       list: [],
+      tag: '',
     }
 
     this.onScroll = this.onScroll.bind(this);
   }
 
   componentDidMount() {
-    this.props.ArticleActions.listRequest(this.page)
-    .then(() => this.setState({ list: this.props.articleList.data }))
-    .then(() => window.addEventListener('scroll', this.onScroll, false));
+    if(this.props.match.params.tag){
+      axios.get(`/api/tags/${this.props.match.params.tag}`)
+        .then((res) => {
+          this.setState({ list: res.data.articles })
+          this.setState({ tag: res.data.tag })
+        })
+    }else {
+      this.props.ArticleActions.listRequest(this.page)
+        .then(() => this.setState({ list: this.props.articleList.data }))
+        .then(() => window.addEventListener('scroll', this.onScroll, false));
+    }
   }
 
   componentWillUnmount() {
@@ -44,6 +54,29 @@ class Home extends Component {
   }
 
   render() {
+    if(this.props.match.params.tag)
+    return (
+      <div className="content-wrapper">
+        <div className="posts-column">
+        
+          {this.state.tag ? 
+          <div className="tag-header">#{this.state.tag}</div> : <Preloader/>}
+          <PostList list={this.state.list}/>
+        </div>
+        <div className="main-column right">
+          <div className="user-profile">
+            <div className="user-img-0">
+              <img className="circle" alt="user-profile" src="https://s3.ap-northeast-2.amazonaws.com/temit.s3/default-user-img-profile.jpg"/>
+            </div>
+            <div className="user-name">{this.props.status.username}</div>
+          </div>
+          <div className="main-nav">
+            <Link to="/post">글쓰기</Link>
+          </div>
+        </div>
+      </div>
+    );
+    else
     return (
       <div className="content-wrapper">
         <div className="posts-column">

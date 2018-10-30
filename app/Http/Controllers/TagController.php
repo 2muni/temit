@@ -45,8 +45,10 @@ class TagController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Tag $tag)
-    {
-        return Tag::with('articles.user')->find($tag->id);
+    {   
+        $data = Tag::with('articles.user')
+            ->orderBy('id', 'desc')->find($tag->id);
+        return Response($data, 200);
     }
 
     /**
