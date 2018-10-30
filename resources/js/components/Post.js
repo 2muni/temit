@@ -74,11 +74,9 @@ const Post = ({
     <img className="article-thumbnail" src={article.thumbnail}/>
     <div className="article-content"/>
     <div className="article-tags">
-      <a href="#">teg 1</a>
-      <a href="#">teg 1</a>
-      <a href="#">teg 1</a>
-      <a href="#">teg 1</a>
-      <a href="#">teg 1</a>
+      {article.tags.map((tag, i) => (
+        <a key={i} href="#">{tag.tag}</a>
+      ))}
     </div>
     <div className="article-comments">
       <div>{comments.length}개의 댓글</div>

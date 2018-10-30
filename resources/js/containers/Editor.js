@@ -151,31 +151,30 @@ class Editor extends Component {
     e.preventDefault();
     let data = new FormData();
     data.append('tags', this.state.tags);
-    axios.post('/api/tags', data).then((res) => console.log(res))
-    // data.append('user_id', this.props.status.id);
-    // data.append('title', this.state.post.title);
-    // data.append('body', this.state.post.body);
-    // if(this.state.post.thumbnail) {
-    // this.requestImageURL(this.state.post.thumbnail)
-    //   .then((url) => data.append('thumbnail', url))
-    //   .then(() => {
-    //     if(this.props.match.params.id)
-    //       this.props.ArticleActions.editRequest(this.props.match.params.id, data);
-    //     else
-    //       this.props.ArticleActions.postRequest(data);
-    //   })
-    //   .then(() => this.props.history.push('/'))
-    // }else {
-    //   if(this.props.match.params.id) {
-    //     console.log(this.state.post);
-    //     this.props.ArticleActions.editRequest(this.props.match.params.id, data)
-    //     .then(() => this.props.history.push('/'))
-    //   }
-    //   else{
-    //     this.props.ArticleActions.postRequest(data)
-    //       .then(() => this.props.history.push('/'))
-    //   }
-    // }
+    data.append('user_id', this.props.status.id);
+    data.append('title', this.state.post.title);
+    data.append('body', this.state.post.body);
+    if(this.state.post.thumbnail) {
+    this.requestImageURL(this.state.post.thumbnail)
+      .then((url) => data.append('thumbnail', url))
+      .then(() => {
+        if(this.props.match.params.id)
+          this.props.ArticleActions.editRequest(this.props.match.params.id, data);
+        else
+          this.props.ArticleActions.postRequest(data);
+      })
+      .then(() => this.props.history.push('/'))
+    }else {
+      if(this.props.match.params.id) {
+        console.log(this.state.post);
+        this.props.ArticleActions.editRequest(this.props.match.params.id, data)
+        .then(() => this.props.history.push('/'))
+      }
+      else{
+        this.props.ArticleActions.postRequest(data)
+          .then(() => this.props.history.push('/'))
+      }
+    }
 
   }
   

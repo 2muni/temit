@@ -34,4 +34,5 @@ Route::post('/comments/{article}', 'CommentController@showReply');
 Route::put('/comments/{comment}', 'CommentController@update');
 Route::delete('/comments/{comment}', 'CommentController@destroy');
 
-Route::post('/tags', 'ArticleTagController@store');
+Route::get('/tags/{tag}', 'TagController@show');
+

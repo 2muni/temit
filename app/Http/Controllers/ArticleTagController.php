@@ -40,13 +40,8 @@ class ArticleTagController extends Controller
         $tags = explode(",", strtolower($request->tags));
         $article_id = $request->article_id;
 
-        foreach($tags as $tag) {
-            Tag::firstOrCreate(['tag' => $tag]);
-            $tag_id = Tag::where('tag', $tag)->first()->id;
-            Article_Tag::craete(['article_id' => $article_id, 'tag_id' => $tag_id]);
-        }
-        
-        return $data;
+
+        return $request;
     }
 
     /**

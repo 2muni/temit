@@ -35,13 +35,7 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {   
-        $data = explode(",", strtolower($request->tags));
-        $model = Tag::all();
-
-        foreach($data as $value) {
-            Tag::firstOrCreate(['tag' => $value]);
-        }
-        return $data;
+        //
     }
 
     /**
@@ -52,7 +46,7 @@ class TagController extends Controller
      */
     public function show(Tag $tag)
     {
-        //
+        return Tag::with('articles.user')->find($tag->id);
     }
 
     /**

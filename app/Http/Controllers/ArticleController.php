@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Tag;
 use App\Article;
+use App\Article_Tag;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -14,7 +16,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::with('user')
+        $articles = Article::with('user', 'tags')
             ->orderBy('id', 'desc')
             ->paginate(10);
             
@@ -46,9 +48,25 @@ class ArticleController extends Controller
             'thumbnail' => 'string',
         ]);
 
-        $article = Article::create($data);
+        Article::create([
+            'title' => $request->title,
+            'body' => $request->body,
+            'user_id' => $request->user_id,
+            'thumbnail' => $request->thumbnail
+        ]);
 
-        return response($article, 201);
+        $article_id = Article::with('user')
+        ->orderBy('id', 'desc')->first()->id;
+
+        $tags = explode(",", strtolower($request->tags));
+
+        foreach($tags as $tag) {
+            Tag::firstOrCreate(['tag' => $tag]);
+            $tag_id = Tag::where('tag', $tag)->first()->id;
+            Article_Tag::create(['article_id' => $article_id, 'tag_id' => $tag_id]);
+        }
+
+        return $article_id;
     }
 
     /**
@@ -59,7 +77,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        $article = Article::with('user')
+        $article = Article::with('user', 'tags')
             ->get()
             ->find($article);
 
