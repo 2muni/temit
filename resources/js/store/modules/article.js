@@ -76,6 +76,19 @@ export const getRequest = article => (
       })
   }
 );
+export const editRequest = (article, data) => (
+  dispatch => {
+    dispatch(edit());
+    data.append('_method', 'PUT');
+    return axios.post(`/api/articles/${article}`, data)
+      .then((res) => {
+        console.log(res);
+        dispatch(editSuccess());
+      }).catch((err) => {
+        dispatch(editFailure(err));
+      })
+  }
+);
 export const removeRequest = id => (
   dispatch => {
     dispatch(remove());
@@ -169,6 +182,26 @@ export default handleActions(
       produce(state, draft => {
         draft.get = {
           status:'FAILURE',
+        }
+      }),
+    [EDIT]: (state) => 
+      produce(state, draft => {
+        draft.edit = {
+          status: 'WAITING',
+          error: -1
+        }
+      }),
+    [EDIT_SUCCESS]: (state) =>
+      produce(state, draft => {
+        draft.edit = {
+          status:'SUCCESS',
+        }
+      }),
+    [EDIT_FAILURE]: (state, action) =>
+      produce(state, draft => {
+        draft.edit = {
+          status:'FAILURE',
+          error: action.payload.error
         }
       }),
     [REMOVE]: (state) => 

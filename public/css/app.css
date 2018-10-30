@@ -185,6 +185,7 @@
 .posts-column .postcard .content-head {
   padding-bottom: 1.5rem;
   border-bottom: 1px solid #E9E9E9;
+  height: 10rem;
 }
 
 .posts-column .postcard .content-head .username {
@@ -214,9 +215,12 @@
 }
 
 .posts-column .postcard .description {
-  height: 80px;
+  height: 72px;
   margin-top: 1.5rem;
   overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 @keyframes cardAppear {
@@ -1552,6 +1556,10 @@ nav .nav-wrapper {
 .article-wrapper .comment {
   border-bottom: 1px solid #e9ecef;
   padding: 1rem;
+}
+
+.article-wrapper .comment textarea {
+  margin-top: 1rem;
 }
 
 .article-wrapper .comment a {

@@ -94,7 +94,7 @@ class ArticleController extends Controller
 
         $article->update($data);
 
-        return response($article, 200);
+        return response($request, 200);
     }
 
     /**

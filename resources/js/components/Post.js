@@ -26,7 +26,8 @@ const handleBlur = (e) => {
 const Comment = ({
   comment,
   user,
-  handleCommentRemove
+  handleCommentRemove,
+  handleEdit
 }) => (
   <div className="comment">
     <div className="head">
@@ -37,15 +38,15 @@ const Comment = ({
       </div>
       {user === comment.user.id &&
         <div className="btns">
-          <span>수정</span>
-          <span data-id={comment.id} onClick={handleCommentRemove}>삭제</span>
+          <span data-label="comment-edit" data-id={comment.id} data-user={comment.user.id} onClick={handleEdit}>수정</span>
+          <span data-id={comment.id} data-user={comment.user.id} onClick={handleCommentRemove}>삭제</span>
         </div>
       }
     </div>
     <div className="body">{comment.comment.split('\n').map((line, i) => (
       <span key={i}>{line}<br/></span>
     ))}</div>
-    <span className="replies-button">+ 답글 달기</span>
+    <span className="replies-button">답글 달기</span>
   </div>
 )
 
@@ -55,9 +56,11 @@ const Post = ({
   handleArticleRemove,
   handleCommentSubmit,
   handleCommentRemove,
+  handleEdit,
   handleChange,
   replies,
-  comments
+  comments,
+  edit_to
 }) => (
   <React.Fragment>
     <div className="article-head">
@@ -99,22 +102,53 @@ const Post = ({
     <div className="article-comments">
       <div>{comments.length}개의 댓글</div>
       <textarea rows="1" style={{ height: '53px' }}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        onKeyUp={handleHeight}
-        onChange={handleChange}
-        value={replies}
-        />
-      <div className="btn-wrapepr"><Button onClick={handleCommentSubmit}>댓글 작성</Button></div>
-      <div className="comment-list">
-      {comments.map((comment, i) => (
-        <Comment
-          key={i}
-          comment={comment}
-          user={user}
-          handleCommentRemove={handleCommentRemove}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          onKeyUp={handleHeight}
+          onChange={handleChange}
+          value={replies}
           />
-      ))}
+      <div className="btn-wrapepr">
+        <Button onClick={handleCommentSubmit}>댓글 작성</Button>
+      </div>
+      <div className="comment-list">
+      {comments.map((comment, i) => {
+        if(edit_to == comment.id) {
+          return(
+            <div className="comment">
+              <div className="head">
+                <a href="#"><img className="circle" style={{backgroundColor: '#000'}}></img></a>
+                <div className="name-and-date">
+                  <a href="#">{comment.user.name}</a>
+                  <div>{comment.created_at}</div>
+                </div>
+                <div className="btns">
+                  <span onClick={handleEdit}>취소</span>
+                </div>
+              </div>
+              <textarea rows="1" style={{ height: '53px' }}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+                onKeyUp={handleHeight}
+                onChange={handleChange}
+                value={replies}
+              />
+              <div className="btn-wrapepr">
+                <Button onClick={handleCommentSubmit}>댓글 작성</Button>
+              </div>
+            </div>
+          )
+        }else {
+          return(
+            <Comment
+              key={i}
+              comment={comment}
+              user={user}
+              handleCommentRemove={handleCommentRemove}
+              handleEdit={handleEdit}
+            />)
+        }
+      })}
       </div>
     </div>
   </React.Fragment>

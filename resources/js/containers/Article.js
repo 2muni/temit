@@ -24,12 +24,14 @@ class Article extends Component {
       },
       comments: {
         list: [],
-      }
+      },
+      edit_to: null
     }
 
     this.handleArticleRemove = this.handleArticleRemove.bind(this);
     this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
     this.handleCommentRemove = this.handleCommentRemove.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -83,8 +85,26 @@ class Article extends Component {
       ))
   } 
 
+  handleEdit(e) {
+    if(this.props.status.id == e.target.dataset.user && e.target.dataset.label === 'comment-edit') {
+      
+      this.setState({ edit_to: e.target.dataset.id })
+    }else {
+      this.setState({ edit_to: null })
+    }
+  }
+
   handleCommentRemove(e) {
-    console.log(e.target.dataset.id)
+    if(this.props.status.id == e.target.dataset.user) {
+      confirm("댓글을 삭제하시겠습니까?") && 
+      this.props.CommentActions.removeRequest(e.target.dataset.id)
+      .then(() => this.props.CommentActions.listRequest(this.props.match.params.id))
+      .then(() => this.setState(
+        produce(this.state, draft => {
+          draft.comments['list'] = this.props.commentData;
+        })
+      ))
+    }
   }
 
   handleChange(e) {
@@ -105,9 +125,11 @@ class Article extends Component {
             handleArticleRemove={this.handleArticleRemove}
             handleCommentSubmit={this.handleCommentSubmit}
             handleCommentRemove={this.handleCommentRemove}
+            handleEdit={this.handleEdit}
             handleChange={this.handleChange}
             replies={this.state.replies.comment}
             comments={this.state.comments.list}
+            edit_to={this.state.edit_to}
             /> :
           <Preloader/>
         }

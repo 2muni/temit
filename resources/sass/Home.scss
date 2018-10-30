@@ -103,7 +103,7 @@
     .content-head{
       padding-bottom: 1.5rem;
       border-bottom: 1px solid #E9E9E9;
-
+      height: 10rem;
       .username{ 
         color: $btnColor;
         font-weight: bold;
@@ -126,9 +126,12 @@
       }
     }
     .description{
-      height: 80px;
+      height: 72px;
       margin-top: 1.5rem;
       overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
     }
   }
 }

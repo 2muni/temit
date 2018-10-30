@@ -91,13 +91,19 @@ class Editor extends Component {
 
     if(this.props.match.params.id) {
       this.props.ArticleActions.getRequest(this.props.match.params.id)
-      .then(() => this.setState(
-        produce(this.state, draft => {
-          draft.post['title'] = this.props.articleData.title;
-          draft.post['body'] = this.props.articleData.body;
-        })
-      ))
-      .then(() => this.editor.setValue(this.state.post.body))
+      .then(() => {
+        if(this.props.status.id == this.props.articleData.user.id) {
+          this.setState(
+            produce(this.state, draft => {
+              draft.post['title'] = this.props.articleData.title;
+              draft.post['body'] = this.props.articleData.body;
+            }));
+          this.editor.setValue(this.state.post.body);
+        }else {
+          alert('잘못된 접근입니다.');
+          this.props.history.push('/');
+        }
+      })
     }
   } 
 
@@ -132,14 +138,25 @@ class Editor extends Component {
     data.append('body', this.state.post.body);
     if(this.state.post.thumbnail) {
     this.requestImageURL(this.state.post.thumbnail)
-      .then((url) => {data.append('thumbnail', url)})
-      .then(() => this.props.ArticleActions.postRequest(data))
+      .then((url) => data.append('thumbnail', url))
+      .then(() => {
+        if(this.props.match.params.id)
+          this.props.ArticleActions.editRequest(this.props.match.params.id, data);
+        else
+          this.props.ArticleActions.postRequest(data);
+      })
       .then(() => this.props.history.push('/'))
     }else {
-      this.props.ArticleActions.postRequest(data)
-      .then(() => this.props.history.push('/'))
+      if(this.props.match.params.id) {
+        console.log(this.state.post);
+        this.props.ArticleActions.editRequest(this.props.match.params.id, data)
+        .then(() => this.props.history.push('/'))
+      }
+      else{
+        this.props.ArticleActions.postRequest(data)
+          .then(() => this.props.history.push('/'))
+      }
     }
-
   }
   
   render() {

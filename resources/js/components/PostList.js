@@ -2,7 +2,7 @@ import React from 'react';
 import { Icon } from 'react-materialize';
 import { Link } from 'react-router-dom';
 import { dateSplit } from '../lib/tool'
-
+import marked from 'marked'
 const Post = ({post}) => (
   <div className="postcard">
     <Link className="post-thumbnail" to={`/articles/${post.id}`}>
@@ -26,7 +26,9 @@ const Post = ({post}) => (
         </div>
       </div>
       <div className="description">
-        {post.body.length > 80 ? post.body.substr(0, 80)+' ...' : post.body}
+        {post.body.length > 150 ?
+          marked(post.body.substr(0, 150)).replace(/(<([^>]+)>)/ig,"") :
+          marked(post.body).replace(/(<([^>]+)>)/ig,"")}
       </div>
     </div>
   </div>

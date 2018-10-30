@@ -82,7 +82,16 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
-        //
+        $data = $request->validate([
+            'article_id' => 'required|string',
+            'comment' => 'required|string',
+            'reply_to' => 'string',
+            'user_id' => 'string'
+        ]);
+
+        $comment->update($data);
+
+        return response($comment, 200);
     }
 
     /**
