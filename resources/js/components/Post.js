@@ -1,7 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import { Icon, Button } from 'react-materialize';
-import { dateSplit } from '../lib/tool'
+import TimeAgo from 'react-timeago'
+import koreanStrings from 'react-timeago/lib/language-strings/ko'
+import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
+import PostCommnet from './PostComment';
+
+const formatter = buildFormatter(koreanStrings)
 
 const handleHeight = (e) => {
   e.target.style.height = '120px';
@@ -22,33 +27,6 @@ const handleBlur = (e) => {
     e.target.rows = '1';
   }
 }
-
-const Comment = ({
-  comment,
-  user,
-  handleCommentRemove,
-  handleEdit
-}) => (
-  <div className="comment">
-    <div className="head">
-      <a href="#"><img className="circle" style={{backgroundColor: '#000'}}></img></a>
-      <div className="name-and-date">
-        <a href="#">{comment.user.name}</a>
-        <div>{comment.created_at}</div>
-      </div>
-      {user === comment.user.id &&
-        <div className="btns">
-          <span data-label="comment-edit" data-id={comment.id} data-user={comment.user.id} onClick={handleEdit}>수정</span>
-          <span data-id={comment.id} data-user={comment.user.id} onClick={handleCommentRemove}>삭제</span>
-        </div>
-      }
-    </div>
-    <div className="body">{comment.comment.split('\n').map((line, i) => (
-      <span key={i}>{line}<br/></span>
-    ))}</div>
-    <span className="replies-button">답글 달기</span>
-  </div>
-)
 
 const Post = ({ 
   article,
@@ -77,7 +55,9 @@ const Post = ({
       </div>
       <div className="title">{article.title}</div>
       <div className="date-and-likes">
-        {dateSplit(article.created_at,'년 ','월 ','일')}
+        {article.updated_at > article.created_at ?
+          <div><TimeAgo date={article.updated_at} formatter={formatter} /><span>에 수정됨</span></div> : 
+          <TimeAgo date={article.created_at} formatter={formatter} /> }
         <button className="like">
           <Icon>favorite_border</Icon>
           <span>{article.like}</span>
@@ -122,7 +102,11 @@ const Post = ({
                 <a href="#"><img className="circle" style={{backgroundColor: '#000'}}></img></a>
                 <div className="name-and-date">
                   <a href="#">{comment.user.name}</a>
-                  <div>{comment.created_at}</div>
+                  <div>
+                  {comment.updated_at > comment.created_at ?
+                    <div><TimeAgo date={comment.updated_at} formatter={formatter} /><span>에 수정됨</span></div> : 
+                    <TimeAgo date={comment.created_at} formatter={formatter} /> }
+                  </div>
                 </div>
                 <div className="btns">
                   <span onClick={handleEdit}>취소</span>
@@ -141,14 +125,19 @@ const Post = ({
               </div>
             </div>
           )
-        }else {
+        }else if(!comment.reply_to){
           return(
-            <Comment
+            <PostCommnet
               key={i}
+              article={article}
               comment={comment}
               user={user}
               handleCommentRemove={handleCommentRemove}
-              handleEdit={handleEdit}
+              handleFocus={handleFocus}
+              handleBlur={handleBlur}
+              handleHeight={handleHeight}
+              article={article}
+              user={user}
             />)
         }
       })}

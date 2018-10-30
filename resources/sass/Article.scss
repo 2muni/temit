@@ -153,4 +153,12 @@
       span:hover{ color: $btnColor }
     }
   }
+  .replies { 
+    background-color: #F9F9F9;
+    margin: 1rem;
+    padding: 1rem;
+    textarea{
+      background-color: #fff;
+    }
+  }
 }

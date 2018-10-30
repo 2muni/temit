@@ -64,13 +64,19 @@ class CommentController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  \App\Comment  $comment
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function edit(Comment $comment)
-    {
-        //
+    public function showReply(Request $request, Article $article)
+    {   
+        $comments = Comment::with('user')
+            ->where('article_id', $article->id)
+            ->where('reply_to', $request->reply_to)
+            ->get();
+
+        return response($comments, 200);
     }
 
     /**

@@ -118,11 +118,13 @@
         a{ color: #000; }
       }
 
-      .subinfo{ margin-top: .5rem; }
+      .subinfo{
+        margin-top: .5rem;
 
-      .subinfo span{ 
-        font-size: .9rem;
-        color: gray;
+        span, time{
+          font-size: .9rem;
+          color: gray;
+        }
       }
     }
     .description{

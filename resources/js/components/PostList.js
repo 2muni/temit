@@ -1,8 +1,13 @@
 import React from 'react';
 import { Icon } from 'react-materialize';
 import { Link } from 'react-router-dom';
-import { dateSplit } from '../lib/tool'
+import TimeAgo from 'react-timeago';
+import koreanStrings from 'react-timeago/lib/language-strings/ko'
+import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
 import marked from 'marked'
+
+const formatter = buildFormatter(koreanStrings)
+
 const Post = ({post}) => (
   <div className="postcard">
     <Link className="post-thumbnail" to={`/articles/${post.id}`}>
@@ -21,7 +26,9 @@ const Post = ({post}) => (
           <Link to={`/articles/${post.id}`}>{post.title}</Link>
         </div>
         <div className="subinfo">
-          <span>{dateSplit(post.created_at, '년', '월', '일')}</span>
+        {post.updated_at > post.created_at ?
+          <div><TimeAgo date={post.updated_at} formatter={formatter} /><span>에 수정됨</span></div> : 
+          <TimeAgo date={post.created_at} formatter={formatter} /> }
           <span></span>
         </div>
       </div>

@@ -26,7 +26,8 @@ class Article extends Component {
       edit_to: {
         id: null,
         comment: '',
-      }
+      },
+      isReply: false
     }
 
     this.handleArticleRemove = this.handleArticleRemove.bind(this);
@@ -67,7 +68,8 @@ class Article extends Component {
     let data = new FormData();
     data.append('article_id', this.props.articleData.id);
     data.append('comment', this.state.replies.comment);
-    data.append('reply_to', this.state.replies.reply_to);
+    if(this.state.replies.reply_to)
+      data.append('reply_to', this.state.replies.reply_to);
     data.append('user_id', this.props.status.id);
     this.props.CommentActions.postRequest(data)
       .then(() => this.props.CommentActions.listRequest(this.props.match.params.id))
@@ -148,6 +150,7 @@ class Article extends Component {
             handleCommentEdit={this.handleCommentEdit}
             handleCommentRemove={this.handleCommentRemove}
             handleEdit={this.handleEdit}
+            handleReply={this.handleReply}
             handleChange={this.handleChange}
             replies={this.state.replies.comment}
             comments={this.state.comments.list}

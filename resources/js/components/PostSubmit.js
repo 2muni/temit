@@ -3,6 +3,8 @@ import { Button, Input, Row } from 'react-materialize';
 
 const PostSubmit = ({
   post,
+  tags,
+  handleTags,
   handleChange,
   handleSubmit,
   handleSubmitCard
@@ -23,12 +25,15 @@ const PostSubmit = ({
       <section>
         <div className="section-title">태그 설정</div>
         <div className="text submit-tags">
-          <input name="tags" placeholder="태그를 입력하세요"
+          <input name="tag" placeholder="태그를 입력하세요"
             onChange={handleChange}
-            value={post.tags} 
+            value={post.tag} 
           />
-          <div className="btn util">등록</div>
+          <div className="btn util" onClick={handleTags}>등록</div>
         </div>
+        <div className="tags-wrapper">{tags && tags.map((tag, i) => (
+          <span key={i} data-id={i} className="tag" onClick={handleTags}>{tag}</span>
+        ))}</div>
       </section>
       <section>
       <div className="section-title">썸네일 지정</div>

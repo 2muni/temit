@@ -28,7 +28,10 @@ Route::patch('/users/{user}', 'UserController@update');
 
 Route::post('/images', 'ImageUploadController@store');
 
-Route::post('/comments', 'CommentController@store');
 Route::get('/comments/{article}', 'CommentController@show');
+Route::post('/comments', 'CommentController@store');
+Route::post('/comments/{article}', 'CommentController@showReply');
 Route::put('/comments/{comment}', 'CommentController@update');
 Route::delete('/comments/{comment}', 'CommentController@destroy');
+
+Route::post('/tags', 'ArticleTagController@store');

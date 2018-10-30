@@ -209,7 +209,8 @@
   margin-top: .5rem;
 }
 
-.posts-column .postcard .content-head .subinfo span {
+.posts-column .postcard .content-head .subinfo span,
+.posts-column .postcard .content-head .subinfo time {
   font-size: .9rem;
   color: gray;
 }
@@ -1064,6 +1065,35 @@
   color: #666666;
 }
 
+.submit-form section .tags-wrapper {
+  margin-top: 1rem;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-line-pack: start;
+      align-content: flex-start;
+}
+
+.submit-form section .tag {
+  cursor: pointer;
+  line-height: 1.3rem;
+  font-size: 1rem;
+  background-color: #fff;
+  margin: .3rem;
+  padding: .3rem;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 3px 6px rgba(0, 0, 0, 0.1725);
+          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 3px 6px rgba(0, 0, 0, 0.1725);
+}
+
+.submit-form section .tag:hover {
+  background-color: gray;
+  color: #fff;
+}
+
 .submit-form section .util {
   padding: 0 1rem;
   border-radius: 0;
@@ -1618,6 +1648,16 @@ nav .nav-wrapper {
 
 .article-wrapper .comment .btns span:hover {
   color: #338CCD;
+}
+
+.article-wrapper .replies {
+  background-color: #F9F9F9;
+  margin: 1rem;
+  padding: 1rem;
+}
+
+.article-wrapper .replies textarea {
+  background-color: #fff;
 }
 
 body {

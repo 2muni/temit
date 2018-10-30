@@ -79,13 +79,26 @@
       input::placeholder{
         color: darken(#fff, 60%)
       }
-    }  
-
-    .util{
-      padding: 0 1rem;
-      border-radius: 0;
     }
-  
+    .tags-wrapper{
+      margin-top: 1rem;
+      width: 100%;
+      display:flex;
+      flex-wrap: wrap;
+      align-content: flex-start
+    }      
+    .tag{
+      cursor: pointer;
+      line-height: 1.3rem;
+      font-size: 1rem;
+      background-color: #fff;
+      margin: .3rem;
+      padding: .3rem;
+      border-radius: 4px;
+      box-shadow: 0 3px 6px rgba(0,0,0,.12), 0 3px 6px rgba(0,0,0,.1725);
+      &:hover { background-color: gray; color: #fff }
+    }
+    .util{ padding: 0 1rem; border-radius: 0; }
     .submit-thumbnail{ color: #fff; }      
   }
 }

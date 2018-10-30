@@ -25,14 +25,16 @@ class Editor extends Component {
         title: '',
         body: '',
         thumbnail: '',
-        tags: '',
-      }
+        tag: '',
+      },
+      tags:[],
     }
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSubmitCard = this.handleSubmitCard.bind(this);
     this.requestImageURL = this.requestImageURL.bind(this);
+    this.handleTags = this.handleTags.bind(this);
   }
 
   requestImageURL(blob, callback) {
@@ -129,34 +131,52 @@ class Editor extends Component {
     );
   }
 
+  handleTags(e) {
+    if(e.target.className === 'tag') {
+      this.setState(produce(this.state, draft => {
+        draft.tags.splice(e.target.dataset.id, 1);
+      }))
+    }else {
+      const tag = this.state.post.tag;
+      if(tag){
+        this.setState(produce(this.state, draft => {
+          draft.tags.push(tag);
+          draft.post['tag'] = '';
+        }))
+      }
+    }
+  }
 
   handleSubmit(e) {
     e.preventDefault();
     let data = new FormData();
-    data.append('user_id', this.props.status.id);
-    data.append('title', this.state.post.title);
-    data.append('body', this.state.post.body);
-    if(this.state.post.thumbnail) {
-    this.requestImageURL(this.state.post.thumbnail)
-      .then((url) => data.append('thumbnail', url))
-      .then(() => {
-        if(this.props.match.params.id)
-          this.props.ArticleActions.editRequest(this.props.match.params.id, data);
-        else
-          this.props.ArticleActions.postRequest(data);
-      })
-      .then(() => this.props.history.push('/'))
-    }else {
-      if(this.props.match.params.id) {
-        console.log(this.state.post);
-        this.props.ArticleActions.editRequest(this.props.match.params.id, data)
-        .then(() => this.props.history.push('/'))
-      }
-      else{
-        this.props.ArticleActions.postRequest(data)
-          .then(() => this.props.history.push('/'))
-      }
-    }
+    data.append('tags', this.state.tags);
+    axios.post('/api/tags', data).then((res) => console.log(res))
+    // data.append('user_id', this.props.status.id);
+    // data.append('title', this.state.post.title);
+    // data.append('body', this.state.post.body);
+    // if(this.state.post.thumbnail) {
+    // this.requestImageURL(this.state.post.thumbnail)
+    //   .then((url) => data.append('thumbnail', url))
+    //   .then(() => {
+    //     if(this.props.match.params.id)
+    //       this.props.ArticleActions.editRequest(this.props.match.params.id, data);
+    //     else
+    //       this.props.ArticleActions.postRequest(data);
+    //   })
+    //   .then(() => this.props.history.push('/'))
+    // }else {
+    //   if(this.props.match.params.id) {
+    //     console.log(this.state.post);
+    //     this.props.ArticleActions.editRequest(this.props.match.params.id, data)
+    //     .then(() => this.props.history.push('/'))
+    //   }
+    //   else{
+    //     this.props.ArticleActions.postRequest(data)
+    //       .then(() => this.props.history.push('/'))
+    //   }
+    // }
+
   }
   
   render() {
@@ -164,6 +184,8 @@ class Editor extends Component {
       <div id="editor">
         <PostSubmit
             post={this.state.post}
+            tags={this.state.tags}
+            handleTags={this.handleTags}
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
             handleSubmitCard={this.handleSubmitCard}

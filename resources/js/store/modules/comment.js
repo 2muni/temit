@@ -64,7 +64,19 @@ export const listRequest = article => (
         dispatch(listFailure());
       })
   }
-);
+)
+export const getRequest = (article, reply_to) => (
+  dispatch => {
+    dispatch(get());
+
+    return axios.get(`/api/comments/${article}`, reply_to)
+      .then((res) => {
+        dispatch(getSuccess(res));
+      }).catch((err) => {
+        dispatch(getFailure());
+      })
+  }
+)
 export const editRequest = (comments, data) => (
   dispatch => {
     dispatch(edit());
