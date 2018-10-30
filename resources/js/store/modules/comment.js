@@ -65,6 +65,18 @@ export const listRequest = article => (
       })
   }
 );
+export const editRequest = (comments, data) => (
+  dispatch => {
+    dispatch(edit());
+    data.append('_method', 'PUT');
+    return axios.post(`/api/comments/${comments}`, data)
+      .then((res) => {
+        dispatch(editSuccess());
+      }).catch((err) => {
+        dispatch(editFailure(err));
+      })
+  }
+);
 export const removeRequest = id => (
   dispatch => {
     dispatch(remove());
@@ -135,6 +147,26 @@ export default handleActions(
       produce(state, draft => {
         draft.list = {
           status:'FAILURE',
+        }
+      }),
+    [EDIT]: (state) => 
+      produce(state, draft => {
+        draft.edit = {
+          status: 'WAITING',
+          error: -1
+        }
+      }),
+    [EDIT_SUCCESS]: (state) =>
+      produce(state, draft => {
+        draft.edit = {
+          status:'SUCCESS',
+        }
+      }),
+    [EDIT_FAILURE]: (state, action) =>
+      produce(state, draft => {
+        draft.edit = {
+          status:'FAILURE',
+          error: action.payload.error
         }
       }),
     [REMOVE]: (state) => 

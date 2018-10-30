@@ -55,6 +55,7 @@ const Post = ({
   user,
   handleArticleRemove,
   handleCommentSubmit,
+  handleCommentEdit,
   handleCommentRemove,
   handleEdit,
   handleChange,
@@ -102,20 +103,21 @@ const Post = ({
     <div className="article-comments">
       <div>{comments.length}개의 댓글</div>
       <textarea rows="1" style={{ height: '53px' }}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          onKeyUp={handleHeight}
-          onChange={handleChange}
-          value={replies}
-          />
+        name="replies"
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        onKeyUp={handleHeight}
+        onChange={handleChange}
+        value={replies}
+        />
       <div className="btn-wrapepr">
         <Button onClick={handleCommentSubmit}>댓글 작성</Button>
       </div>
       <div className="comment-list">
       {comments.map((comment, i) => {
-        if(edit_to == comment.id) {
+        if(edit_to.id == comment.id) {
           return(
-            <div className="comment">
+            <div key={i} className="comment">
               <div className="head">
                 <a href="#"><img className="circle" style={{backgroundColor: '#000'}}></img></a>
                 <div className="name-and-date">
@@ -127,14 +129,15 @@ const Post = ({
                 </div>
               </div>
               <textarea rows="1" style={{ height: '53px' }}
+                name="edit_to"
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 onKeyUp={handleHeight}
                 onChange={handleChange}
-                value={replies}
+                value={edit_to.comment}
               />
               <div className="btn-wrapepr">
-                <Button onClick={handleCommentSubmit}>댓글 작성</Button>
+                <Button onClick={handleCommentEdit}>댓글 작성</Button>
               </div>
             </div>
           )

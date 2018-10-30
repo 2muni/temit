@@ -17,19 +17,21 @@ class Article extends Component {
 
     this.state = {
       replies: {
-        article_id: null,
         comment: '',
         reply_to: null,
-        user_id: null,
       },
       comments: {
         list: [],
       },
-      edit_to: null
+      edit_to: {
+        id: null,
+        comment: '',
+      }
     }
 
     this.handleArticleRemove = this.handleArticleRemove.bind(this);
     this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
+    this.handleCommentEdit = this.handleCommentEdit.bind(this);
     this.handleCommentRemove = this.handleCommentRemove.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -49,8 +51,6 @@ class Article extends Component {
       .then(() => this.props.CommentActions.listRequest(this.props.match.params.id))
       .then(() => this.setState(
         produce(this.state, draft => {
-          draft.replies['article_id'] = this.props.articleData.id;
-          draft.replies['user_id'] = this.props.status.id;
           draft.comments['list'] = this.props.commentData;
         })
       ))
@@ -65,20 +65,17 @@ class Article extends Component {
 
   handleCommentSubmit() {
     let data = new FormData();
-    data.append('article_id', this.state.replies.article_id);
+    data.append('article_id', this.props.articleData.id);
     data.append('comment', this.state.replies.comment);
     data.append('reply_to', this.state.replies.reply_to);
     data.append('user_id', this.props.status.id);
-    console.log(this.state.replies);
     this.props.CommentActions.postRequest(data)
       .then(() => this.props.CommentActions.listRequest(this.props.match.params.id))
       .then(() => this.setState(
         produce(this.state, draft => {
           draft.replies = {
-            article_id: this.props.articleData.id,
             comment: '',
             reply_to: null,
-            user_id: this.props.status.id
           }
           draft.comments['list'] = this.props.commentData;
         })
@@ -87,12 +84,36 @@ class Article extends Component {
 
   handleEdit(e) {
     if(this.props.status.id == e.target.dataset.user && e.target.dataset.label === 'comment-edit') {
-      
-      this.setState({ edit_to: e.target.dataset.id })
+      this.setState(
+        produce(this.state, draft => {
+          draft.edit_to['id']= e.target.dataset.id
+        }))
     }else {
-      this.setState({ edit_to: null })
+      this.setState(
+        produce(this.state, draft => {
+          draft.edit_to['id']= null
+        }))
     }
   }
+
+  handleCommentEdit() {
+    let data = new FormData();
+    data.append('article_id', this.props.articleData.id);
+    data.append('comment', this.state.edit_to.comment);
+    data.append('reply_to', this.state.replies.reply_to);
+    data.append('user_id', this.props.status.id);
+    this.props.CommentActions.editRequest(this.state.edit_to.id, data)
+      .then(() => this.props.CommentActions.listRequest(this.props.match.params.id))
+      .then(() => this.setState(
+        produce(this.state, draft => {
+          draft.edit_to = {
+            id: null,
+            comment: '',
+          }
+          draft.comments['list'] = this.props.commentData;
+        })
+      ))
+  } 
 
   handleCommentRemove(e) {
     if(this.props.status.id == e.target.dataset.user) {
@@ -110,7 +131,7 @@ class Article extends Component {
   handleChange(e) {
     this.setState(
       produce(this.state, draft => {
-        draft.replies['comment'] = e.target.value;
+        draft[e.target.name].comment = e.target.value;
       })
     );
   }
@@ -124,6 +145,7 @@ class Article extends Component {
             article={this.props.articleData}
             handleArticleRemove={this.handleArticleRemove}
             handleCommentSubmit={this.handleCommentSubmit}
+            handleCommentEdit={this.handleCommentEdit}
             handleCommentRemove={this.handleCommentRemove}
             handleEdit={this.handleEdit}
             handleChange={this.handleChange}

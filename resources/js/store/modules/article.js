@@ -82,7 +82,6 @@ export const editRequest = (article, data) => (
     data.append('_method', 'PUT');
     return axios.post(`/api/articles/${article}`, data)
       .then((res) => {
-        console.log(res);
         dispatch(editSuccess());
       }).catch((err) => {
         dispatch(editFailure(err));
