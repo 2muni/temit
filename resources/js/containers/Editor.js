@@ -159,16 +159,17 @@ class Editor extends Component {
       .then((url) => data.append('thumbnail', url))
       .then(() => {
         if(this.props.match.params.id)
-          this.props.ArticleActions.editRequest(this.props.match.params.id, data);
+          this.props.ArticleActions.editRequest(this.props.match.params.id, data)
+            .then(() => this.props.history.push('/'))
         else
-          this.props.ArticleActions.postRequest(data);
+          this.props.ArticleActions.postRequest(data)
+            .then(() => this.props.history.push('/'))
       })
-      .then(() => this.props.history.push('/'))
     }else {
       if(this.props.match.params.id) {
         console.log(this.state.post);
         this.props.ArticleActions.editRequest(this.props.match.params.id, data)
-        .then(() => this.props.history.push('/'))
+          .then(() => this.props.history.push('/'))
       }
       else{
         this.props.ArticleActions.postRequest(data)
