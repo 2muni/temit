@@ -44,7 +44,6 @@ class Home extends Component {
       (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 800) &&
       this.state.list.length && !this.state.isLoading
     ) {
-      console.log('scroll');
       this.setState({isLoading: true});
       this.page++;
       this.props.ArticleActions.listRequest(this.page)

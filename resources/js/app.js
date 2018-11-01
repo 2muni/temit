@@ -16,7 +16,8 @@ require('./bootstrap');
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { App, Home, Editor, Article, Test } from './containers';
+import { App, Home, Editor, Test } from './containers';
+import { Post } from './pages'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
@@ -34,9 +35,9 @@ if (document.getElementById('root')) {
             <Route path='/' component={App}/>
             <Switch>
               <Route path='/test' component={Test}/>
-              <Route path='/post/:id' component={Editor}/>
-              <Route path='/post' component={Editor}/>
-              <Route path='/articles/:id' component={Article}/>
+              <Route path='/write/:id' component={Editor}/>
+              <Route path='/write' component={Editor}/>
+              <Route path='/post/:id' component={Post}/>
               <Route path='/:tag' component={Home}/>
               <Route path='/' component={Home}/>
             </Switch>
