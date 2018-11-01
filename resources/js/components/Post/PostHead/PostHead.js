@@ -37,9 +37,9 @@ const PostHead = ({
     </div>
 
     <div className="divider"/>
-    {user === article.user.id ?
+    {user.id === article.user.id ?
     <div className="options">
-      <Link to={`/post/${article.id}`}>수정</Link>
+      <Link to={`/write/${article.id}`}>수정</Link>
       <a href="/" onClick={handleArticleRemove}>삭제</a>
     </div> : undefined}
   </div>

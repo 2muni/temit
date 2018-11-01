@@ -115,27 +115,27 @@
   margin: 1rem;
 }
 
-@media (max-width: 1920px) {
+@media (min-width: 768px) {
   .posts-column .postcard {
-    width: calc(25% - 2rem);
+    width: calc(100% - 2rem);
   }
 }
 
-@media (max-width: 1600px) {
-  .posts-column .postcard {
-    width: calc(33.333% - 2rem);
-  }
-}
-
-@media (max-width: 1440px) {
+@media (min-width: 1280px) {
   .posts-column .postcard {
     width: calc(50% - 2rem);
   }
 }
 
-@media (max-width: 768px) {
+@media (min-width: 1440px) {
   .posts-column .postcard {
-    width: calc(100% - 2rem);
+    width: calc(33.333% - 2rem);
+  }
+}
+
+@media (min-width: 1920px) {
+  .posts-column .postcard {
+    width: calc(25% - 2rem);
   }
 }
 
@@ -155,28 +155,8 @@
   overflow: hidden;
 }
 
-@media (max-width: 1920px) {
-  .posts-column .postcard .post-thumbnail img {
-    max-width: 400px;
-  }
-}
-
-@media (max-width: 1600px) {
-  .posts-column .postcard .post-thumbnail img {
-    max-width: 500px;
-  }
-}
-
-@media (max-width: 1200px) {
-  .posts-column .postcard .post-thumbnail img {
-    max-width: 600px;
-  }
-}
-
-@media (max-width: 768px) {
-  .posts-column .postcard .post-thumbnail img {
-    max-width: 700px;
-  }
+.posts-column .postcard .post-thumbnail img {
+  width: 100%;
 }
 
 .posts-column .postcard .post-thumbnail i {

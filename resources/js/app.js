@@ -16,8 +16,8 @@ require('./bootstrap');
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { App, Home, Editor, Test } from './containers';
-import { Post } from './pages'
+import HeaderContainer from './containers/Base/HeaderContainer';
+import { Post, Write, Board } from './pages'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
@@ -32,14 +32,13 @@ if (document.getElementById('root')) {
     <Provider store={store}>
       <Router>
         <React.Fragment>
-            <Route path='/' component={App}/>
+            <Route path='/' component={HeaderContainer}/>
             <Switch>
-              <Route path='/test' component={Test}/>
-              <Route path='/write/:id' component={Editor}/>
-              <Route path='/write' component={Editor}/>
+              <Route path='/write/:id' component={Write}/>
+              <Route path='/write' component={Write}/>
               <Route path='/post/:id' component={Post}/>
-              <Route path='/:tag' component={Home}/>
-              <Route path='/' component={Home}/>
+              <Route path='/board:tag' component={Board}/>
+              <Route path='/board' component={Board}/>
             </Switch>
         </React.Fragment>
       </Router>

@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as commentActions from '../../store/modules/comment'
 import { produce } from 'immer'
-import { PostComments } from '../../components/Post/Comment'
+import { PostComments } from '../../components/post/PostComment'
 
-class Article extends Component {
+class PostCommentContainer extends Component {
 
   constructor(props) {
     super(props);
@@ -59,14 +59,19 @@ class Article extends Component {
 
   render() {
     return(
-      <PostComments
+      <Fragment>
+      {this.props.commentData ?
+        <PostComments
           user={this.props.status}
           comment={this.state.comment}
           list={this.state.list}
           handleChange={this.handleChange}
           handleCommentSubmit={this.handleCommentSubmit}
           handleCommentRemove={this.handleCommentRemove}
-      />
+        />
+      : undefined
+      }
+      </Fragment>
     );
   }
 }
@@ -80,4 +85,4 @@ const mapDispatchToProps = (dispatch) => ({
   CommentActions: bindActionCreators(commentActions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Article);
+export default connect(mapStateToProps, mapDispatchToProps)(PostCommentContainer);

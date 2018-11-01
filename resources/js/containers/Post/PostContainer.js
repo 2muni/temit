@@ -2,15 +2,15 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as articleActions from '../../store/modules/article'
-import { Preloader } from '../../components'
-import { PostHead } from '../../components/Post/PostHead'
-import { PostBody } from '../../components/Post/PostBody'
+import { Preloader } from '../../components/etc'
+import { PostHead } from '../../components/post/PostHead'
+import { PostBody } from '../../components/post/PostBody'
 
 import tui from 'tui-editor'
 require('tui-editor/dist/tui-editor-contents.css'); // editor content
 require('highlight.js/styles/vs2015.css'); // code block highlight
 
-class Article extends Component {
+class PostContainer extends Component {
 
   constructor(props) {
     super(props);
@@ -68,4 +68,4 @@ const mapDispatchToProps = (dispatch) => ({
   ArticleActions: bindActionCreators(articleActions, dispatch),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Article);
+export default connect(mapStateToProps, mapDispatchToProps)(PostContainer);
