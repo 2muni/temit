@@ -13,6 +13,7 @@ class HeaderContainer extends Component {
     this.handleLogout = this.handleLogout.bind(this);
   }
 
+
   componentDidMount() {
     this.props.UserActions.getStatusRequest(getMetaData('user'));
   }

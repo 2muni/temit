@@ -4,8 +4,9 @@ import { PostNav } from '../../components/post/PostNav';
 import { Preloader } from '../../components/etc'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as articleActions from '../../store/modules/article'
+import * as articleActions from '../../store/modules/article';
 import axios from 'axios';
+import produce from 'immer';
 
 class PostListContainer extends Component {
 
@@ -14,6 +15,7 @@ class PostListContainer extends Component {
     this.page = 1;
 
     this.state = {
+      isFixed: false,
       isLoading: true,
       list: [],
       tag: '',
@@ -26,25 +28,31 @@ class PostListContainer extends Component {
     this.setState({ isLoading: true })
     if(this.props.tag){
       axios.get(`/api/tags/${this.props.tag}`)
-        .then((res) => {
-          this.setState({ list: res.data.articles })
-          this.setState({ tag: res.data.tag })
-          this.setState({ isLoading: false })
-        })
+        .then((res) => this.setState(produce(this.state, draft => {
+          draft.list = res.data.articles;
+          draft.tag = res.data.tag;
+          draft.isLoading = false;
+        })))
     }else {
       this.props.ArticleActions.listRequest(this.page)
-        .then(() => this.setState({ list: this.props.articleList.data }))
+        .then(() => this.setState(produce(this.state, draft => {
+          draft.list = this.props.articleList.data;
+          draft.isLoading = false;
+        })))
         .then(() => window.addEventListener('scroll', this.onScroll, false))
-        .then(() => this.setState({ isLoading: false }))
     }
   }
-
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextState.list !== this.state.list || nextState.isFixed !== this.state.isFixed;
+  }
   componentWillUnmount() {
     window.removeEventListener('scroll', this.onScroll, false);
   }
 
   onScroll() {
-    if (
+    if(window.scrollY < 100 && this.state.isFixed ) this.setState({isFixed:false})
+    else if(window.scrollY > 99 && !this.state.isFixed) this.setState({isFixed: true})
+    if(
       (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 800) &&
       this.state.list.length && !this.state.isLoading
     ) {
@@ -60,7 +68,7 @@ class PostListContainer extends Component {
     return(
       this.props.tag ? 
         <Fragment>
-          <PostNav user={this.props.status}/>
+          <PostNav user={this.props.status} isFixed={this.state.isFixed}/>
           <div className="posts-column">
             <div className="tag-header">#{this.state.tag}</div> 
             <PostList list={this.state.list}/>
@@ -68,7 +76,7 @@ class PostListContainer extends Component {
           </div>
         </Fragment>
       : <Fragment>
-          <PostNav user={this.props.status}/>
+          <PostNav user={this.props.status} isFixed={this.state.isFixed}/>
           <div className="posts-column">
             <PostList list={this.state.list}/>
             {this.state.isLoading ? <Preloader/> : undefined }

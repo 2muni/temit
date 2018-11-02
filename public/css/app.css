@@ -1110,6 +1110,10 @@
   height: 100%;
 }
 
+header {
+  height: 64px;
+}
+
 nav {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1118,7 +1122,6 @@ nav {
       -ms-flex-pack: center;
           justify-content: center;
   background-color: #38435A;
-  position: relative;
 }
 
 nav .nav-wrapper {
@@ -1137,10 +1140,6 @@ nav .nav-wrapper {
   .post-nav {
     display: none;
   }
-}
-
-.post-nav .post-navitem {
-  padding: 0 8px;
 }
 
 .post-nav .user-profile {
@@ -1167,6 +1166,34 @@ nav .nav-wrapper {
   font-size: 20px;
   line-height: 50px;
   height: 50px;
+}
+
+.post-nav .fixed-frame {
+  width: 260px;
+}
+
+.post-nav .post-navitem li {
+  padding: 0 2rem;
+}
+
+.post-nav .post-navitem li:hover {
+  background-color: #e9ecef;
+}
+
+.post-nav .post-navitem a {
+  width: 100%;
+  height: 3rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #000;
+}
+
+.post-nav .post-navitem a i {
+  margin-right: 1rem;
 }
 
 .article-head {
@@ -1622,33 +1649,6 @@ nav .nav-wrapper {
   margin-top: 4rem;
 }
 
-.snapshot-wrapper {
-  width: 1080px;
-  margin: 0 auto;
-  height: calc(100% - 64px);
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.snapshot-wrapper .snapshot-nav {
-  padding: 0 15px;
-  margin: 47px 0;
-}
-
-.snapshot-wrapper .snapshot-aside {
-  padding: 0 15px;
-  margin: 47px 0;
-}
-
-.snapshot-wrapper .snapshot-column {
-  margin: 47px;
-  padding: 16px 0;
-}
-
 .snapshot-nav {
   width: 290px;
 }
@@ -1687,6 +1687,37 @@ nav .nav-wrapper {
   font-size: 20px;
   line-height: 50px;
   height: 50px;
+}
+
+.snapshot-nav .fixed-frame {
+  width: 260px;
+}
+
+.snapshot-wrapper {
+  max-width: 1080px;
+  margin: 0 auto;
+  height: calc(100% - 64px);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.snapshot-wrapper .snapshot-nav {
+  padding: 0 15px;
+  margin: 47px 0;
+}
+
+.snapshot-wrapper .snapshot-aside {
+  padding: 0 15px;
+  margin: 47px 0;
+}
+
+.snapshot-wrapper .snapshot-column {
+  margin: 47px;
+  padding: 16px 0;
 }
 
 .snapshot-item {
