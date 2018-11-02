@@ -1,0 +1,22 @@
+@import './PostNav/PostNav';
+@import './PostHead/PostHead';
+@import './PostBody/PostBody';
+@import './PostComment/PostComment';
+@import './PostList/PostList';
+
+.content-wrapper{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: calc(100% - 64px);
+}
+
+.article-wrapper{
+  max-width: 935px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 4rem; 
+}

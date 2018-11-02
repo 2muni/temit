@@ -59,8 +59,7 @@ class PostCommentContainer extends Component {
 
   render() {
     return(
-      <Fragment>
-      {this.props.commentData ?
+      <Fragment>{this.props.commentData ?
         <PostComments
           user={this.props.status}
           comment={this.state.comment}
@@ -68,9 +67,7 @@ class PostCommentContainer extends Component {
           handleChange={this.handleChange}
           handleCommentSubmit={this.handleCommentSubmit}
           handleCommentRemove={this.handleCommentRemove}
-        />
-      : undefined
-      }
+        /> : undefined}
       </Fragment>
     );
   }

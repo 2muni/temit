@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { PostList } from '../../components/post/PostCard';
+import { PostList } from '../../components/post/PostList';
 import { PostNav } from '../../components/post/PostNav';
 import { Preloader } from '../../components/etc'
 import { connect } from 'react-redux';
@@ -14,7 +14,7 @@ class PostListContainer extends Component {
     this.page = 1;
 
     this.state = {
-      isLoading: false,
+      isLoading: true,
       list: [],
       tag: '',
     }
@@ -23,19 +23,20 @@ class PostListContainer extends Component {
   }
 
   componentDidMount() {
-    this.setState({ isLoading: true });
+    this.setState({ isLoading: true })
     if(this.props.tag){
       axios.get(`/api/tags/${this.props.tag}`)
         .then((res) => {
           this.setState({ list: res.data.articles })
           this.setState({ tag: res.data.tag })
+          this.setState({ isLoading: false })
         })
     }else {
       this.props.ArticleActions.listRequest(this.page)
         .then(() => this.setState({ list: this.props.articleList.data }))
-        .then(() => window.addEventListener('scroll', this.onScroll, false));
+        .then(() => window.addEventListener('scroll', this.onScroll, false))
+        .then(() => this.setState({ isLoading: false }))
     }
-    this.setState({ isLoading: false });
   }
 
   componentWillUnmount() {
@@ -59,19 +60,19 @@ class PostListContainer extends Component {
     return(
       this.props.tag ? 
         <Fragment>
+          <PostNav user={this.props.status}/>
           <div className="posts-column">
             <div className="tag-header">#{this.state.tag}</div> 
             <PostList list={this.state.list}/>
-            {this.state.isLoading ? undefined : <Preloader/>}
+            {this.state.isLoading ? <Preloader/> : undefined }
           </div>
-          <PostNav user={this.props.status}/>
         </Fragment>
       : <Fragment>
+          <PostNav user={this.props.status}/>
           <div className="posts-column">
             <PostList list={this.state.list}/>
-            {this.state.isLoading ? undefined : <Preloader/>}
+            {this.state.isLoading ? <Preloader/> : undefined }
           </div>
-          <PostNav user={this.props.status}/>
         </Fragment>
     )
   }

@@ -1,0 +1,53 @@
+.article-head{
+  width: 100%;
+
+  a{ line-height: 0 }
+  img{ height: 4.5rem; }
+
+  .userinfo{ display: flex; align-items: center; font-size: 1.2rem; }
+  .info{ padding-left: 1rem; }
+  .username{ font-weight: bold; color: #000 }
+  .title{
+    line-height: 1;
+    width: 100%;
+    margin-top: 1.5rem;
+    font-size: 3rem;
+    word-break:break-all;
+  }
+  .date-and-likes{
+    color: gray;
+    font-size: 1.3rem;
+    margin-top: .5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .like{
+    cursor: pointer;
+    padding: .5rem .875rem;
+    display: flex;
+    align-items: center;
+    border: 1px solid $color-1;
+    color: $color-1;
+    background-color: $bgColor;
+    border-radius: 1.5rem;
+
+    &:hover {
+      color: $bgColor;
+      background-color: $color-1;
+    }
+
+    i{ margin-right: 1rem; font-size: 1.5rem; }
+    span{ font-size: 1rem;}
+  }
+  .options{
+    text-align: right;
+    margin-top: .5rem;
+    a{ 
+      margin: 0 .3rem; 
+      color: #000;
+      &:hover{ color: $btnColor }
+    }
+  }
+}

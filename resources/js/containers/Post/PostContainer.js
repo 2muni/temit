@@ -40,21 +40,18 @@ class PostContainer extends Component {
 
   render() {
     return(
-      <Fragment>
-        {this.props.articleData ?
-          <Fragment>
-            <PostHead
-              user={this.props.status}
-              article={this.props.articleData}
-              handleArticleRemove={this.handleArticleRemove}
-            />
-            <PostBody
-              article={this.props.articleData}
-            />
-          </Fragment>
-        : <Preloader/>
-        }
-      </Fragment>
+      this.props.articleData ?
+        <Fragment>
+          <PostHead
+            user={this.props.status}
+            article={this.props.articleData}
+            handleArticleRemove={this.handleArticleRemove}
+          />
+          <PostBody
+            article={this.props.articleData}
+          />
+        </Fragment>
+      : <Preloader/>
     );
   }
 }

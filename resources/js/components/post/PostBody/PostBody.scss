@@ -1,0 +1,40 @@
+.article-thumbnail{
+  margin-top: 2rem;
+  max-width: 100%;
+  max-width: 100%;
+}
+.article-content{
+  width: 100%;
+  margin-top: 2rem;
+  img{ max-width: 100%; }
+  div{ font-size: 16px; }
+  blockquote { border-left: 4px solid $color-1; }
+  pre{
+    display: block;
+    overflow-x: auto;
+    padding: 0.5em;
+    background: #1E1E1E;
+    color: #DCDCDC;
+    border-radius: 5px;
+  }
+}
+
+.article-tags{
+  margin-top: 4rem;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  a{
+    margin: .5rem;
+    padding: .5rem;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    color: #000;
+    font-size: .9rem;
+    line-height: .9rem;
+  }
+  a:hover{ background-color: $gray }
+  a:first-child{ margin-left: 0; }
+}

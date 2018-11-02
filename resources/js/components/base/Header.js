@@ -12,6 +12,7 @@ const Header = ({
           <i className="material-icons">menu</i>
         </a>
         <ul className="right hide-on-med-and-down">
+          <li><Link to='/board' onClick={handleLogout}>게시판</Link></li>
           <li><a href='/login' onClick={handleLogout}>로그아웃</a></li>
         </ul>
       </div>
