@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
+import { AsideNav } from '../../components/base';
 import produce from 'immer';
 import axios from 'axios';
-
+import { Link } from 'react-router-dom';
 import { Icon } from 'react-materialize'
 
 class SnapshotContainer extends Component {
@@ -36,21 +37,16 @@ class SnapshotContainer extends Component {
   render() {
     return(
       <Fragment>
-      <div className="snapshot-nav">
-      <div className="fixed-frame" style={ this.state.isFixed ? {position: 'fixed', top: '11px'} : {position: 'static'} }>
-
-      
-        <div className="user-profile">
-          <div className="user-img-0">
-            <img className="circle" alt="user-profile" src="https://s3.ap-northeast-2.amazonaws.com/temit.s3/default-user-img-profile.jpg"/>
-          </div>
-          <div className="user-name">이름</div>
-        </div>
-        <div className="post-navitem">
-          <a href="/write">글쓰기</a>
-        </div>
-        </div>
-      </div>
+      <AsideNav
+        user={{username: '테스트01'}}
+        items={[
+          {
+            link: '',
+            icon: 'edit',
+            label: '새 스냅샷'
+          }
+        ]}
+      />
 
       <div className="snapshot-column">
 

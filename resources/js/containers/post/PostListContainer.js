@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { PostList } from '../../components/post/PostList';
-import { PostNav } from '../../components/post/PostNav';
+import { AsideNav } from '../../components/base';
 import { Preloader } from '../../components/etc'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -15,7 +15,6 @@ class PostListContainer extends Component {
     this.page = 1;
 
     this.state = {
-      isFixed: false,
       isLoading: true,
       list: [],
       tag: '',
@@ -33,6 +32,7 @@ class PostListContainer extends Component {
           draft.tag = res.data.tag;
           draft.isLoading = false;
         })))
+        .then(() => window.addEventListener('scroll', this.onScroll, false))
     }else {
       this.props.ArticleActions.listRequest(this.page)
         .then(() => this.setState(produce(this.state, draft => {
@@ -43,45 +43,48 @@ class PostListContainer extends Component {
     }
   }
   shouldComponentUpdate(nextProps, nextState) {
-    return nextState.list !== this.state.list || nextState.isFixed !== this.state.isFixed;
+    return (
+      nextState.isLoading !== this.state.isLoading
+    )
   }
   componentWillUnmount() {
     window.removeEventListener('scroll', this.onScroll, false);
   }
 
   onScroll() {
-    if(window.scrollY < 100 && this.state.isFixed ) this.setState({isFixed:false})
-    else if(window.scrollY > 99 && !this.state.isFixed) this.setState({isFixed: true})
     if(
       (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 800) &&
       this.state.list.length && !this.state.isLoading
     ) {
-      this.setState({ isLoading: true });
+      this.setState(produce(this.state, draft => { draft.isLoading = true }));
       this.page++;
       this.props.ArticleActions.listRequest(this.page)
-      .then(() => this.setState({ list: this.state.list.concat(this.props.articleList.data) }))
-      .then(() => this.setState({ isLoading: false }));
+      .then(() => this.setState(produce(this.state, draft => {
+        draft.list = this.state.list.concat(this.props.articleList.data);
+        draft.isLoading = false;
+      })))
     }
   }
 
   render() {
     return(
-      this.props.tag ? 
-        <Fragment>
-          <PostNav user={this.props.status} isFixed={this.state.isFixed}/>
-          <div className="posts-column">
-            <div className="tag-header">#{this.state.tag}</div> 
-            <PostList list={this.state.list}/>
-            {this.state.isLoading ? <Preloader/> : undefined }
-          </div>
-        </Fragment>
-      : <Fragment>
-          <PostNav user={this.props.status} isFixed={this.state.isFixed}/>
-          <div className="posts-column">
-            <PostList list={this.state.list}/>
-            {this.state.isLoading ? <Preloader/> : undefined }
-          </div>
-        </Fragment>
+      <Fragment>
+        <AsideNav 
+          user={this.props.status}
+          items={[
+            {
+              link: '/write',
+              icon: 'edit',
+              label: '글 쓰기',
+            }
+          ]}
+        />
+        <div className="post-column">          
+        {this.props.tag ? <div className="tag-header">#{this.state.tag}</div> : undefined }
+          <PostList list={this.state.list}/>
+          {this.state.isLoading ? <Preloader/> : undefined }
+        </div>
+      </Fragment>
     )
   }
 }
