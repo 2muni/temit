@@ -734,6 +734,7 @@
 .auth .logo {
   font-size: 72px;
   color: #4A5158;
+  text-align: center;
 }
 
 .auth > div {

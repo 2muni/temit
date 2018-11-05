@@ -9,9 +9,3 @@ export function getCookie(name) {
   let parts = value.split("; " + name + "="); 
   if (parts.length === 2) return parts.pop().split(";").shift();
 }
-
-export function getMetaData(name) {
-  let data = document.head.querySelector(`meta[name=${name}]`);
-
-  if (data) return data.content;
-}

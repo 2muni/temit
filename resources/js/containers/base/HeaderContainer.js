@@ -2,8 +2,9 @@ import React, { Component, Fragment } from 'react';
 import { Header } from '../../components/base'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as userActions from '../../store/modules/user';
-import { getMetaData } from '../../lib/auth'
+import * as authActions from '../../store/modules/authentication';
+import { createCookie, getCookie } from '../../lib/auth'
+import axios from 'axios';
 
 class HeaderContainer extends Component {
 
@@ -15,7 +16,20 @@ class HeaderContainer extends Component {
 
 
   componentDidMount() {
-    this.props.UserActions.getStatusRequest(getMetaData('user'));
+    // let loginData = createCookie('auth');
+    // if(typeof loginData === "undefined") return;
+
+    // loginData = JSON.parse(atob(loginData));
+    // if(!loginData.isLoggedIn) return;
+
+    // const token = loginData.token_type+' '+loginData.access_token;
+    // axios.get('/api/auth/user', {
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'X-Requested-With': 'XMLHttpRequest',
+    //     'Authorization': token
+    //   }})
+    // .then((res)=>console.log(res))
   }
 
   handleLogout() {
@@ -27,7 +41,7 @@ class HeaderContainer extends Component {
 
     const path = /(login|register|write)/;
     const isHidden = path.test(this.props.location.pathname);
-
+    console.log("render");
     return (
       isHidden ? <Fragment></Fragment> : 
       <Header
@@ -38,11 +52,11 @@ class HeaderContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  status: state.user.status
+  status: state.authentication.status
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  UserActions: bindActionCreators(userActions, dispatch)
+  UserActions: bindActionCreators(authActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderContainer);

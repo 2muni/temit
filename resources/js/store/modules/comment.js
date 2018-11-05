@@ -1,7 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import axios from 'axios';
 import { produce } from 'immer';
-import { getMetaData } from '../../lib/auth'
     
 const POST = 'comment/POST';
 const POST_SUCCESS = 'comment/POST_SUCCESS';
@@ -44,7 +43,6 @@ export const likeFailure = createAction(LIKE_FAILURE, err => err);
 export const postRequest = data => (
   dispatch => {
     dispatch(post());
-    data.append('_token', getMetaData('csrf-token'));
     return axios.post('/api/comments', data)
       .then((res) => {
         dispatch(postSuccess());

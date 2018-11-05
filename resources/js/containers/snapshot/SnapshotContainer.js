@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { AsideNav } from '../../components/base';
 import produce from 'immer';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import { Icon } from 'react-materialize'
 
 class SnapshotContainer extends Component {
@@ -21,17 +20,13 @@ class SnapshotContainer extends Component {
     window.addEventListener('scroll', this.onScroll, false);
   }
 
-  shouldComponentUpdate() {
-    return true;
-  }
-
   componentWillUnmount() {
     window.removeEventListener('scroll', this.onScroll, false);
   }
 
   onScroll() {
-    if(window.scrollY < 100 && this.state.isFixed ) this.setState({isFixed:false})
-    else if(window.scrollY > 99 && !this.state.isFixed) this.setState({isFixed: true})
+    if(window.scrollY < 100 && this.state.isFixed ) this.setState({ isFixed:false })
+    else if(window.scrollY > 99 && !this.state.isFixed) this.setState({ isFixed: true })
   }
 
   render() {

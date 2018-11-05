@@ -47,10 +47,9 @@ class AsideNav extends Component {
             <div className="user-name">{this.props.user.username}</div>
           </div>
           <ul className="aside-navitem">
-          {console.log(this.props.items)}
-            {this.props.items.map((item, i)=>(
-              <li key={i}><Link to={`${item.link}`}><Icon>{`${item.icon}`}</Icon>{`${item.label}`}</Link></li>
-            ))}
+          {this.props.items.map((item, i)=>(
+            <li key={i}><Link to={`${item.link}`}><Icon>{`${item.icon}`}</Icon>{`${item.label}`}</Link></li>
+          ))}
           </ul>
         </div>
       </aside>
