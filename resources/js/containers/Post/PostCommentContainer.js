@@ -74,7 +74,7 @@ class PostCommentContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  status: state.user.status,
+  status: state.authentication.status,
   commentData: state.comment.list.data,
 })
 
