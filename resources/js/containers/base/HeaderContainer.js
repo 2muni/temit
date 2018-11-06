@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as authActions from '../../store/modules/authentication';
 import { createCookie, getCookie } from '../../lib/cookie'
-import axios from 'axios';
 
 class HeaderContainer extends Component {
 
@@ -13,7 +12,6 @@ class HeaderContainer extends Component {
 
     this.handleLogout = this.handleLogout.bind(this);
   }
-
 
   componentDidMount() {
     let loginData = getCookie('user');
@@ -25,14 +23,17 @@ class HeaderContainer extends Component {
   }
 
   handleLogout() {
-    this.props.AuthActions.logoutRequest();
+    this.props.AuthActions.logoutRequest()
+    createCookie('user', {
+      isLoggedIn: false,
+      currentUser: ''
+    })
   }
 
   render() {
-
     const path = /(login|register|write)/;
     const isHidden = path.test(this.props.location.pathname);
-    console.log("render");
+    
     return (
       isHidden ? <Fragment></Fragment> : 
       <Header

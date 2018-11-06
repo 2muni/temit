@@ -37,7 +37,7 @@ class PostCommentContainer extends Component {
     let data = new FormData();
     data.append('article_id', this.props.article);
     data.append('comment', this.state.comment);
-    data.append('user_id', this.props.status.id);
+    data.append('user_id', this.props.user.id);
     this.props.CommentActions.postRequest(data)
     .then(() => this.props.CommentActions.listRequest(this.props.article))
     .then(() => this.setState(
@@ -49,7 +49,7 @@ class PostCommentContainer extends Component {
   }
 
   handleCommentRemove(e) {
-    if(this.props.status.id == e.target.dataset.user) {
+    if(this.props.user.id == e.target.dataset.user) {
       confirm("댓글을 삭제하시겠습니까?") && 
       this.props.CommentActions.removeRequest(e.target.dataset.id)
       .then(() => this.props.CommentActions.listRequest(this.props.article))
@@ -61,7 +61,7 @@ class PostCommentContainer extends Component {
     return(
       <Fragment>{this.props.commentData ?
         <PostComments
-          user={this.props.status}
+          user={this.props.user}
           comment={this.state.comment}
           list={this.state.list}
           handleChange={this.handleChange}
@@ -74,7 +74,7 @@ class PostCommentContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  status: state.authentication.status,
+  user: state.authentication.status.currentUser,
   commentData: state.comment.list.data,
 })
 

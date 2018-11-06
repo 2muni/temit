@@ -37,7 +37,6 @@ export const registerRequest = data => (
       dispatch(registerSuccess())
     })
     .catch((err) => {
-      console.log(err)
       dispatch(registerFailure(err))
     })
   }
@@ -52,13 +51,12 @@ export const loginRequest = data => (
         'X-Requested-With': 'XMLHttpRequest'
       }})
     .then((res) => {
-      dispatch(registerSuccess())
+      dispatch(loginSuccess())
       createCookie('token', res.data)
-      console.log(res.data)
       userRequest()
     })
     .catch((err) => {
-      dispatch(registerFailure(err))
+      dispatch(loginFailure(err))
     })
   }
 )
@@ -66,7 +64,6 @@ export const loginRequest = data => (
 export const userRequest = () => (
   dispatch => {
     dispatch(user())
-    console.log(getCookie('token'));
     return axios.get('/api/auth/user', {
       headers: {
         'Authorization': getCookie('token').token_type+' '+getCookie('token').access_token
@@ -75,14 +72,14 @@ export const userRequest = () => (
       dispatch(userSuccess(res))
       createCookie('user', {
         isLoggedIn: true,
-        username: res.data.email
+        currentUser: res.data.name
       })
     })
     .catch((err) => {
       dispatch(userFailure(err))
       createCookie('user', {
         isLoggedIn: false,
-        username: ''
+        currentUser: ''
       })
     })
   }
@@ -152,7 +149,7 @@ export default handleActions(
     [AUTH_USER_SUCCESS]: (state, action) =>
       produce(state, draft => {
         draft.status['valid'] = true
-        draft.status['currentUser'] = action.name
+        draft.status['currentUser'] = action.payload.data
       }),
     [AUTH_USER_FAILURE]: (state) =>
       produce(state, draft => {

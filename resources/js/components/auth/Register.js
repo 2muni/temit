@@ -10,7 +10,7 @@ const Register = ({
   <div className="logo">temit</div>
     <div className="card">
       <div className="card-content">
-        <div className="input-field email">
+        <div className="input-field">
           <label htmlFor="name">이름</label>
           <input
             id="name"
@@ -22,7 +22,7 @@ const Register = ({
             required autoFocus
           />
         </div>
-        <div className="input-field email">
+        <div className="input-field">
           <label htmlFor="email">이메일</label>
           <input
             id="email"
@@ -58,7 +58,7 @@ const Register = ({
             required
           />
         </div>
-        <button onClick={handleSubmit} className="waves-effect waves-light btn">로그인</button>
+        <button onClick={handleSubmit} className="waves-effect waves-light btn">회원가입</button>
     </div>
   </div>
   <div className="card">

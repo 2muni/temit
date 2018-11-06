@@ -70,7 +70,7 @@ class PostListContainer extends Component {
     return(
       <Fragment>
         <AsideNav 
-          user={this.props.status}
+          user={this.props.user}
           items={[
             {
               link: '/write',
@@ -90,7 +90,7 @@ class PostListContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  status: state.user.status,
+  user: state.authentication.status.currentUser,
   articleList: state.article.list
 });
 

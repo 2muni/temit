@@ -44,7 +44,7 @@ class AsideNav extends Component {
             <div className="user-img-0">
               <img className="circle" alt="user-profile" src="https://s3.ap-northeast-2.amazonaws.com/temit.s3/default-user-img-profile.jpg"/>
             </div>
-            <div className="user-name">{this.props.user.username}</div>
+            <div className="user-name">{this.props.user.name}</div>
           </div>
           <ul className="aside-navitem">
           {this.props.items.map((item, i)=>(
