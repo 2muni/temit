@@ -7,7 +7,7 @@ const Login = ({ match, history }) => {
   return(
     <div className="article-wrapper">
       <LoginContainer
-      history={history}
+        history={history}
       />
     </div>
   );

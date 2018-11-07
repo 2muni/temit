@@ -11,7 +11,7 @@ const Post = ({ match }) => {
         items={[
           {
             link: '/write',
-            icon: 'edit',
+            icon: 'create',
             label: '글 쓰기',
           }
         ]}

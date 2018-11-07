@@ -41,15 +41,7 @@
     flex-direction: column;
   }
 }
-.material-icons{
-  width: 24px;
-  height: 24px;
-  line-height: 24px;
-  font-size: 24px;
-  text-align: center;
-  cursor: pointer;
-  margin: 10px;
-}
+
 .snapshot-body{
   padding: 0 16px;
   .btns{
@@ -88,8 +80,13 @@
     justify-content: space-between;
     align-items: center;
   }
-  .divider{
-    margin-top: 2rem;
-    margin-bottom: 3rem;
+  .material-icons{
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 24px;
+    text-align: center;
+    cursor: pointer;
+    margin: 10px;
   }
 }

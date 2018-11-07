@@ -1516,7 +1516,10 @@ nav .nav-wrapper {
 }
 
 .post-column .postcard {
-  height: 495px;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
   background-color: #fff;
   -webkit-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.14);
   box-shadow: 0 1.5px 1.5px rgba(0, 0, 0, 0.12), 0 3px 6px rgba(0, 0, 0, 0.1725);
@@ -1731,16 +1734,6 @@ nav .nav-wrapper {
           flex-direction: column;
 }
 
-.material-icons {
-  width: 24px;
-  height: 24px;
-  line-height: 24px;
-  font-size: 24px;
-  text-align: center;
-  cursor: pointer;
-  margin: 10px;
-}
-
 .snapshot-body {
   padding: 0 16px;
 }
@@ -1801,9 +1794,14 @@ nav .nav-wrapper {
           align-items: center;
 }
 
-.snapshot-write .divider {
-  margin-top: 2rem;
-  margin-bottom: 3rem;
+.snapshot-write .material-icons {
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  font-size: 24px;
+  text-align: center;
+  cursor: pointer;
+  margin: 10px;
 }
 
 body {

@@ -52,7 +52,6 @@ export const postRequest = data => (
       })
   }
 );
-
 export const listRequest = page => (
   dispatch => {
     dispatch(list());

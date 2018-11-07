@@ -3,7 +3,7 @@ import SnapshotContainer from '../containers/snapshot/SnapshotContainer'
 import AsideContainer from '../containers/base/AsideContainer'
 
 const Post = ({ match }) => {
-  const { id } = match.params;
+  const { state } = match.params;
 
   return(
     <div className="snapshot-wrapper">
@@ -11,12 +11,14 @@ const Post = ({ match }) => {
         items={[
           {
             link: '',
-            icon: 'edit',
+            icon: 'create',
             label: '새 스냅샷'
           }
         ]}
       />
-      <SnapshotContainer/>
+      <SnapshotContainer
+        state={state}
+      />
     </div>
   );
 }
