@@ -1,0 +1,39 @@
+.snapshot-write {
+  border-bottom: 1px solid $gray;
+  .write-head{
+    display: flex;
+    justify-content: flex-end;
+  }
+  .write-body{
+    margin-top: 1rem;
+    border: 1px solid #e6e6e6;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    img{ max-width: 100px; max-height: 100px; }
+  }
+  textarea{
+    all:unset;
+    width: 100%;
+    padding: 1rem;
+    overflow-y: hidden;
+    word-wrap: break-word;
+  }
+  .write-options{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  label{ color: #3498db }
+  .material-icons{
+    color: #3498db;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 24px;
+    text-align: center;
+    cursor: pointer;
+    margin: 10px;
+  }
+}

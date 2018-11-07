@@ -35,6 +35,7 @@ class ImageUploadController extends Controller
      */
     public function store(Request $request)
     {
+
         if($request->hasFile('image')) {
             $user_id = $request->user_id;
             $path = $request->path;

@@ -1,0 +1,48 @@
+.snapshot-item{
+  margin: 0 auto;
+  max-width: 600px;
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+  background-color: #fff;
+  &+&{
+    margin-top: 60px;
+  }
+
+  img{ width: 100% }
+}
+
+.snapshot-head{
+  height: 60px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  img{
+    margin: 8px;
+    display: inline-block;
+    background: black center center no-repeat;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+  }
+  .info{
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.snapshot-body{
+  padding: 0 16px;
+  .btns{
+    width: 100%;
+    display: flex;
+  }
+  .date{
+    width: 100%;
+    font-size: .5rem;
+  }
+  .replies{
+    width: 100%;
+    border-top: 1px solid #e6e6e6;
+    padding: 16px 0;
+  }
+}

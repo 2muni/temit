@@ -39,4 +39,8 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Comment');
     }
+    public function snapshots()
+    {
+        return $this->hasMany('App\Snapshot');
+    }
 }

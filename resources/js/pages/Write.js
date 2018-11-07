@@ -1,11 +1,14 @@
 import React from 'react';
 import EditorContainer from '../containers/editor/EditorContainer'
 
-const Write = ({ match }) => {
+const Write = ({ match, history }) => {
   const { id } = match.params;
 
   return(
-    <EditorContainer article={id}/>
+    <EditorContainer 
+      article={id}
+      history={history}
+      />
   );
 }
 

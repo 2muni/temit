@@ -742,6 +742,7 @@
           align-items: center;
   background-color: rgba(0, 0, 0, 0.7);
   position: absolute;
+  top: 0;
   overflow-y: hidden;
   z-index: 999;
 }
@@ -1661,33 +1662,6 @@ nav .nav-wrapper {
   margin-top: 4rem;
 }
 
-.snapshot-wrapper {
-  max-width: 1080px;
-  margin: 0 auto;
-  height: calc(100% - 64px);
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.snapshot-wrapper .snapshot-nav {
-  padding: 0 15px;
-  margin: 47px 0;
-}
-
-.snapshot-wrapper .snapshot-aside {
-  padding: 0 15px;
-  margin: 47px 0;
-}
-
-.snapshot-wrapper .snapshot-column {
-  padding: 16px 0;
-  margin: 47px;
-}
-
 .snapshot-item {
   margin: 0 auto;
   max-width: 600px;
@@ -1773,12 +1747,25 @@ nav .nav-wrapper {
   margin-top: 1rem;
   border: 1px solid #e6e6e6;
   border-radius: 4px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.snapshot-write .write-body img {
+  max-width: 100px;
+  max-height: 100px;
 }
 
 .snapshot-write textarea {
   all: unset;
   width: 100%;
   padding: 1rem;
+  overflow-y: hidden;
+  word-wrap: break-word;
 }
 
 .snapshot-write .write-options {
@@ -1794,7 +1781,12 @@ nav .nav-wrapper {
           align-items: center;
 }
 
+.snapshot-write label {
+  color: #3498db;
+}
+
 .snapshot-write .material-icons {
+  color: #3498db;
   width: 24px;
   height: 24px;
   line-height: 24px;
@@ -1802,6 +1794,33 @@ nav .nav-wrapper {
   text-align: center;
   cursor: pointer;
   margin: 10px;
+}
+
+.snapshot-wrapper {
+  max-width: 1080px;
+  margin: 0 auto;
+  height: calc(100% - 64px);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.snapshot-wrapper .snapshot-nav {
+  padding: 0 15px;
+  margin: 47px 0;
+}
+
+.snapshot-wrapper .snapshot-aside {
+  padding: 0 15px;
+  margin: 47px 0;
+}
+
+.snapshot-wrapper .snapshot-column {
+  padding: 16px 0;
+  margin: 47px;
 }
 
 body {

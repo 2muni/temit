@@ -35,25 +35,23 @@ export function dataURLToBlob(dataURL) {
   });
 };
 
-export function resize(imageData) {
+export function resize(size, imageData) {
   const resize_image = image => {
     const parts = image.src.split(";base64,");
     const contentType = parts[0].split(":")[1];
 
     let canvas = document.createElement("canvas"),
-      max_size = 1280,
-      // 최대 기준을 1280으로 잡음.
+      max_size = size,
+      
       width = image.width,
       height = image.height;
   
     if (width > height) {
-      // 가로가 길 경우
       if (width > max_size) {
         height *= max_size / width;
         width = max_size;
       }
     } else {
-      // 세로가 길 경우
       if (height > max_size) {
         width *= max_size / height;
         height = max_size;

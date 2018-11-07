@@ -37,19 +37,19 @@ class EditorContainer extends Component {
     this.handleTags = this.handleTags.bind(this);
   }
 
-  requestImageURL(blob, callback) {
+  requestImageURL(blob, path, callback) {
     return new Promise((res, rej) => {
       const src = blob;
       let data = new FormData();
       data.append('user_id', this.props.user.id);
-      data.append('path', 'articles');
+      data.append('path', path);
   
       const reader = new FileReader();
       reader.onload = e => {
         const image = new Image();
         image.src = e.target.result;
         image.onload = imageEvent => {
-          data.append('image', resize(image), this.props.user.name);
+          data.append('image', resize(768, image), this.props.user.name);
           if(callback)
             res(axios.post('/api/images', data).then((res) => 
             callback(res.data)));
@@ -72,7 +72,7 @@ class EditorContainer extends Component {
       usageStatistics: false,
       hooks: {
         'addImageBlobHook': (blob, callback) => {
-          this.requestImageURL(blob, callback)
+          this.requestImageURL(blob, 'articles', callback)
         }
       },
       events: {
@@ -155,25 +155,25 @@ class EditorContainer extends Component {
     data.append('title', this.state.post.title);
     data.append('body', this.state.post.body);
     if(this.state.post.thumbnail) {
-    this.requestImageURL(this.state.post.thumbnail)
+    this.requestImageURL(this.state.post.thumbnail, 'articles')
       .then((url) => data.append('thumbnail', url))
       .then(() => {
         if(this.props.article)
           this.props.ArticleActions.editRequest(this.props.article, data)
-            .then(() => this.props.history.push('/'))
+            .then(() => this.props.history.push('/board'))
         else
           this.props.ArticleActions.postRequest(data)
-            .then(() => this.props.history.push('/'))
+            .then(() => this.props.history.push('/board'))
       })
     }else {
       if(this.props.article) {
         console.log(this.state.post);
         this.props.ArticleActions.editRequest(this.props.article, data)
-          .then(() => this.props.history.push('/'))
+          .then(() => this.props.history.push('/board'))
       }
       else{
         this.props.ArticleActions.postRequest(data)
-          .then(() => this.props.history.push('/'))
+          .then(() => this.props.history.push('/board'))
       }
     }
 
@@ -185,7 +185,6 @@ class EditorContainer extends Component {
         <EditorNav
           handleSubmitCard={this.handleSubmitCard}
         />
-        <div id="editSection"/>
         <EditorSubmit
           post={this.state.post}
           tags={this.state.tags}
@@ -194,6 +193,7 @@ class EditorContainer extends Component {
           handleSubmit={this.handleSubmit}
           handleSubmitCard={this.handleSubmitCard}
         />
+        <div id="editSection"/>
       </div>
     );
   }
