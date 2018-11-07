@@ -11,10 +11,5 @@
 |
 */
 
-Route::get('home', function () {
-    return redirect('/');
-}); 
-
-Route::get('/{path?}', 'HomeController@index')->where('path', '.*')->name('home');
-
+Route::get('/{path?}', 'HomeController@index')->where('path', '.*')->name('/');
 

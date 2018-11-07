@@ -72,7 +72,7 @@ export const userRequest = () => (
       dispatch(userSuccess(res))
       createCookie('user', {
         isLoggedIn: true,
-        currentUser: res.data.name
+        currentUser: res.data
       })
     })
     .catch((err) => {

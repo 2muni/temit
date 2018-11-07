@@ -1,6 +1,6 @@
 // create cookie by json
 export function createCookie(name, json) {
-  document.cookie = `${name}=` + btoa(JSON.stringify(json))
+  document.cookie = `${name}=${btoa(JSON.stringify(json))}; path=/;`
 }
 
 // get cookie by name

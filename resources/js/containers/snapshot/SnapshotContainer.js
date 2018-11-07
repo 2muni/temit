@@ -1,8 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { AsideNav } from '../../components/base';
 import produce from 'immer';
 import axios from 'axios';
-import { Icon } from 'react-materialize'
+import { Icon, Button } from 'react-materialize'
 
 class SnapshotContainer extends Component {
 
@@ -31,19 +30,28 @@ class SnapshotContainer extends Component {
 
   render() {
     return(
-      <Fragment>
-      <AsideNav
-        user={{username: '테스트01'}}
-        items={[
-          {
-            link: '',
-            icon: 'edit',
-            label: '새 스냅샷'
-          }
-        ]}
-      />
-
       <div className="snapshot-column">
+        <div className="snapshot-write">
+          <div className="write-head">
+            <Button>업로드</Button>
+          </div>
+          <div className="write-body">
+            <textarea></textarea>
+            <div className="image-wrapper"></div>
+          </div>
+          <div className="write-options">
+            <div className="btns">
+              <Icon>add_a_photo</Icon>
+              <Icon>person_add</Icon>
+              <Icon>local_offer</Icon>
+            </div>
+            <div className="length">
+              <span>dsfsdf</span>
+            </div>
+          </div>
+          <div className="divider"></div>
+        </div>
+
 
         <div className="snapshot-item">
 
@@ -101,7 +109,6 @@ class SnapshotContainer extends Component {
           </div>
 
       </div>
-      </Fragment>
     );
   }
 

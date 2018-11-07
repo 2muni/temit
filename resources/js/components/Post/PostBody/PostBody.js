@@ -9,7 +9,7 @@ const PostBody = ({
     <div className="article-content"/>
     <div className="article-tags">
       {article.tags.map((tag, i) => (
-        <Link key={i} to={`/${tag.id}`}>{tag.tag}</Link>
+        <Link key={i} to={`/board/${tag.id}`}>{tag.tag}</Link>
       ))}
     </div>
   </Fragment>

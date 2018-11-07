@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { PostList } from '../../components/post/PostList';
-import { AsideNav } from '../../components/base';
 import { Preloader } from '../../components/etc'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -25,6 +24,7 @@ class PostListContainer extends Component {
 
   componentDidMount() {
     this.setState({ isLoading: true })
+    
     if(this.props.tag){
       axios.get(`/api/tags/${this.props.tag}`)
         .then((res) => this.setState(produce(this.state, draft => {
@@ -68,23 +68,11 @@ class PostListContainer extends Component {
 
   render() {
     return(
-      <Fragment>
-        <AsideNav 
-          user={this.props.user}
-          items={[
-            {
-              link: '/write',
-              icon: 'edit',
-              label: '글 쓰기',
-            }
-          ]}
-        />
-        <div className="post-column">          
-        {this.props.tag ? <div className="tag-header">#{this.state.tag}</div> : undefined }
-          <PostList list={this.state.list}/>
-          {this.state.isLoading ? <Preloader/> : undefined }
-        </div>
-      </Fragment>
+      <div className="post-column">          
+      {this.props.tag ? <div className="tag-header">#{this.state.tag}</div> : undefined }
+        <PostList list={this.state.list}/>
+        {this.state.isLoading ? <Preloader/> : undefined }
+      </div>
     )
   }
 }

@@ -24,7 +24,7 @@ if (document.getElementById('root')) {
               <Route path='/write/:id' component={Write}/>
               <Route path='/write' component={Write}/>
               <Route path='/post/:id' component={Post}/>
-              <Route path='/board:tag' component={Board}/>
+              <Route path='/board/:tag' component={Board}/>
               <Route path='/board' component={Board}/>
               <Route path='/' component={Home}/>
             </Switch>
