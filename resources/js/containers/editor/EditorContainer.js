@@ -47,15 +47,15 @@ class EditorContainer extends Component {
       const reader = new FileReader();
       reader.onload = e => {
         const image = new Image();
-        image.src = e.target.result;
+        image.src = reader.result;
         image.onload = imageEvent => {
           data.append('image', resize(768, image), this.props.user.name);
           if(callback)
-            res(axios.post('/api/images', data).then((res) => 
-            callback(res.data)));
+            res(axios.post('/api/images', data)
+            .then((res) => callback(res.data)));
           else{
-            res(axios.post('/api/images', data).then((res) => {
-              return res.data}));
+            res(axios.post('/api/images', data)
+            .then((res) => (res.data)));
           }
         }
       }

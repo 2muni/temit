@@ -1,8 +1,11 @@
-import React, { Component, Fragment } from 'react';
-import produce from 'immer';
-import axios from 'axios';
+import React, { Component } from 'react';
 import { SSWrite } from '../../components/snapshot/SSWrite';
 import { SSItem } from '../../components/snapshot/SSItem';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as snapshotActions from '../../store/modules/snapshot'
+import { resize } from '../../lib/tool';
+import axios from 'axios';
 
 class SnapshotContainer extends Component {
 
@@ -16,6 +19,7 @@ class SnapshotContainer extends Component {
     }
     this.onScroll = this.onScroll.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.addImage = this.addImage.bind(this);
   }
 
@@ -49,6 +53,19 @@ class SnapshotContainer extends Component {
       this.setState({ body: e.target.value })
   }
 
+  handleSubmit() {
+    let data = new FormData();
+    data.append('user_id', this.props.user.id);
+    data.append('body', this.state.body);
+    this.requestImageURL(this.state.preview, 'snapshots')
+    .then((uri) => data.append('uri', uri))
+    .then(() => this.props.SnapshotActions.postRequest(data))
+    .then(() => this.setState({
+      body: '',
+      preview: '',
+    }))
+  }
+
   addImage(e) {
     const reader = new FileReader();
     reader.onload = () => {
@@ -57,12 +74,28 @@ class SnapshotContainer extends Component {
     reader.readAsDataURL(e.target.files[0]);
   }
 
+  requestImageURL(blob, path) {
+    return new Promise((res, rej) => {
+      let data = new FormData();
+      data.append('user_id', this.props.user.id);
+      data.append('path', path);
+      const image = new Image();
+      image.src = blob;
+      image.onload = imageEvent => {
+        data.append('image', resize(768, image), this.props.user.name);
+        res(axios.post('/api/images', data)
+        .then((res) => (res.data)));
+      }
+    });
+  }
+
   render() {
     return(
       <div className="snapshot-column">
         <SSWrite
           addImage={this.addImage}
           handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
           body={this.state.body}
           preview={this.state.preview}
         />
@@ -71,7 +104,15 @@ class SnapshotContainer extends Component {
       </div>
     );
   }
-
 }
 
-export default SnapshotContainer;
+const mapStateToProps = (state) => ({
+  user: state.authentication.status.currentUser,
+  snapshotList: state.snapshot.get.data
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  SnapshotActions: bindActionCreators(snapshotActions, dispatch)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SnapshotContainer);

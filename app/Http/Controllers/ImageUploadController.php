@@ -44,6 +44,8 @@ class ImageUploadController extends Controller
 
             if($path == 'articles') {
                 $filenametostore = $user_id.'/'.'articles/'.$filenamewithextension.'_'.(time()*(int)$user_id);
+            }else if($path == 'snapshots') {
+                $filenametostore = $user_id.'/'.'snapshots/'.$filenamewithextension.'_'.(time()*(int)$user_id);
             }else if($path == 'avatar') {
                 $filenametostore = $user_id.'/'.'avatar/'.$filenamewithextension;
             }else {

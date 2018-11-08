@@ -34,8 +34,20 @@ class SnapshotController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        $request->validate([
+            'body' => 'required|string',
+            'user_id' => 'required|string',
+            'uri' => 'string',
+        ]);
+
+        $response = Snapshot::create([
+            'body' => $request->body,
+            'user_id' => $request->user_id,
+            'uri' => $request->uri
+        ]);
+
+        return Response($response, 201);
     }
 
     /**
@@ -80,6 +92,8 @@ class SnapshotController extends Controller
      */
     public function destroy(Snapshot $snapshot)
     {
-        //
+        $snapshot->delete();
+
+        return Response('Delete Snapshot', 200);
     }
 }

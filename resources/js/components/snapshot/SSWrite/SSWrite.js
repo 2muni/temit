@@ -12,13 +12,14 @@ const handleHeight = (e) => {
 const SSWrite = ({
   addImage,
   handleClick,
+  handleSubmit,
   handleChange,
   body,
   preview
 }) => (
   <div className="snapshot-write">
     <div className="write-head">
-      <Button>업로드</Button>
+      <Button onClick={handleSubmit}>업로드</Button>
     </div>
     <div className="write-body">
       <img src={preview}/>

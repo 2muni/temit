@@ -24,16 +24,6 @@ class ArticleController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -44,16 +34,11 @@ class ArticleController extends Controller
         $data = $request->validate([
             'title' => 'required|string',
             'body' => 'required|string',
-            'user_id' => 'required|integer',
+            'user_id' => 'required|string',
             'thumbnail' => 'string',
         ]);
 
-        Article::create([
-            'title' => $request->title,
-            'body' => $request->body,
-            'user_id' => $request->user_id,
-            'thumbnail' => $request->thumbnail
-        ]);
+        Article::create($data);
 
         $article_id = Article::with('user')
         ->orderBy('id', 'desc')->first()->id;
@@ -82,17 +67,6 @@ class ArticleController extends Controller
             ->find($article);
 
         return response($article, 200);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Article  $article
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Article $article)
-    {
-        //
     }
 
     /**
@@ -125,6 +99,6 @@ class ArticleController extends Controller
     {
         $article->delete();
 
-        return response('Deleted Article', 200);
+        return Response('Deleted Article', 200);
     }
 }
