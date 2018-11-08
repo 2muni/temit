@@ -6,8 +6,12 @@ const handleHeight = (e) => {
   e.target.style.height = (e.target.scrollHeight)+"px";
 }
 
+//<span onClick={handleClick}><Icon className="add-person">person_add</Icon></span>
+//<span onClick={handleClick}><Icon className="add-tag">local_offer</Icon></span>
+
 const SSWrite = ({
   addImage,
+  handleClick,
   handleChange,
   body,
   preview
@@ -19,6 +23,7 @@ const SSWrite = ({
     <div className="write-body">
       <img src={preview}/>
       <textarea
+        id="text"
         rows={1}
         onKeyDown={handleHeight}
         onKeyUp={handleHeight}
@@ -31,8 +36,6 @@ const SSWrite = ({
       <div className="btns">
         <label htmlFor="img"><Icon>add_a_photo</Icon></label>
         <input onChange={addImage} id="img" type="file" accept="image/*;capture=camera" style={{display: 'none'}}></input>
-        <Icon>person_add</Icon>
-        <Icon>local_offer</Icon>
       </div>
       <div className="length">
         <span>{body.length}/150</span>

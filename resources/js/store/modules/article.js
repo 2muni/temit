@@ -1,7 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import axios from 'axios';
 import { produce } from 'immer';
-//import { getMetaData } from '../../lib/auth'
     
 const POST = 'article/POST';
 const POST_SUCCESS = 'article/POST_SUCCESS';
@@ -124,6 +123,7 @@ const initialState = {
 
 export default handleActions(
   {
+    /* POST ACTIONS */
     [POST]: (state) => 
       produce(state, draft => {
         draft.post = {
@@ -144,6 +144,8 @@ export default handleActions(
           error: action.payload.error
         }
       }),
+    
+    /* LIST ACTIONS */
     [LIST]: (state) => 
       produce(state, draft => {
         draft.list = {
@@ -163,6 +165,8 @@ export default handleActions(
           status:'FAILURE',
         }
       }),
+
+    /* GET ACTIONS */
     [GET]: (state) => 
       produce(state, draft => {
         draft.get = {
@@ -182,6 +186,8 @@ export default handleActions(
           status:'FAILURE',
         }
       }),
+
+    /* EDIT ACTIONS */
     [EDIT]: (state) => 
       produce(state, draft => {
         draft.edit = {
@@ -202,6 +208,8 @@ export default handleActions(
           error: action.payload.error
         }
       }),
+    
+    /* REMOVE ACTIONS */
     [REMOVE]: (state) => 
       produce(state, draft => {
         draft.remove = {

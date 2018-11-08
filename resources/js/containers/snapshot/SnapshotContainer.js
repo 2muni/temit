@@ -33,16 +33,23 @@ class SnapshotContainer extends Component {
     else if(window.scrollY > 99 && !this.state.isFixed) this.setState({ isFixed: true })
   }
 
+  // handleClick(e) {
+  //   const isAddPerson = /(add-person)/.test(e.target.className)
+  //   if(isAddPerson) {
+  //     this.setState({ body: this.state.body.concat(' #')})
+  //   }else {
+  //     this.setState({ body: this.state.body.concat(' @')})
+  //   }
+  //   document.querySelector('#text').focus();
+  // }
+
   handleChange(e) {
-    console.log(e.target.value.substr(e.target.value.length - 1))
-    if(e.target.value.substr(e.target.value.length - 1) == ' ')
-      console.log('space!')
+  //    console.log(e.target.value.substr(e.target.value.length - 1))
     if(e.target.value.length < 151)
       this.setState({ body: e.target.value })
   }
 
   addImage(e) {
-    console.log(e.target.files[0]);
     const reader = new FileReader();
     reader.onload = () => {
       this.setState({ preview: reader.result })
