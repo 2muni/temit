@@ -47,11 +47,18 @@ class UserContainer extends Component {
   }
 
   handleChange(e) {
-    this.setState(
-      produce(this.state, draft => {
-        draft.edit[e.target.name] = e.target.value;
-      })
-    )
+    if(e.target.name === 'name' && e.target.value.length > 16) {
+      e.target.style.backgroundColor = '#e74c3c';
+    }else if(e.target.name === 'bio' && e.target.value.length > 60) {
+      e.target.style.backgroundColor = '#e74c3c';
+    }else{
+      e.target.style.backgroundColor = '#e1f0fa';
+      this.setState(
+        produce(this.state, draft => {
+          draft.edit[e.target.name] = e.target.value;
+        })
+      )
+    }
   }
 
   handleSubmit() {
