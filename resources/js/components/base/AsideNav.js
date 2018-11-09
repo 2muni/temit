@@ -11,7 +11,7 @@ const AsideNav = ({
     <div className="fixed-frame" style={ isFixed ? {position: 'fixed', top: '11px'} : {position: 'static'} }>
       <div className="user-profile">
         <div className="user-img-0">
-          <Link to={`/users/${user.id}`}><img className="circle" alt="user-profile" src="https://s3.ap-northeast-2.amazonaws.com/temit.s3/default-user-img-profile.jpg"/></Link>
+          <Link to={`/users/${user.id}`}><img className="circle" alt="user-profile" src={user.thumbnail}/></Link>
         </div>
         <Link to={`/users/${user.id}`}><div className="user-name">{user.name}</div></Link>
       </div>

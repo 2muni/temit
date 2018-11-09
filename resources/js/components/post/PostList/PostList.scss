@@ -57,7 +57,19 @@
     i{ color: #B2BECB; font-size: 102px; }
   }
   .postcard-content{ padding: 1.5rem; }
-
+  .user-thumbnail{
+    display: block;
+    position: relative;
+    width: 50px;
+    top: -3rem;
+    left: 80%;
+    img{
+      box-sizing: unset;
+      width: 100%;
+      position: absolute;
+      border: 5px solid #fff;
+    }
+  }
   .content-head{
     padding-bottom: 1.5rem;
     border-bottom: 1px solid #E9E9E9;

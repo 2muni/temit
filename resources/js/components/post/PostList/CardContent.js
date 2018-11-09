@@ -11,9 +11,11 @@ const CardContent = ({
   post
 }) => (
   <div className="postcard-content">
-    <Link className="user-thumbnail" to="#"></Link>
+    <Link className="user-thumbnail" to={`/users/${post.user.id}`}>
+      <img className="circle" alt="user-profile" src={post.user.thumbnail}/>
+    </Link>
     <div className="content-head">
-      <Link className="username" to="#">{post.user.email.substring(0, post.user.email.indexOf('@'))}</Link>
+      <Link className="username" to={`/users/${post.user.id}`}>{post.user.name}</Link>
       <div className="title">
         <Link to={`/post/${post.id}`}>{post.title}</Link>
       </div>

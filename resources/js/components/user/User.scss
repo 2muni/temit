@@ -1,32 +1,8 @@
+@import './UserHead/UserHead';
+
 .user-wrapper{
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 4rem;
-}
-
-
-.user-head{
-  width: 768px;
-  display: flex;
-  img{ width: 160px; height: 160px; }
-  .user-info{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-left: 2rem;
-  }
-  .divider{ margin: .3rem 0; }
-  .btns{
-    display: flex;
-    justify-content: flex-end;
-  }
-  .user-name{
-    font-size: 2rem;
-  }
-  .user-bio{ 
-    font-size: .9rem;
-    color: #7f8c8d 
-  }
 }

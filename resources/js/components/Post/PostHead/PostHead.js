@@ -14,10 +14,9 @@ const PostHead = ({
 }) => (
   <div className="article-head">
     <div className="userinfo">
-      <Link to="#" className="user-thumbnail">{article.user.thumbnail ?
-        <img></img> :
-        <img className="circle" alt="user-profile" src="https://s3.ap-northeast-2.amazonaws.com/temit.s3/default-user-img-profile.jpg"/>
-      }</Link>
+      <Link to="#" className="user-thumbnail">
+        <img className="circle" alt="user-profile" src={article.user.thumbnail}/>
+      </Link>
       <div className="info">
         <Link to="#" className="username">{article.user.email.substring(0, article.user.email.indexOf('@'))}</Link>
         <div className="bio">{article.user.bio}</div>

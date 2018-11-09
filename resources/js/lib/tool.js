@@ -35,24 +35,24 @@ export function dataURLToBlob(dataURL) {
   });
 };
 
-export function resize(size, imageData) {
-  const resize_image = image => {
+export function resize(size, imageData, isAvatar=false) {
+  const resize_image = (image) => {
     const parts = image.src.split(";base64,");
     const contentType = parts[0].split(":")[1];
 
-    let canvas = document.createElement("canvas"),
-      max_size = size,
-      
-      width = image.width,
-      height = image.height;
+    let canvas = document.createElement("canvas");
+    var max_size = size;
+    if(isAvatar){
+      var width = max_size;
+      var height = max_size;
+    }else {
+      var width = image.width;
+      var height = image.height;
   
-    if (width > height) {
-      if (width > max_size) {
+      if (width > height && width > max_size) {
         height *= max_size / width;
         width = max_size;
-      }
-    } else {
-      if (height > max_size) {
+      } else if(height > max_size) {
         width *= max_size / height;
         height = max_size;
       }

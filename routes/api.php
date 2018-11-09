@@ -36,7 +36,7 @@ Route::resource('/comments', 'CommentController');
 Route::resource('/snapshots', 'SnapshotController');
 
 Route::get('/users/{user}', 'UserController@show');
-Route::patch('/users/{user}', 'UserController@update');
+Route::put('/users/{user}', 'UserController@update');
 
 Route::post('/images', 'ImageUploadController@store');
 

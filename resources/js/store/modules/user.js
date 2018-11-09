@@ -23,7 +23,20 @@ export const userRequest = id => (
       .then((res) => {
         dispatch(userSuccess(res.data))
       }).catch(() => {
-        dispatch(postFailure())
+        dispatch(userFailure())
+      })
+  }
+)
+
+export const editRequest = (id, data) => (
+  dispatch => {
+    dispatch(edit());
+    data.append('_method', 'PUT');
+    return axios.post(`/api/users/${id}`, data)
+      .then(() => {
+        dispatch(editSuccess())
+      }).catch((err) => {
+        dispatch(editFailure(err))
       })
   }
 )
@@ -57,6 +70,26 @@ export default handleActions(
     [USER_GET_FAILURE]: (state, action) =>
       produce(state, draft => {
         draft.get = {
+          status: 'FAILURE',
+        }
+      }),
+
+    /* GET ACTIONS */
+    [USER_EDIT]: (state) => 
+      produce(state, draft => {
+        draft.edit = {
+          status: 'WAITING'
+        }
+    }),
+    [USER_EDIT_SUCCESS]: (state) =>
+      produce(state, draft => {
+        draft.edit = {
+          status: 'SUCCESS',
+        }
+      }),
+    [USER_EDIT_FAILURE]: (state) =>
+      produce(state, draft => {
+        draft.edit = {
           status: 'FAILURE',
         }
       })

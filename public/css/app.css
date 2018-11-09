@@ -1580,6 +1580,22 @@ nav .nav-wrapper {
   padding: 1.5rem;
 }
 
+.post-column .user-thumbnail {
+  display: block;
+  position: relative;
+  width: 50px;
+  top: -3rem;
+  left: 80%;
+}
+
+.post-column .user-thumbnail img {
+  -webkit-box-sizing: unset;
+          box-sizing: unset;
+  width: 100%;
+  position: absolute;
+  border: 5px solid #fff;
+}
+
 .post-column .content-head {
   padding-bottom: 1.5rem;
   border-bottom: 1px solid #E9E9E9;
@@ -1794,7 +1810,6 @@ nav .nav-wrapper {
   text-align: center;
   cursor: pointer;
   margin: 10px;
-  z-index: -1;
 }
 
 .snapshot-wrapper {
@@ -1824,30 +1839,56 @@ nav .nav-wrapper {
   margin: 47px;
 }
 
-.user-wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  margin-top: 4rem;
-}
-
 .user-head {
   width: 768px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.user-head img {
-  width: 160px;
-  height: 160px;
+.user-head .user-thumbnail {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  max-width: 160px;
+  max-height: 160px;
+}
+
+.user-head .user-thumbnail img {
+  max-width: 160px;
+  max-height: 160px;
+}
+
+.user-head .user-thumbnail .edit-thumbnail {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #000;
+  opacity: 0.7;
+  width: 100%;
+  height: 100%;
+  max-width: 160px;
+  max-height: 160px;
+  position: absolute;
+  z-index: 990;
+}
+
+.user-head .user-thumbnail .material-icons {
+  font-size: 3rem;
+  color: #fff;
+  cursor: pointer;
 }
 
 .user-head .user-info {
@@ -1867,6 +1908,32 @@ nav .nav-wrapper {
   margin-left: 2rem;
 }
 
+.user-head input,
+.user-head input:not([type]):focus:not([readonly]) {
+  all: unset;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  background-color: #e1f0fa;
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+.user-head input::-webkit-input-placeholder,
+.user-head input:not([type]):focus:not([readonly])::-webkit-input-placeholder {
+  color: #7f8c8d;
+}
+
+.user-head input::-ms-input-placeholder,
+.user-head input:not([type]):focus:not([readonly])::-ms-input-placeholder {
+  color: #7f8c8d;
+}
+
+.user-head input::placeholder,
+.user-head input:not([type]):focus:not([readonly])::placeholder {
+  color: #7f8c8d;
+}
+
 .user-head .divider {
   margin: .3rem 0;
 }
@@ -1880,13 +1947,40 @@ nav .nav-wrapper {
           justify-content: flex-end;
 }
 
+.user-head .btns .cancel {
+  background-color: #fff;
+  margin-right: 1rem;
+  color: #000;
+}
+
 .user-head .user-name {
   font-size: 2rem;
+  margin-top: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .user-head .user-bio {
   font-size: .9rem;
   color: #7f8c8d;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.user-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 4rem;
 }
 
 body {

@@ -69,13 +69,16 @@ export const userRequest = () => (
         'Authorization': getCookie('token').token_type+' '+getCookie('token').access_token
       }})
     .then((res) => {
+      
+      console.log("SUCCESS", res)
       dispatch(userSuccess(res))
       createCookie('user', {
         isLoggedIn: true,
         currentUser: res.data
       })
-    })
-    .catch((err) => {
+    }).catch((err) => {
+      
+      console.log(err)
       dispatch(userFailure(err))
       createCookie('user', {
         isLoggedIn: false,
