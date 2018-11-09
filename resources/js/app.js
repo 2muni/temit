@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import HeaderContainer from './containers/Base/HeaderContainer';
-import { Login, Register, Post, Write, Board, Home } from './pages'
+import { Login, Register, Post, Write, Board, Home, User } from './pages'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
@@ -26,6 +26,7 @@ if (document.getElementById('root')) {
               <Route path='/post/:id' component={Post}/>
               <Route path='/board/:tag' component={Board}/>
               <Route path='/board' component={Board}/>
+              <Route path='/users/:id' component={User}/>
               <Route path='/' component={Home}/>
             </Switch>
         </React.Fragment>

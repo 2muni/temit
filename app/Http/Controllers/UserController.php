@@ -70,14 +70,14 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $data = $request->validate([
-            'title' => 'required|string',
-            'body' => 'required|string',
-            'user_id' => 'required|integer',
+            'name' => 'required|string',
+            'bio' => 'required|string',
+            'thumbnail' => 'required|string'
         ]);
 
         $user->update($data);
 
-        return response($user, 200);
+        return response($user, 201);
     }
 
     /**

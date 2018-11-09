@@ -78,7 +78,6 @@ class PostListContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.authentication.status.currentUser,
   articleList: state.article.list
 });
 

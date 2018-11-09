@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { AsideNav } from '../../components/base'
-import { getCookie } from '../../lib/cookie'
 
 class AsideContainer extends Component {
 
@@ -37,7 +36,7 @@ class AsideContainer extends Component {
     return(
       <AsideNav
         isFixed={this.state.isFixed}
-        user={getCookie('user').currentUser}
+        user={this.props.user}
         items={this.props.items}
       />
     )

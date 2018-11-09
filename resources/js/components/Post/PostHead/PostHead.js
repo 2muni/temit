@@ -19,8 +19,8 @@ const PostHead = ({
         <img className="circle" alt="user-profile" src="https://s3.ap-northeast-2.amazonaws.com/temit.s3/default-user-img-profile.jpg"/>
       }</Link>
       <div className="info">
-        <Link to="#" className="username">{article.user.name}</Link>
-        <div className="bio">{article.user.name}</div>
+        <Link to="#" className="username">{article.user.email.substring(0, article.user.email.indexOf('@'))}</Link>
+        <div className="bio">{article.user.bio}</div>
       </div>
     </div>
 

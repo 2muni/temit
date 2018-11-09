@@ -1,6 +1,7 @@
 import React from 'react';
 import PostListContainer from '../containers/post/PostListContainer'
 import AsideContainer from '../containers/base/AsideContainer'
+import { getCookie } from '../lib/cookie'
 
 const Post = ({ match }) => {
   const { tag } = match.params;
@@ -15,6 +16,7 @@ const Post = ({ match }) => {
             label: '글 쓰기',
           }
         ]}
+        user={getCookie('user').currentUser}
       />
       <PostListContainer tag={tag}/>
     </div>

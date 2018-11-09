@@ -13,7 +13,7 @@ const CardContent = ({
   <div className="postcard-content">
     <Link className="user-thumbnail" to="#"></Link>
     <div className="content-head">
-      <Link className="username" to="#">{post.user.name}</Link>
+      <Link className="username" to="#">{post.user.email.substring(0, post.user.email.indexOf('@'))}</Link>
       <div className="title">
         <Link to={`/post/${post.id}`}>{post.title}</Link>
       </div>

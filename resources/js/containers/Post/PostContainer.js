@@ -57,7 +57,6 @@ class PostContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.authentication.status.currentUser,
   articleData: state.article.get.data,
 })
 

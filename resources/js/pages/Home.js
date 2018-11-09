@@ -1,6 +1,7 @@
 import React from 'react';
 import SnapshotContainer from '../containers/snapshot/SnapshotContainer'
 import AsideContainer from '../containers/base/AsideContainer'
+import { getCookie } from '../lib/cookie'
 
 const Post = ({ match }) => {
   const { state } = match.params;
@@ -15,9 +16,11 @@ const Post = ({ match }) => {
             label: '새 스냅샷'
           }
         ]}
+        user={getCookie('user').currentUser}
       />
       <SnapshotContainer
         state={state}
+        user={getCookie('user').currentUser}
       />
     </div>
   );

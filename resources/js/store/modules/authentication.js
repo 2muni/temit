@@ -3,16 +3,16 @@ import axios from 'axios';
 import { produce } from 'immer';
 import { createCookie, getCookie } from '../../lib/cookie'
 
-const AUTH_REGISTER = "AUTH_REGISTER"
-const AUTH_REGISTER_SUCCESS = "AUTH_REGISTER_SUCCESS"
-const AUTH_REGISTER_FAILURE = "AUTH_REGISTER_FAILURE"
-const AUTH_LOGIN = "AUTH_LOGIN"
-const AUTH_LOGIN_SUCCESS = "AUTH_LOGIN_SUCCESS"
-const AUTH_LOGIN_FAILURE = "AUTH_LOGIN_FAILURE"
-const AUTH_USER = "AUTH_USER"
-const AUTH_USER_SUCCESS = "AUTH_USER_SUCCESS"
-const AUTH_USER_FAILURE = "AUTH_USER_FAILURE"
-const AUTH_LOGOUT = "AUTH_LOGOUT"
+const AUTH_REGISTER = "authentication/AUTH_REGISTER"
+const AUTH_REGISTER_SUCCESS = "authentication/AUTH_REGISTER_SUCCESS"
+const AUTH_REGISTER_FAILURE = "authentication/AUTH_REGISTER_FAILURE"
+const AUTH_LOGIN = "authentication/AUTH_LOGIN"
+const AUTH_LOGIN_SUCCESS = "authentication/AUTH_LOGIN_SUCCESS"
+const AUTH_LOGIN_FAILURE = "authentication/AUTH_LOGIN_FAILURE"
+const AUTH_USER = "authentication/AUTH_USER"
+const AUTH_USER_SUCCESS = "authentication/AUTH_USER_SUCCESS"
+const AUTH_USER_FAILURE = "authentication/AUTH_USER_FAILURE"
+const AUTH_LOGOUT = "authentication/AUTH_LOGOUT"
 
 export const register = createAction(AUTH_REGISTER);
 export const registerSuccess = createAction(AUTH_REGISTER_SUCCESS);
@@ -107,7 +107,7 @@ const initialState = {
   status: {
     valid: false,
     isLoggedIn: false,
-    currentUser: ''
+    currentUser: null
   }
 }
 
