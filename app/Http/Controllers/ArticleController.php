@@ -66,7 +66,7 @@ class ArticleController extends Controller
             ->get()
             ->find($article);
 
-        return response($article, 200);
+        return Response($article, 200);
     }
 
     /**

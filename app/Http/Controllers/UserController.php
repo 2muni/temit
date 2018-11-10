@@ -14,8 +14,12 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
-    {
-        return response($user, 200);
+    {   
+        $user = User::with('follwers')
+        ->get()
+        ->find($user);
+        
+        return Response($user, 200);
     }
 
     /**

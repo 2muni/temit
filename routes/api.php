@@ -34,6 +34,7 @@ Route::group([
 Route::resource('/articles', 'ArticleController');
 Route::resource('/comments', 'CommentController');
 Route::resource('/snapshots', 'SnapshotController');
+Route::resource('/follow', 'FollowerController');
 
 Route::get('/users/{user}', 'UserController@show');
 Route::put('/users/{user}', 'UserController@update');
