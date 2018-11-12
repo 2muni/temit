@@ -43,8 +43,13 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Snapshot');
     }
-    public function follwers()
+    
+    public function followees()
     {
-        return $this->belongsToMany('App\Follower', "parent_id", 'follower_id');
+        return $this->belongsToMany('App\User', 'follower_user', 'follower_id', 'parent_id');
+    }
+    public function followers()
+    {
+        return $this->belongsToMany('App\User', 'follower_user', 'parent_id', 'follower_id');
     }
 }

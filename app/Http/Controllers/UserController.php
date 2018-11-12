@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {   
-        $user = User::with('follwers')
+        $user = User::with('followees', 'followers')
         ->get()
         ->find($user);
         
