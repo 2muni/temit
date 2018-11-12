@@ -9,6 +9,7 @@ const UserHead = ({
   handleToggle,
   handleChange,
   handleSubmit,
+  handleFollow,
   addImage,
 }) => (
   <div className="user-head">
@@ -48,7 +49,7 @@ const UserHead = ({
     <div className="user-info">
       <div className="btns">
       {currentUser.id !== user.id ?
-        <Button>구독하기</Button> :
+        <Button onClick={handleFollow}>구독하기</Button> :
         <Button onClick={handleToggle}>편집하기</Button>
       }</div>
       <div className="user-name">

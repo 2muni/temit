@@ -14,22 +14,32 @@ class UserContainer extends Component {
 
     this.state = {
       user: null,
-      isEdit: false,
       edit: {
         name: '',
         bio: '',
         thumbnail: '',
-      }
+      },
+      isEdit: false,
+      isFollowing: false,
     }
 
     this.handleToggle = this.handleToggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleFollow = this.handleFollow.bind(this);
     this.addImage = this.addImage.bind(this);
   }
 
   componentDidMount() {
     this.props.UserActions.userRequest(this.props.id)
+    .then(() => {
+      this.props.userData.followers.map(( follower ) => {
+        if(follower.id == this.props.currentUser.id) {
+          this.setState({ isFollowing: true });
+          return;
+        }
+      })
+    })
     .then(() => this.setState({ user: this.props.userData }))
   }
 
@@ -73,6 +83,17 @@ class UserContainer extends Component {
     })))
   }
 
+  handleFollow() {
+    console.log(this.state.isFollowing)
+    if(!this.state.isFollowing) {
+      let data = new FormData();
+      data.append('parent_id', this.props.id);
+      data.append('follower_id', this.props.currentUser.id);
+      this.props.UserActions.followRequest(data)
+      .then(() => this.setState({ isFollowing: true }))
+    }
+  }
+
   addImage(e) {
     const reader = new FileReader();
     reader.onload = () => {
@@ -112,6 +133,7 @@ class UserContainer extends Component {
           handleToggle={this.handleToggle}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
+          handleFollow={this.handleFollow}
           addImage={this.addImage}
         />
         <div className="user-body">
