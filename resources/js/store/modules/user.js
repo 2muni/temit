@@ -11,6 +11,9 @@ const USER_EDIT_FAILURE = 'user/USER_EDIT_FAILURE'
 const USER_FOLLOW = 'user/USER_FOLLOW'
 const USER_FOLLOW_SUCCESS = 'user/USER_FOLLOW_SUCCESS'
 const USER_FOLLOW_FAILURE = 'user/USER_FOLLOW_FAILURE'
+const USER_UNFOLLOW = 'user/USER_UNFOLLOW'
+const USER_UNFOLLOW_SUCCESS = 'user/USER_UNFOLLOW_SUCCESS'
+const USER_UNFOLLOW_FAILURE = 'user/USER_UNFOLLOW_FAILURE'
 
 export const user = createAction(USER_GET)
 export const userSuccess = createAction(USER_GET_SUCCESS, user => user)
@@ -21,6 +24,9 @@ export const editFailure = createAction(USER_EDIT_FAILURE)
 export const follow = createAction(USER_FOLLOW)
 export const followSuccess = createAction(USER_FOLLOW_SUCCESS)
 export const followFailure = createAction(USER_FOLLOW_FAILURE)
+export const unfollow = createAction(USER_UNFOLLOW)
+export const unfollowSuccess = createAction(USER_UNFOLLOW_SUCCESS)
+export const unfollowFailure = createAction(USER_UNFOLLOW_FAILURE)
 
 export const userRequest = id => (
   dispatch => {
@@ -50,11 +56,25 @@ export const editRequest = (id, data) => (
 export const followRequest = (data) => (
   dispatch => {
     dispatch(follow());
-    return axios.post('/api/follow', data)
+    return axios.post('/api/users/followers', data)
       .then(() => {
         dispatch(followSuccess())
       }).catch((err) => {
         dispatch(followFailure(err))
+      })
+  }
+)
+
+export const unfollowRequest = (data) => (
+  dispatch => {
+    dispatch(unfollow());
+    return axios.delete('/api/users/followers', data)
+      .then((res) => {
+        console.log(res)
+        dispatch(unfollowSuccess())
+      }).catch((err) => {
+        console.log('failure')
+        dispatch(unfollowFailure(err))
       })
   }
 )
@@ -68,6 +88,9 @@ const initialState = {
     status: 'INIT'
   },
   follow: {
+    status: 'INIT'
+  },
+  unfollow: {
     status: 'INIT'
   }
 }
@@ -133,7 +156,27 @@ export default handleActions(
         draft.follow = {
           status: 'FAILURE',
         }
-      })
+      }),
+      
+      /* UNFOLLOW ACTIONS */
+      [USER_UNFOLLOW]: (state) => 
+        produce(state, draft => {
+          draft.unfollow = {
+            status: 'WAITING'
+          }
+      }),
+      [USER_UNFOLLOW_SUCCESS]: (state) =>
+        produce(state, draft => {
+          draft.unfollow = {
+            status: 'SUCCESS',
+          }
+        }),
+      [USER_UNFOLLOW_FAILURE]: (state) =>
+        produce(state, draft => {
+          draft.unfollow = {
+            status: 'FAILURE',
+          }
+        })
   },
   initialState
 );

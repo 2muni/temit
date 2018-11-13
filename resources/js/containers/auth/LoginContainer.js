@@ -20,7 +20,7 @@ class LoginContainer extends Component {
   }
 
   componentDidMount() {
-    getCookie('user').isLoggedIn && this.props.history.push('/')
+    getCookie('user') && getCookie('user').isLoggedIn && this.props.history.push('/')
   }
 
   handleChange(e) {

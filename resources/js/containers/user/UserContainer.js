@@ -33,6 +33,8 @@ class UserContainer extends Component {
   componentDidMount() {
     this.props.UserActions.userRequest(this.props.id)
     .then(() => {
+      console.log(this.props.userData);
+      console.log('현재 유저 id', this.props.currentUser.id)
       this.props.userData.followers.map(( follower ) => {
         if(follower.id == this.props.currentUser.id) {
           this.setState({ isFollowing: true });
@@ -84,13 +86,17 @@ class UserContainer extends Component {
   }
 
   handleFollow() {
-    console.log(this.state.isFollowing)
+    let data = new FormData();
+    data.append('parent_id', this.props.id);
+    data.append('follower_id', this.props.currentUser.id);
+
+    console.log(JSON.stringify(data))
     if(!this.state.isFollowing) {
-      let data = new FormData();
-      data.append('parent_id', this.props.id);
-      data.append('follower_id', this.props.currentUser.id);
       this.props.UserActions.followRequest(data)
       .then(() => this.setState({ isFollowing: true }))
+    }else {
+      this.props.UserActions.unfollowRequest(data)
+      .then(() => this.setState({ isFollowing: false }))
     }
   }
 
@@ -128,6 +134,7 @@ class UserContainer extends Component {
         <UserHead
           currentUser={this.props.currentUser}
           user={this.state.user}
+          isFollowing={this.state.isFollowing}
           isEdit={this.state.isEdit}
           edit={this.state.edit}
           handleToggle={this.handleToggle}

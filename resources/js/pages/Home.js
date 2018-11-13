@@ -6,7 +6,7 @@ import { getCookie } from '../lib/cookie'
 const Post = ({ match }) => {
   const { state } = match.params;
 
-  return(
+  if(getCookie('user'))return(
     <div className="snapshot-wrapper">
       <AsideContainer
         items={[
@@ -23,7 +23,8 @@ const Post = ({ match }) => {
         user={getCookie('user').currentUser}
       />
     </div>
-  );
+  )
+  else return (<div></div>)
 }
 
 export default Post;

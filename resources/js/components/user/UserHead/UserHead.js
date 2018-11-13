@@ -4,6 +4,7 @@ import { Icon, Button } from 'react-materialize'
 const UserHead = ({
   currentUser,
   user,
+  isFollowing,
   isEdit,
   edit,
   handleToggle,
@@ -48,7 +49,8 @@ const UserHead = ({
     <img className="user-thumbnail circle" src={user.thumbnail}></img>
     <div className="user-info">
       <div className="btns">
-      {currentUser.id !== user.id ?
+      {currentUser.id !== user.id ? isFollowing ?
+        <Button onClick={handleFollow}>구독취소</Button> :
         <Button onClick={handleFollow}>구독하기</Button> :
         <Button onClick={handleToggle}>편집하기</Button>
       }</div>
