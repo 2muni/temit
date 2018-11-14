@@ -1,5 +1,6 @@
 .snapshot-write {
-  border-bottom: 1px solid $gray;
+  max-width: 768px;
+  margin: 0 auto;
   .write-head{
     display: flex;
     justify-content: flex-end;

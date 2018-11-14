@@ -31,7 +31,6 @@ const SSWrite = ({
         value={body}
         onChange={handleChange}
       />
-      <div className="image-wrapper"></div>
     </div>
     <div className="write-options">
       <div className="btns">

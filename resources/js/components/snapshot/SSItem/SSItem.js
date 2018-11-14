@@ -1,7 +1,9 @@
 import React from 'react';
 import { Icon } from 'react-materialize';
 
-const SSItem = () => (
+const SSItem = ({
+  item
+}) => (
   <div className="snapshot-item">
     <div className="snapshot-head">
       <img className="circle" alt="user-profile" src="https://s3.ap-northeast-2.amazonaws.com/temit.s3/default-user-img-profile.jpg"/>
