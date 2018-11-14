@@ -7,6 +7,9 @@ import * as snapshotActions from '../../store/modules/snapshot'
 import { resize } from '../../lib/tool';
 import axios from 'axios';
 
+import { Link } from 'react-router-dom';
+import { Button } from 'react-materialize';
+
 class SnapshotContainer extends Component {
 
   constructor(props) {
@@ -101,13 +104,15 @@ class SnapshotContainer extends Component {
         />
         <SSItem/>
         <SSItem/>
+        <Link to='/write'>
+          <Button floating icon='add_a_photo' className='floatBtn circle' large style={{bottom: '45px', right: '45px'}}/>
+        </Link>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  user: state.authentication.status.currentUser,
   snapshotList: state.snapshot.get.data
 })
 

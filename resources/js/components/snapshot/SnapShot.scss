@@ -2,13 +2,10 @@
 @import './SSWrite/SSWrite';
 
 .snapshot-wrapper{
-  max-width: 1080px;
-  margin: 0 auto;
+  width: 100%;
   height: calc(100% - 64px);
   display: flex;
-  justify-content: center;
-  
-  .snapshot-nav{ padding: 0 $padding; margin: 47px 0; }
-  .snapshot-aside{ padding: 0 $padding; margin: 47px 0; }
-  .snapshot-column{ padding: 16px 0; margin: 47px; }
+  justify-content: space-between;
+
+  .snapshot-column{ padding: 16px 0; flex: 1;}
 }

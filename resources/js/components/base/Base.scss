@@ -1,2 +1,17 @@
-@import './AsideNav';
-@import './Header';
+@import './AsideNav/AsideNav';
+@import './Header/Header';
+
+.btn, .btn-large{
+  color: #fefefe;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.btn, .btn-large{ background-color: $btnColor; }
+.btn:hover, .btn-large:hover{ background-color: $btnHover; }
+.btn:focus, .btn-large:focus{ background-color: $btnColor; }
+
+.floatBtn{
+  position: fixed;
+  border-radius: 50%;
+}

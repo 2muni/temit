@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Input, Row } from 'react-materialize';
+import { Button, Input, Row, Tag } from 'react-materialize';
 
 const PostSubmit = ({
   post,
@@ -32,7 +32,7 @@ const PostSubmit = ({
             <div className="btn util" onClick={handleTags}>등록</div>
           </div>
           <div className="tags-wrapper">{tags && tags.map((tag, i) => (
-            <span key={i} data-id={i} className="tag" onClick={handleTags}>{tag}</span>
+            <Tag key={i} data-id={i} onClick={handleTags}>{tag}</Tag>
           ))}</div>
         </section>
         <section>

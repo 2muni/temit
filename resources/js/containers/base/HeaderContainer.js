@@ -10,6 +10,11 @@ class HeaderContainer extends Component {
   constructor(props) {
     super(props)
 
+    this.state = {
+      isLoggedIn: false,
+      currentUser: ''
+    }
+
     this.handleLogout = this.handleLogout.bind(this);
   }
 

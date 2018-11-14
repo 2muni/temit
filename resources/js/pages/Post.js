@@ -9,11 +9,11 @@ const Post = ({ match }) => {
   return(
     <div className="article-wrapper">
       <PostContainer
-        // user={getCookie('user').currentUser} 
+        user={getCookie('user').currentUser} 
         article={id}
       />
       <PostCommentContainer
-        // user={getCookie('user').currentUser}
+        user={getCookie('user').currentUser}
         article={id}
       />
     </div>

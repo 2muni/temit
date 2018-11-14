@@ -13,12 +13,12 @@ const Header = ({
         </a>
         <ul className="right hide-on-med-and-down">
           <li><Link to='/board'>게시판</Link></li>
-          <li><Link to='/login' onClick={handleLogout}>로그아웃</Link></li>
+          <li><a href='/login' onClick={handleLogout}>로그아웃</a></li>
         </ul>
       </div>
     </nav>
     <ul className="sidenav" id="mobile-demo">
-      <li><Link to='/login' onClick={handleLogout}>로그아웃</Link></li>
+      <li><a href='/login' onClick={handleLogout}>로그아웃</a></li>
     </ul>
   </header>
 )
