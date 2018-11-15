@@ -5,11 +5,9 @@ const Login = ({ match, history }) => {
   const { id } = match.params;
 
   return(
-    <div className="article-wrapper">
-      <RegisterContainer
-        history={history}
-      />
-    </div>
+    <RegisterContainer
+      history={history}
+    />
   );
 }
 

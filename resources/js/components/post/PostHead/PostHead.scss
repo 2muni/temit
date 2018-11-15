@@ -44,9 +44,10 @@
   .options{
     text-align: right;
     margin-top: .5rem;
-    a{ 
+    a, span{ 
       margin: 0 .3rem; 
       color: #000;
+      cursor: pointer;
       &:hover{ color: $btnColor }
     }
   }

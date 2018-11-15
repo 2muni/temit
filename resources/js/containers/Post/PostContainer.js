@@ -5,7 +5,7 @@ import * as articleActions from '../../store/modules/article'
 import { Preloader } from '../../components/etc'
 import { PostHead } from '../../components/post/PostHead'
 import { PostBody } from '../../components/post/PostBody'
-
+import PostCommentContainer from './PostCommentContainer'
 import tui from 'tui-editor'
 require('tui-editor/dist/tui-editor-contents.css'); // editor content
 require('highlight.js/styles/vs2015.css'); // code block highlight
@@ -34,7 +34,8 @@ class PostContainer extends Component {
   handleArticleRemove() {
     if(this.props.user.id === this.props.articleData.user.id) {
       confirm("게시글을 삭제하시겠습니까?") && 
-      this.props.ArticleActions.removeRequest(this.props.article);
+      this.props.ArticleActions.removeRequest(this.props.article)
+      .then(() => this.props.removeState === 'SUCCESS' && (window.location.href = `${window.location.origin}/board`))
     }
   }
 
@@ -50,6 +51,10 @@ class PostContainer extends Component {
           <PostBody
             article={this.props.articleData}
           />
+          <PostCommentContainer
+            user={this.props.user}
+            article={this.props.article}
+          />
         </Fragment>
       : <Preloader/>
     );
@@ -58,6 +63,7 @@ class PostContainer extends Component {
 
 const mapStateToProps = (state) => ({
   articleData: state.article.get.data,
+  removeState: state.article.remove.status
 })
 
 const mapDispatchToProps = (dispatch) => ({

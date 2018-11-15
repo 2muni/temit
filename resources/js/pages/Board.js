@@ -5,7 +5,7 @@ import { getCookie } from '../lib/cookie'
 
 const Post = ({ match }) => {
   const { tag } = match.params;
-
+  
   return(
     <div className="content-wrapper">
       <AsideContainer

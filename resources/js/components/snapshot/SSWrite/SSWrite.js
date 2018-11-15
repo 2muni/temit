@@ -1,17 +1,13 @@
 import React from 'react';
-import { Icon, Button } from 'react-materialize';
+import { Modal, Icon, Button } from 'react-materialize';
 
 const handleHeight = (e) => {
   e.target.style.height = '1rem';
   e.target.style.height = (e.target.scrollHeight)+"px";
 }
 
-//<span onClick={handleClick}><Icon className="add-person">person_add</Icon></span>
-//<span onClick={handleClick}><Icon className="add-tag">local_offer</Icon></span>
-
-const SSWrite = ({
+const Form = ({
   addImage,
-  handleClick,
   handleSubmit,
   handleChange,
   body,
@@ -19,7 +15,12 @@ const SSWrite = ({
 }) => (
   <div className="snapshot-write">
     <div className="write-head">
-      <Button onClick={handleSubmit}>업로드</Button>
+      <div className="title">새로운 스냅샷 작성</div>
+      <Button className="modal-action modal-close">뒤로가기</Button>
+      {body ? 
+        <Button className="submit" onClick={handleSubmit}>작성하기</Button> :
+        <Button>작성하기</Button>
+      }
     </div>
     <div className="write-body">
       <img src={preview}/>
@@ -30,6 +31,7 @@ const SSWrite = ({
         onKeyUp={handleHeight}
         value={body}
         onChange={handleChange}
+        required
       />
     </div>
     <div className="write-options">
@@ -42,6 +44,43 @@ const SSWrite = ({
       </div>
     </div>
   </div>
+)
+
+const SSWrite = ({
+  addImage,
+  handleSubmit,
+  handleChange,
+  body,
+  preview
+}) => (
+  <Modal
+    className='modal-wrapper'
+    trigger={
+      <Button
+        floating
+        icon='add_a_photo'
+        className='floatBtn circle'
+        large style={{bottom: '45px', right: '45px'}}
+      />}
+    modalOptions={{
+      inDuration: 100,
+      outDuration: 100,
+    }}
+    >
+    <div><Form
+      addImage={addImage}
+      handleSubmit={handleSubmit}
+      handleChange={handleChange}
+      body={body}
+      preview={preview}
+    /></div>
+  </Modal>
+
+
 );
 
 export default SSWrite;
+
+
+
+

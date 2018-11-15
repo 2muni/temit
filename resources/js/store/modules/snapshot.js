@@ -30,6 +30,7 @@ export const likeFailure = createAction(LIKE_FAILURE, err => err);
 
 export const postRequest = data => (
   dispatch => {
+    console.log('post');
     dispatch(post());
     return axios.post('/api/snapshots', data)
       .then((res) => {

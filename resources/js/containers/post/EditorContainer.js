@@ -31,7 +31,6 @@ class EditorContainer extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleSubmitCard = this.handleSubmitCard.bind(this);
     this.requestImageURL = this.requestImageURL.bind(this);
     this.handleTags = this.handleTags.bind(this);
   }
@@ -89,7 +88,6 @@ class EditorContainer extends Component {
   componentDidMount() {
     document.body.clientWidth > 992 ? 
       this.tuiEditor('vertical') : this.tuiEditor('tab')
-
     if(this.props.article) {
       this.props.ArticleActions.getRequest(this.props.article)
       .then(() => {
@@ -106,19 +104,10 @@ class EditorContainer extends Component {
         }
       })
     }
-  } 
-
-  handleSubmitCard(e) {
-    const cn = /(post)/
-    const isPost = cn.test(e.target.className);
-    console.log(e.target.className)
-    if(isPost)
-      document.querySelector('.submit-wrapper').style.display = 'flex';
-    else if(e.target.className === 'submit-wrapper' || e.target.className === 'btn cansel')
-      document.querySelector('.submit-wrapper').style.display = 'none'
   }
 
   handleChange(e) {
+    console.log(this.state.tags.length)
     this.setState(
       produce(this.state, draft => {
         if(e.target.name === 'thumbnail') {
@@ -131,7 +120,7 @@ class EditorContainer extends Component {
   }
 
   handleTags(e) {
-    if(e.target.className === 'tag') {
+    if(e.target.className === 'material-icons') {
       this.setState(produce(this.state, draft => {
         draft.tags.splice(e.target.dataset.id, 1);
       }))
@@ -147,35 +136,31 @@ class EditorContainer extends Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault();
     let data = new FormData();
     data.append('tags', this.state.tags);
     data.append('user_id', this.props.user.id);
     data.append('title', this.state.post.title);
     data.append('body', this.state.post.body);
     if(this.state.post.thumbnail) {
-    this.requestImageURL(this.state.post.thumbnail, 'articles')
-      .then((url) => data.append('thumbnail', url))
-      .then(() => {
-        if(this.props.article)
-          this.props.ArticleActions.editRequest(this.props.article, data)
-            .then(() => this.props.history.push('/board'))
-        else
-          this.props.ArticleActions.postRequest(data)
-            .then(() => this.props.history.push('/board'))
-      })
+      this.requestImageURL(this.state.post.thumbnail, 'articles')
+        .then((url) => data.append('thumbnail', url))
+        .then(() => {
+          if(this.props.article)
+            this.props.ArticleActions.editRequest(this.props.article, data)
+              .then(() => this.props.postState === 'SUCCESS' && (window.location.href = '/board'))
+          else
+            this.props.ArticleActions.postRequest(data)
+              .then(() => this.props.postState === 'SUCCESS' && (window.location.href = '/board'))
+        })
     }else {
       if(this.props.article) {
-        console.log(this.state.post);
         this.props.ArticleActions.editRequest(this.props.article, data)
-          .then(() => this.props.history.push('/board'))
-      }
-      else{
+          .then(() => this.props.postState === 'SUCCESS' && (window.location.href = '/board'))
+      }else {
         this.props.ArticleActions.postRequest(data)
-          .then(() => this.props.history.push('/board'))
+          .then(() => this.props.postState === 'SUCCESS' && (window.location.href = '/board'))
       }
     }
-
   }
   
   render() {
@@ -195,7 +180,8 @@ class EditorContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  articleData: state.article.get.data
+  articleData: state.article.get.data,
+  postState: state.article.post.status
 });
 
 const mapDispatchToProps = (dispatch) => ({

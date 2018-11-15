@@ -963,12 +963,15 @@ nav .nav-wrapper {
   margin-top: .5rem;
 }
 
-.article-head .options a {
+.article-head .options a,
+.article-head .options span {
   margin: 0 .3rem;
   color: #000;
+  cursor: pointer;
 }
 
-.article-head .options a:hover {
+.article-head .options a:hover,
+.article-head .options span:hover {
   color: #338CCD;
 }
 
@@ -1314,51 +1317,11 @@ nav .nav-wrapper {
   -webkit-box-orient: vertical;
 }
 
-.submit-wrapper {
-  width: 100%;
-  height: 100%;
-  max-height: 100%;
-  background-color: none;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  overflow-y: hidden;
-}
-
-.submit-wrapper .submit-card {
+.submit-card {
   background-color: #4A5158;
   width: 100%;
   max-width: 350px;
   border-radius: 12px;
-  -webkit-animation: cardAppear .15s ease-in-out;
-  animation: cardAppear .15s ease-in-out;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
-}
-
-.submit-wrapper .row {
-  margin-bottom: 0px;
-}
-
-.submit-wrapper .btn,
-.submit-wrapper .btn-large {
-  background-color: #676666;
-}
-
-.submit-wrapper .btn:hover,
-.submit-wrapper .btn-large:hover {
-  background-color: gray;
-}
-
-.submit-wrapper .btn:focus,
-.submit-wrapper .btn-large:focus {
-  background-color: #676666;
 }
 
 .submit-header {
@@ -1438,6 +1401,21 @@ nav .nav-wrapper {
 
 .submit-form section .tags-wrapper > div {
   color: #000;
+}
+
+.submit-form section .tags-wrapper .chip {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.submit-form section .tags-wrapper .chip div {
+  margin-left: 0.3rem;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 .submit-form section .util {
@@ -1732,29 +1710,57 @@ nav .nav-wrapper {
 }
 
 .snapshot-write {
+  width: 100%;
   max-width: 768px;
-  margin: 0 auto;
+  border-radius: 12px;
+  background-color: #4A5158;
+  padding: 1.5rem;
 }
 
 .snapshot-write .write-head {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+  font-weight: bold;
+  font-size: 2rem;
+  color: #e6e5e5;
+  margin-bottom: 1rem;
+}
+
+.snapshot-write .write-head button + button {
+  margin-left: 1rem;
+}
+
+.snapshot-write .write-head .title {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.snapshot-write .write-head .submit {
+  background-color: #338CCD;
+}
+
+.snapshot-write .write-head .submit:hover {
+  background-color: #5ca3d7;
+}
+
+.snapshot-write .write-head .submit:focus {
+  background-color: #338CCD;
 }
 
 .snapshot-write .write-body {
   margin-top: 1rem;
-  border: 1px solid #e6e6e6;
-  border-radius: 4px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  background-color: #fff;
+  overflow: hidden;
 }
 
 .snapshot-write .write-body img {
@@ -1781,6 +1787,13 @@ nav .nav-wrapper {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  background-color: #fff;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.snapshot-write .write-options .length {
+  margin-right: 1rem;
 }
 
 .snapshot-write label {
@@ -1971,5 +1984,49 @@ body {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   background-color: #fff;
+}
+
+.modal {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  overflow-y: hidden;
+}
+
+.modal .modal-content > div {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.modal .modal-footer {
+  display: none;
+}
+
+.modal .row {
+  margin-bottom: 0px;
+}
+
+.modal .btn,
+.modal .btn-large {
+  background-color: #676666;
+}
+
+.modal .btn:hover,
+.modal .btn-large:hover {
+  background-color: gray;
+}
+
+.modal .btn:focus,
+.modal .btn-large:focus {
+  background-color: #676666;
 }
 

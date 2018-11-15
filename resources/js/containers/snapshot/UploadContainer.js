@@ -41,6 +41,7 @@ class SnapshotContainer extends Component {
   }
 
   handleSubmit() {
+    e.preventDefault();
     let data = new FormData();
     data.append('user_id', this.props.user.id);
     data.append('body', this.state.body);
