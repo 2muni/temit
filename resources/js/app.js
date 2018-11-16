@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import HeaderContainer from './containers/Base/HeaderContainer';
-import { Login, Register, Post, Write, Board, Home, User, Upload } from './pages'
+import { Login, Register, Post, Write, Board, Home, User } from './pages'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import reducers from './store';
 import thunk from 'redux-thunk';
-import { getCookie } from './lib/cookie'
 
 const store = createStore(reducers, applyMiddleware(thunk))
 
@@ -20,7 +19,6 @@ if (document.getElementById('root')) {
             <Switch>
               <Route path='/login' component={Login}/>
               <Route path='/register' component={Register}/>
-              <Route path='/upload' component={Upload} />
               <Route path='/board/:tag' component={Board}/>
               <Route path='/board' component={Board}/>
               <Route path='/post/:id' component={Post}/>

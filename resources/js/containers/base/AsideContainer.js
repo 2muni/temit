@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { AsideNav } from '../../components/base'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as userActions from '../../store/modules/user'
 
 class AsideContainer extends Component {
 
@@ -7,7 +10,8 @@ class AsideContainer extends Component {
     super(props);
 
     this.state = {
-      isFixed: false
+      isFixed: false,
+      followees: []
     }
 
     this.handleFixed = this.handleFixed.bind(this);
@@ -15,6 +19,11 @@ class AsideContainer extends Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleFixed, false)
+    this.props.UserActions.userRequest(this.props.user.id)
+    .then(() => this.setState({
+      followees: this.props.currentUser.followees
+    }))
+    .then(() => console.log(this.state.followees))
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -43,4 +52,12 @@ class AsideContainer extends Component {
   }
 }
 
-export default AsideContainer;
+const mapStateToProps = (state) => ({
+  currentUser: state.user.get.user
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  UserActions: bindActionCreators(userActions, dispatch)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(AsideContainer);

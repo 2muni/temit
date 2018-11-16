@@ -35,7 +35,6 @@ class SnapshotContainer extends Component {
   }
 
   handleChange(e) {
-    //    console.log(e.target.value.substr(e.target.value.length - 1))
       if(e.target.value.length < 151)
         this.setState({ body: e.target.value })
     }
@@ -44,12 +43,23 @@ class SnapshotContainer extends Component {
     let data = new FormData();
     data.append('user_id', this.props.user.id);
     data.append('body', this.state.body);
-    this.requestImageURL(this.state.preview, 'snapshots')
-    .then((uri) => data.append('uri', uri))
-    .then(() => {
+    if(this.state.preview) {
+      this.requestImageURL(this.state.preview, 'snapshots')
+      .then((uri) => data.append('uri', uri))
+      .then(() => {
+        this.props.SnapshotActions.postRequest(data)
+        .then(() => this.setState({
+          body: '',
+          preview: '',
+        }))
+      })
+    }else {
       this.props.SnapshotActions.postRequest(data)
-      //.then(() => this.props.articleData.post.status === 'SUCCESS' && (window.location.href = '/board'))
-    })
+        .then(() => this.setState({
+          body: '',
+          preview: '',
+        }))
+    }
   }
 
   addImage(e) {

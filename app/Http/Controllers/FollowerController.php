@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Follower;
+use App\Article;
+use App\Snapshot;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FollowerController extends Controller
 {
@@ -28,12 +32,33 @@ class FollowerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Follower  $follower
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function show(Follower $follower)
-    {
-        //
+    public function show(User $user)
+    {   
+        $arr = [];
+        foreach($user->followees as $item) {
+            array_push($arr, $item->id);
+        };
+
+        $articles = Article::with('user')
+                        ->whereIn('user_id', $arr)
+                        ->get();
+
+        $snapshots = Snapshot::with('user')
+                        ->whereIn('user_id', $arr)
+                        ->get();
+
+        $collection = $articles->merge($snapshots);
+
+        $response = $collection
+                    ->sortByDesc('created_at')
+                    ->values()
+                    ->all();
+
+        //$response = User::with('articles', 'snapshots')->
+        return Response($response, 201);
     }
 
     /**
@@ -48,8 +73,8 @@ class FollowerController extends Controller
         $parent_id = $request->parent_id;
         $follower_id = $request->follower_id;
         
-        $response = Follower::where('parent_id', '=', $parent_id)
-        ->where('follower_id', '=', $follower_id)->delete();
+        $response = Follower::where('parent_id', $parent_id)
+        ->where('follower_id', $follower_id)->delete();
         
         return Response($response, 202);
     }
