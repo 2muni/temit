@@ -14,6 +14,9 @@ const USER_FOLLOW_FAILURE = 'user/USER_FOLLOW_FAILURE'
 const USER_UNFOLLOW = 'user/USER_UNFOLLOW'
 const USER_UNFOLLOW_SUCCESS = 'user/USER_UNFOLLOW_SUCCESS'
 const USER_UNFOLLOW_FAILURE = 'user/USER_UNFOLLOW_FAILURE'
+const USER_GET_ACTIVITY = 'user/USER_ACTIVITY'
+const USER_GET_ACTIVITY_SUCCESS = 'user/USER_ACTIVITY_SUCCESS'
+const USER_GET_ACTIVITY_FAILURE = 'user/USER_ACTIVITY_FAILURE'
 
 export const user = createAction(USER_GET)
 export const userSuccess = createAction(USER_GET_SUCCESS, user => user)
@@ -27,6 +30,9 @@ export const followFailure = createAction(USER_FOLLOW_FAILURE)
 export const unfollow = createAction(USER_UNFOLLOW)
 export const unfollowSuccess = createAction(USER_UNFOLLOW_SUCCESS)
 export const unfollowFailure = createAction(USER_UNFOLLOW_FAILURE)
+export const getActivity = createAction(USER_GET_ACTIVITY)
+export const getActivitySuccess = createAction(USER_GET_ACTIVITY_SUCCESS)
+export const getActivityFailure = createAction(USER_GET_ACTIVITY_FAILURE)
 
 export const userRequest = id => (
   dispatch => {
@@ -70,11 +76,21 @@ export const unfollowRequest = (data) => (
     dispatch(unfollow());
     return axios.delete('/api/users/followers', data)
       .then((res) => {
-        console.log(res)
         dispatch(unfollowSuccess())
       }).catch((err) => {
-        console.log('failure')
         dispatch(unfollowFailure(err))
+      })
+  }
+)
+
+export const getActivityRequest = (id) => (
+  dispatch => {
+    dispatch(getActivity());
+    return axios.get(`/api/users/followers/${id}`)
+      .then((res) => {
+        dispatch(getActivitySuccess(res.data))
+      }).catch((err) => {
+        dispatch(getActivityFailure(err))
       })
   }
 )
@@ -92,6 +108,10 @@ const initialState = {
   },
   unfollow: {
     status: 'INIT'
+  },
+  getActivity: {
+    status: 'INIT',
+    data: null
   }
 }
 
@@ -176,7 +196,28 @@ export default handleActions(
           draft.unfollow = {
             status: 'FAILURE',
           }
-        })
+        }),
+
+      /* GET_ACTIVITY ACTIONS */
+      [USER_GET_ACTIVITY]: (state) => 
+      produce(state, draft => {
+        draft.getActivity = {
+          status: 'WAITING'
+        }
+    }),
+    [USER_GET_ACTIVITY_SUCCESS]: (state, action) =>
+      produce(state, draft => {
+        draft.getActivity = {
+          status: 'SUCCESS',
+          data: action.payload
+        }
+      }),
+    [USER_GET_ACTIVITY_FAILURE]: (state) =>
+      produce(state, draft => {
+        draft.getActivity = {
+          status: 'FAILURE',
+        }
+      })
   },
   initialState
 );

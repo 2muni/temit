@@ -23,7 +23,6 @@ class AsideContainer extends Component {
     .then(() => this.setState({
       followees: this.props.currentUser.followees
     }))
-    .then(() => console.log(this.state.followees))
   }
 
   shouldComponentUpdate(nextProps, nextState) {

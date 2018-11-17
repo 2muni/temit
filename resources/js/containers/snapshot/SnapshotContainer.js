@@ -4,6 +4,7 @@ import { SSWrite } from '../../components/snapshot/SSWrite';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as snapshotActions from '../../store/modules/snapshot'
+import * as userActions from '../../store/modules/user'
 import { resize } from '../../lib/tool';
 import axios from 'axios';
 
@@ -16,6 +17,7 @@ class SnapshotContainer extends Component {
       isFixed: false,
       body: '',
       preview: '',
+      list: []
     }
     this.onScroll = this.onScroll.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -25,6 +27,11 @@ class SnapshotContainer extends Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.onScroll, false);
+    this.props.UserActions.getActivityRequest(this.props.user.id)
+    .then(() => this.setState({
+      list: this.props.userActivity
+    }))
+    .then(() => console.log(this.state.list))
   }
 
   componentWillUnmount() {
@@ -104,11 +111,13 @@ class SnapshotContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  snapshotList: state.snapshot.get.data
+  snapshotList: state.snapshot.get.data,
+  userActivity: state.user.getActivity.data
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  SnapshotActions: bindActionCreators(snapshotActions, dispatch)
+  SnapshotActions: bindActionCreators(snapshotActions, dispatch),
+  UserActions: bindActionCreators(userActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SnapshotContainer);
