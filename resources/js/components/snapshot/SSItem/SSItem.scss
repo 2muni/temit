@@ -24,25 +24,27 @@
     width: 40px;
     height: 40px;
   }
-  .info{
-    display: flex;
-    flex-direction: column;
-  }
+  .date{ font-size: .7rem; }
 }
 
-.snapshot-body{
-  padding: 0 16px;
-  .btns{
+.snapshot-body{ padding: 0 16px 10px 16px; }
+
+.snapshot-replies{
+  border-top: 1px solid #e6e6e6;
+  padding: 16px;
+  input{ all:unset; }
+  input:focus:not([readonly]){ all:unset; }
+  .reply{
     width: 100%;
     display: flex;
-  }
-  .date{
-    width: 100%;
-    font-size: .5rem;
-  }
-  .replies{
-    width: 100%;
-    border-top: 1px solid #e6e6e6;
-    padding: 16px 0;
+    align-items: center;
+    img{
+      display: inline-block;
+      background: black center center no-repeat;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+    }
+    .body{ flex: 1; }
   }
 }

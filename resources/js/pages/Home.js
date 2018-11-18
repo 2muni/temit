@@ -1,5 +1,5 @@
 import React from 'react';
-import SnapshotContainer from '../containers/snapshot/SnapshotContainer'
+import HomeContainer from '../containers/home/HomeContainer'
 import AsideContainer from '../containers/base/AsideContainer'
 import { getCookie } from '../lib/cookie'
 
@@ -18,7 +18,7 @@ const Post = ({ match }) => {
         ]}
         user={getCookie('user').currentUser}
       />
-      <SnapshotContainer
+      <HomeContainer
         state={state}
         user={getCookie('user').currentUser}
       />

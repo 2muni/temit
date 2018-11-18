@@ -37,7 +37,7 @@ class FollowerController extends Controller
      */
     public function show(User $user)
     {   
-        $arr = [];
+        $arr = [$user->id];
         foreach($user->followees as $item) {
             array_push($arr, $item->id);
         };
