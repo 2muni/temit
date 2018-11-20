@@ -1,5 +1,6 @@
 .snapshot-item{
   margin: 0 auto;
+  width: 100%;
   max-width: 600px;
   border: 1px solid #e6e6e6;
   border-radius: 4px;
@@ -9,6 +10,10 @@
   }
 
   img{ width: 100% }
+  .postcard{
+    width: 100%;
+    max-width: 400px;
+  }
 }
 
 .snapshot-head{

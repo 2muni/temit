@@ -13,6 +13,10 @@ class SnapshotContainer extends Component {
     }
   }
 
+  componentDidMount() {
+    this.props.data ? console.log("true") : console.log("false")
+  }
+
   render() {
     if(this.props.data.uri)
       return(

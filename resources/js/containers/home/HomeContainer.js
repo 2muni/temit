@@ -108,8 +108,7 @@ class HomeContainer extends Component {
             data={item}
           />
         ))
-        : <Preloader/>
-        }
+        : <Preloader/>}
       </div>
     );
   }
