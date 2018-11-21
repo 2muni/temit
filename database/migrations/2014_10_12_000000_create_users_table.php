@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('thumbnail')->nullable();
+            $table->string('thumbnail')->default('https://s3.ap-northeast-2.amazonaws.com/temit.s3/default-user-img-profile.jpg');
             $table->string('bio')->nullable();
             $table->rememberToken();
             $table->timestamps();

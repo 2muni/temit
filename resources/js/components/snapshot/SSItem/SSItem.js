@@ -4,6 +4,7 @@ import TimeAgo from 'react-timeago';
 import koreanStrings from 'react-timeago/lib/language-strings/ko'
 import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
 import marked from 'marked'
+import { Button, Icon } from 'react-materialize';
 
 const formatter = buildFormatter(koreanStrings)
 
@@ -14,7 +15,7 @@ const SSItem = ({
   if(isSnapshot) return(
     <div className="snapshot-item">
       <div className="snapshot-head">
-        <img className="circle" alt="user-profile" src="https://s3.ap-northeast-2.amazonaws.com/temit.s3/default-user-img-profile.jpg"/>
+        <img className="circle" alt="user-profile" src={data.user.thumbnail}/>
         <div className="info">
           <a href="#">{data.user.name}</a>
           <div className="date">
@@ -22,19 +23,20 @@ const SSItem = ({
           </div>
         </div>
       </div>
-      <div className="snapshot-body">
-        <div>{data.body}</div>
-      </div>
+      <div className="snapshot-body">{data.body}</div>
+      {data.uri ?
+        <img src={data.uri}/> :
+        <React.Fragment></React.Fragment>}
       <div className="snapshot-replies">
         <div className="reply">
-          <img className="circle" alt="user-profile" src="https://s3.ap-northeast-2.amazonaws.com/temit.s3/default-user-img-profile.jpg"/>
+          <img className="circle" alt="user-profile" src={data.user.thumbnail}/>
           <div className="body">
           <a href="#">이름</a>ㅇㄴㄹㅁㅇㄴㄹㅁㅇㄴㄹㅁㄹㅁㅇㄴㄹ</div>
         </div>
         <div className="reply">
-          <img className="circle" alt="user-profile" src="https://s3.ap-northeast-2.amazonaws.com/temit.s3/default-user-img-profile.jpg"/>
+          <img className="circle" alt="user-profile" src={data.user.thumbnail}/>
           <input className="body" placeholder="댓글을 입력하세요..."></input>
-          <button>전송</button>
+          <Button>작성</Button>
         </div>
       </div>
     </div>
@@ -42,7 +44,7 @@ const SSItem = ({
   else return (
     <div className="snapshot-item">
       <div className="snapshot-head">
-        <img className="circle" alt="user-profile" src="https://s3.ap-northeast-2.amazonaws.com/temit.s3/default-user-img-profile.jpg"/>
+        <img className="circle" alt="user-profile" src={data.user.thumbnail}/>
         <div className="info">
           <a href="#">{data.user.name}</a>님이 게시물을 작성하였습니다.
           <div className="date">
@@ -51,16 +53,10 @@ const SSItem = ({
           <div className="date">{data.create_at}</div>
         </div>
       </div>
-      {/* {data.thumbnail ?
-        <img src={`${data.thumbnail}`} />
-      : <Icon>image</Icon>}
-      <div className="snapshot-body">
-        <div>{data.body}</div>
-      </div> */}
       <Link className="post-thumbnail" to={`/post/${data.id}`}>
         {data.thumbnail ?
           <img src={data.thumbnail}/> :
-          <React.Fragment></React.Fragment>}
+          <div className="white-space"><Icon>image</Icon></div>}
       </Link>
       <Link className="post-wrapper" to={`/post/${data.id}`}>
         <div className="postcard">

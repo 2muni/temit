@@ -25,6 +25,7 @@ class HeaderContainer extends Component {
 
     this.props.AuthActions.userRequest()
     .then(() => { !this.props.status.valid && this.props.history.push('/login')})
+    .then(() => console.log(this.props.status.currentUser))
   }
 
   handleLogout() {

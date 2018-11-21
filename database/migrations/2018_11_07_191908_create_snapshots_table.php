@@ -18,7 +18,8 @@ class CreateSnapshotsTable extends Migration
             $table->text('body');
             $table->string('uri')->nullable();
             $table->integer('like')->default(0);
-            $table->string('user_id');
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

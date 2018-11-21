@@ -26,7 +26,7 @@ class AsideContainer extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return (nextState.isFixed !== this.state.isFixed)
+    return nextState.isFixed !== this.state.isFixed
   }
 
   componentWillUnmount() {
@@ -52,7 +52,7 @@ class AsideContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  currentUser: state.user.get.user
+  currentUser: state.user.get.user,
 })
 
 const mapDispatchToProps = (dispatch) => ({
