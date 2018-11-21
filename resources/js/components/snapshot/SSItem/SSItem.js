@@ -1,7 +1,11 @@
 import React from 'react';
-import { Icon } from 'react-materialize';
 import { Link } from 'react-router-dom'
+import TimeAgo from 'react-timeago';
+import koreanStrings from 'react-timeago/lib/language-strings/ko'
+import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
 import marked from 'marked'
+
+const formatter = buildFormatter(koreanStrings)
 
 const SSItem = ({
   isSnapshot,
@@ -13,7 +17,9 @@ const SSItem = ({
         <img className="circle" alt="user-profile" src="https://s3.ap-northeast-2.amazonaws.com/temit.s3/default-user-img-profile.jpg"/>
         <div className="info">
           <a href="#">{data.user.name}</a>
-          <div className="date">{data.create_at}</div>
+          <div className="date">
+            <TimeAgo date={data.created_at} formatter={formatter} />
+          </div>
         </div>
       </div>
       <div className="snapshot-body">
@@ -23,9 +29,13 @@ const SSItem = ({
         <div className="reply">
           <img className="circle" alt="user-profile" src="https://s3.ap-northeast-2.amazonaws.com/temit.s3/default-user-img-profile.jpg"/>
           <div className="body">
-          <a href="#">이름</a>ㅁㅇㄴㄹㅁㅇㄴㄹㅁㅇㄴㄹㅁㅇㄴㄹㅁㅇㄴㄹㅁㅇㄴㄹㅁㅇㄴㄹㅁㅇㄴㄹㅁㅇㄴㄹㅁㅇㄴㄹㅁㅇㄴㄹㅁㅇㄴㄹㅁㅇㄴㄹㅁㅇㄴㄹㅁㅇㄴㄹㅁㅇㄴㄹ</div>
+          <a href="#">이름</a>ㅇㄴㄹㅁㅇㄴㄹㅁㅇㄴㄹㅁㄹㅁㅇㄴㄹ</div>
         </div>
-        <input tpye="text"></input>
+        <div className="reply">
+          <img className="circle" alt="user-profile" src="https://s3.ap-northeast-2.amazonaws.com/temit.s3/default-user-img-profile.jpg"/>
+          <input className="body" placeholder="댓글을 입력하세요..."></input>
+          <button>전송</button>
+        </div>
       </div>
     </div>
   );
@@ -35,6 +45,9 @@ const SSItem = ({
         <img className="circle" alt="user-profile" src="https://s3.ap-northeast-2.amazonaws.com/temit.s3/default-user-img-profile.jpg"/>
         <div className="info">
           <a href="#">{data.user.name}</a>님이 게시물을 작성하였습니다.
+          <div className="date">
+            <TimeAgo date={data.created_at} formatter={formatter} />
+          </div>
           <div className="date">{data.create_at}</div>
         </div>
       </div>
@@ -44,19 +57,23 @@ const SSItem = ({
       <div className="snapshot-body">
         <div>{data.body}</div>
       </div> */}
-      <div className="postcard">
       <Link className="post-thumbnail" to={`/post/${data.id}`}>
         {data.thumbnail ?
           <img src={data.thumbnail}/> :
-          <Icon>image</Icon>}
-        <div className="white-mask"></div>
+          <React.Fragment></React.Fragment>}
       </Link>
-      <div className="description">
-      {data.body.length > 150 ?
-        marked(data.body.substr(0, 150)).replace(/(<([^>]+)>)/ig,"") :
-        marked(data.body).replace(/(<([^>]+)>)/ig,"")}
-      </div>
-      </div>
+      <Link className="post-wrapper" to={`/post/${data.id}`}>
+        <div className="postcard">
+          <div className="title">
+            {data.title}
+          </div>
+          <div className="description">
+          {data.body.length > 150 ?
+            marked(data.body.substr(0, 150)).replace(/(<([^>]+)>)/ig,"") :
+            marked(data.body).replace(/(<([^>]+)>)/ig,"")}
+          </div>
+        </div>
+      </Link>
     </div>
   )
 }

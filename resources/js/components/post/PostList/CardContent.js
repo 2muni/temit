@@ -23,7 +23,6 @@ const CardContent = ({
       {post.updated_at > post.created_at ?
         <div><TimeAgo date={post.updated_at} formatter={formatter} /><span>에 수정됨</span></div> : 
         <TimeAgo date={post.created_at} formatter={formatter} /> }
-        <span></span>
       </div>
     </div>
     <div className="description">

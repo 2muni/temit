@@ -1298,10 +1298,6 @@ nav .nav-wrapper {
   color: #000;
 }
 
-.post-column .content-head .subinfo {
-  margin-top: .5rem;
-}
-
 .post-column .content-head .subinfo span,
 .post-column .content-head .subinfo time {
   font-size: .9rem;
@@ -1642,7 +1638,6 @@ nav .nav-wrapper {
 }
 
 .snapshot-item {
-  margin: 0 auto;
   width: 100%;
   max-width: 600px;
   border: 1px solid #e6e6e6;
@@ -1654,13 +1649,40 @@ nav .nav-wrapper {
   margin-top: 60px;
 }
 
+.snapshot-item .post-wrapper {
+  color: #000;
+}
+
 .snapshot-item img {
   width: 100%;
 }
 
 .snapshot-item .postcard {
+  margin: 16px;
+  padding: 0 16px;
+  border-left: 2px solid #38435A;
+}
+
+.snapshot-item .postcard .title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: .5rem;
+}
+
+.snapshot-item .post-thumbnail {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   width: 100%;
-  max-width: 400px;
+  height: 100%;
+  max-height: 300px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  overflow: hidden;
 }
 
 .snapshot-head {
@@ -1704,6 +1726,10 @@ nav .nav-wrapper {
   all: unset;
 }
 
+.snapshot-replies .reply + .reply {
+  margin-top: .5rem;
+}
+
 .snapshot-replies .reply {
   width: 100%;
   display: -webkit-box;
@@ -1716,16 +1742,40 @@ nav .nav-wrapper {
 
 .snapshot-replies .reply img {
   display: inline-block;
-  background: black center center no-repeat;
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  width: 2.5rem;
+  height: 2.5rem;
 }
 
-.snapshot-replies .reply .body {
+.snapshot-replies .reply .body,
+.snapshot-replies .reply .body:focus {
+  margin: 0 .5rem;
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
+  border-radius: 1rem;
+  padding: .5rem;
+  background-color: #f5f5f5;
+}
+
+.snapshot-replies .reply input,
+.snapshot-replies .reply input:focus {
+  border: 1px solid #38435A;
+}
+
+.snapshot-replies .reply input::-webkit-input-placeholder,
+.snapshot-replies .reply input:focus::-webkit-input-placeholder {
+  color: #adadad;
+}
+
+.snapshot-replies .reply input::-ms-input-placeholder,
+.snapshot-replies .reply input:focus::-ms-input-placeholder {
+  color: #adadad;
+}
+
+.snapshot-replies .reply input::placeholder,
+.snapshot-replies .reply input:focus::placeholder {
+  color: #adadad;
 }
 
 .snapshot-write {

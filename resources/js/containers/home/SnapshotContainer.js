@@ -18,7 +18,7 @@ class SnapshotContainer extends Component {
   }
 
   render() {
-    if(this.props.data.uri)
+    if(this.props.data.hasOwnProperty('uri'))
       return(
         <SSItem
           data={this.props.data}

@@ -9,7 +9,6 @@ const CardThumbnail = ({
   {post.thumbnail ?
     <img src={post.thumbnail}/> :
     <Icon>image</Icon>}
-  <div className="white-mask"></div>
   </Link>
 )
 

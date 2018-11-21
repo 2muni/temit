@@ -1,5 +1,4 @@
 .snapshot-item{
-  margin: 0 auto;
   width: 100%;
   max-width: 600px;
   border: 1px solid #e6e6e6;
@@ -8,11 +7,27 @@
   &+&{
     margin-top: 60px;
   }
-
+  
+  .post-wrapper{ color: #000; }
   img{ width: 100% }
   .postcard{
+    margin: 16px;
+    padding: 0 16px;
+    border-left: 2px solid $color-1;
+    .title{
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: .5rem;
+    }
+  }
+  .post-thumbnail{
+    display: flex;
     width: 100%;
-    max-width: 400px;
+    height: 100%;
+    max-height: 300px;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
   }
 }
 
@@ -29,7 +44,7 @@
     width: 40px;
     height: 40px;
   }
-  .date{ font-size: .7rem; }
+  .date{ font-size: .7rem;}
 }
 
 .snapshot-body{ padding: 0 16px 10px 16px; }
@@ -39,17 +54,27 @@
   padding: 16px;
   input{ all:unset; }
   input:focus:not([readonly]){ all:unset; }
+  .reply+.reply{ margin-top: .5rem; }
   .reply{
     width: 100%;
     display: flex;
     align-items: center;
     img{
       display: inline-block;
-      background: black center center no-repeat;
       border-radius: 50%;
-      width: 30px;
-      height: 30px;
+      width: 2.5rem;
+      height: 2.5rem;
     }
-    .body{ flex: 1; }
+    .body, .body:focus{
+      margin: 0 .5rem;
+      flex: 1;
+      border-radius: 1rem;
+      padding: .5rem;
+      background-color: #f5f5f5;
+    }
+    input, input:focus{
+      border: 1px solid $color-1;
+      &::placeholder{ color: #adadad }
+    }
   }
 }
