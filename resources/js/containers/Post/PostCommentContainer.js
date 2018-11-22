@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as commentActions from '../../store/modules/comment'
+import * as commentActions from '../../store/modules/article_comment'
 import { produce } from 'immer'
 import { PostComments } from '../../components/post/PostComment'
 
@@ -74,7 +74,7 @@ class PostCommentContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  commentData: state.comment.list.data,
+  commentData: state.article_comment.list.data,
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Comment;
+use App\Article_Comment;
 use App\Article;
 use Illuminate\Http\Request;
 
-class CommentController extends Controller
+class ArticleCommentController extends Controller
 {
     /**
      * Store a newly created resource in storage.
@@ -23,7 +23,7 @@ class CommentController extends Controller
             'user_id' => 'string'
         ]);
 
-        $comment = Comment::create($data);
+        $comment = Article_Comment::create($data);
 
         return response($comment, 201);
     }
@@ -36,7 +36,7 @@ class CommentController extends Controller
      */
     public function show(Article $article)
     {
-        $comments = Comment::with('user')->where('article_id', $article->id)->get();
+        $comments = Article_Comment::with('user')->where('article_id', $article->id)->get();
 
         return response($comments, 200);
 
@@ -51,7 +51,7 @@ class CommentController extends Controller
      */
     public function showReply(Request $request, Article $article)
     {   
-        $comments = Comment::with('user')
+        $comments = Article_Comment::with('user')
             ->where('article_id', $article->id)
             ->where('reply_to', $request->reply_to)
             ->get();
@@ -63,10 +63,10 @@ class CommentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Comment  $comment
+     * @param  \App\Article_Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request, Article_Comment $comment)
     {
         $data = $request->validate([
             'article_id' => 'required|string',
@@ -83,10 +83,10 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Comment  $comment
+     * @param  \App\Article_Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy(Article_Comment $comment)
     {
         $comment->delete();
 

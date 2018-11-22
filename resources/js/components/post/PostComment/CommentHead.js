@@ -2,6 +2,7 @@ import React from 'react'
 import TimeAgo from 'react-timeago'
 import koreanStrings from 'react-timeago/lib/language-strings/ko'
 import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
+import { Link } from 'react-router-dom'
 
 const formatter = buildFormatter(koreanStrings)
 
@@ -24,9 +25,9 @@ const CommentHead = ({
   handleCommentRemove,
 }) => (
   <div className="head">
-    <a href="#"><img className="circle" style={{backgroundColor: '#000'}}></img></a>
+    <a href="#"><img className="circle" src={comment.user.thumbnail}></img></a>
     <div className="name-and-date">
-      <a href="#">{comment.user.name}</a>
+      <Link to={`/users/${comment.user.id}`}>{comment.user.name}</Link>
       <div><TimeAgo date={comment.updated_at} formatter={formatter} /></div>
     </div>
     {user.id === comment.user.id &&

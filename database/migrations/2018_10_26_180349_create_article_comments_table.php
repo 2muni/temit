@@ -17,10 +17,10 @@ class CreateArticleCommentsTable extends Migration
             $table->increments('id');
             $table->text('comment');
             $table->unsignedInteger('article_id');
-            $table->unsignedInteger('reply_to');
+            $table->unsignedInteger('reply_to')->nullable();
             $table->unsignedInteger('user_id');
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
-            $table->foreign('reply_to')->references('id')->on('article_comments')->onDelete('cascade')->nullable();
+            $table->foreign('reply_to')->references('id')->on('article_comments')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

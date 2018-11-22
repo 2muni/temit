@@ -23,7 +23,7 @@ class PostComment extends Component{
   componentDidMount() {
     const data = new FormData()
     data.append('reply_to', this.props.comment.id)
-    axios.post(`/api/comments/${this.props.comment.article_id}`, data)
+    axios.post(`/api/articles/comments/${this.props.comment.article_id}`, data)
     .then((res) => this.setState({ replies: res.data }))
   }
 
@@ -45,8 +45,8 @@ class PostComment extends Component{
     data.append('user_id', this.props.user.id);
     data.append('reply_to', this.props.comment.id);
     data.append('article_id', this.props.comment.article_id);
-    axios.post('/api/comments', data)
-    .then(() => axios.post(`/api/comments/${this.props.comment.article_id}`, data))
+    axios.post('/api/articles/comments', data)
+    .then(() => axios.post(`/api/articles/comments/${this.props.comment.article_id}`, data))
     .then((res) => this.setState(
       produce(this.state, draft => {
         draft.comment = '';
@@ -59,8 +59,8 @@ class PostComment extends Component{
     const data = new FormData()
     data.append('reply_to', this.props.comment.id)
     confirm("댓글을 삭제하시겠습니까?") && 
-    axios.delete(`/api/comments/${e.target.dataset.id}`)
-    .then(() => axios.post(`/api/comments/${this.props.comment.article_id}`, data))
+    axios.delete(`/api/articles/comments/${e.target.dataset.id}`)
+    .then(() => axios.post(`/api/articles/comments/${this.props.comment.article_id}`, data))
     .then((res) => this.setState({ replies: res.data }))
   }
 

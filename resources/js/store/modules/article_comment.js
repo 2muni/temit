@@ -43,7 +43,7 @@ export const likeFailure = createAction(LIKE_FAILURE, err => err);
 export const postRequest = data => (
   dispatch => {
     dispatch(post());
-    return axios.post('/api/comments', data)
+    return axios.post('/api/articles/comments', data)
       .then((res) => {
         dispatch(postSuccess());
       }).catch((err) => {
@@ -55,7 +55,7 @@ export const listRequest = article => (
   dispatch => {
     dispatch(list());
 
-    return axios.get(`/api/comments/${article}`)
+    return axios.get(`/api/articles/comments/${article}`)
       .then((res) => {
         dispatch(listSuccess(res));
       }).catch((err) => {
@@ -67,7 +67,7 @@ export const getRequest = (article, reply_to) => (
   dispatch => {
     dispatch(get());
 
-    return axios.get(`/api/comments/${article}`, reply_to)
+    return axios.get(`/api/articles/comments/${article}`, reply_to)
       .then((res) => {
         dispatch(getSuccess(res));
       }).catch((err) => {
@@ -79,7 +79,7 @@ export const editRequest = (comments, data) => (
   dispatch => {
     dispatch(edit());
     data.append('_method', 'PUT');
-    return axios.post(`/api/comments/${comments}`, data)
+    return axios.post(`/api/articles/comments/${comments}`, data)
       .then((res) => {
         dispatch(editSuccess());
       }).catch((err) => {
@@ -90,7 +90,7 @@ export const editRequest = (comments, data) => (
 export const removeRequest = id => (
   dispatch => {
     dispatch(remove());
-    return axios.delete(`/api/comments/${id}`)
+    return axios.delete(`/api/articles/comments/${id}`)
       .then((res) => {
         dispatch(removeSuccess());
       }).catch((err) => {

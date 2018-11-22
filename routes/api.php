@@ -34,11 +34,11 @@ Route::group([
 Route::resource('/articles', 'ArticleController');
 Route::resource('/snapshots', 'SnapshotController');
 
-Route::get('/comments/{article}', 'CommentController@show');
-Route::post('/comments', 'CommentController@store');
-Route::post('/comments/{article}', 'CommentController@showReply');
-Route::put('/comments/{comment}', 'CommentController@update');
-Route::delete('/comments/{comment}', 'CommentController@destroy');
+Route::get('/articles/comments/{article}', 'ArticleCommentController@show');
+Route::post('/articles/comments', 'ArticleCommentController@store');
+Route::post('/articles/comments/{article}', 'ArticleCommentController@showReply');
+Route::put('/articles/comments/{comment}', 'ArticleCommentController@update');
+Route::delete('/articles/comments/{comment}', 'ArticleCommentController@destroy');
 
 Route::get('/users/{user}', 'UserController@show');
 Route::put('/users/{user}', 'UserController@update');
