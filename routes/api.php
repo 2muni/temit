@@ -32,13 +32,19 @@ Route::group([
 });
 
 Route::resource('/articles', 'ArticleController');
-Route::resource('/snapshots', 'SnapshotController');
 
 Route::get('/articles/comments/{article}', 'ArticleCommentController@show');
 Route::post('/articles/comments', 'ArticleCommentController@store');
 Route::post('/articles/comments/{article}', 'ArticleCommentController@showReply');
 Route::put('/articles/comments/{comment}', 'ArticleCommentController@update');
 Route::delete('/articles/comments/{comment}', 'ArticleCommentController@destroy');
+
+Route::resource('/snapshots', 'SnapshotController');
+
+Route::get('/snapshots/comments/{snapshot}', 'SnapshotCommentController@show');
+Route::post('/snapshots/comments', 'SnapshotCommentController@store');
+Route::put('/snapshots/comments/{comment}', 'SnapshotCommentController@update');
+Route::delete('/snapshots/comments/{comment}', 'SnapshotCommentController@destroy');
 
 Route::get('/users/{user}', 'UserController@show');
 Route::put('/users/{user}', 'UserController@update');

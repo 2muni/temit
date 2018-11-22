@@ -4,7 +4,7 @@ import TimeAgo from 'react-timeago';
 import koreanStrings from 'react-timeago/lib/language-strings/ko'
 import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
 import marked from 'marked'
-import { Button, Icon } from 'react-materialize';
+import { Icon } from 'react-materialize';
 
 const formatter = buildFormatter(koreanStrings)
 
@@ -13,11 +13,11 @@ const SSItem = ({
   data
 }) => {
   if(isSnapshot) return(
-    <div className="snapshot-item">
+    <React.Fragment>
       <div className="snapshot-head">
         <img className="circle" alt="user-profile" src={data.user.thumbnail}/>
         <div className="info">
-          <a href="#">{data.user.name}</a>
+          <Link to={`/users/${data.user.id}`}>{data.user.name}</Link>
           <div className="date">
             <TimeAgo date={data.created_at} formatter={formatter} />
           </div>
@@ -27,26 +27,15 @@ const SSItem = ({
       {data.uri ?
         <img src={data.uri}/> :
         <React.Fragment></React.Fragment>}
-      <div className="snapshot-replies">
-        <div className="reply">
-          <img className="circle" alt="user-profile" src={data.user.thumbnail}/>
-          <div className="body">
-          <a href="#">이름</a>ㅇㄴㄹㅁㅇㄴㄹㅁㅇㄴㄹㅁㄹㅁㅇㄴㄹ</div>
-        </div>
-        <div className="reply">
-          <img className="circle" alt="user-profile" src={data.user.thumbnail}/>
-          <input className="body" placeholder="댓글을 입력하세요..."></input>
-          <Button>작성</Button>
-        </div>
-      </div>
-    </div>
+    </React.Fragment>
   );
   else return (
-    <div className="snapshot-item">
+    <React.Fragment>
       <div className="snapshot-head">
         <img className="circle" alt="user-profile" src={data.user.thumbnail}/>
         <div className="info">
-          <a href="#">{data.user.name}</a>님이 게시물을 작성하였습니다.
+          <Link to={`/users/${data.user.id}`}>{data.user.name}</Link>
+          <span>님이 게시물을 작성하였습니다.</span>
           <div className="date">
             <TimeAgo date={data.created_at} formatter={formatter} />
           </div>
@@ -70,7 +59,7 @@ const SSItem = ({
           </div>
         </div>
       </Link>
-    </div>
+    </React.Fragment>
   )
 }
 

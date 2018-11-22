@@ -105,7 +105,8 @@ class HomeContainer extends Component {
         {this.state.list ? this.state.list.map((item, i) => (
           <SnapshotContainer
             key={i}
-            data={item}
+            snapshot={item}
+            user={this.props.user}
           />
         ))
         : <Preloader/>}

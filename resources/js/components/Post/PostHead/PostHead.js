@@ -14,11 +14,11 @@ const PostHead = ({
 }) => (
   <div className="article-head">
     <div className="userinfo">
-      <Link to="#" className="user-thumbnail">
+      <Link to={`/users/${article.user.id}`} className="user-thumbnail">
         <img className="circle" alt="user-profile" src={article.user.thumbnail}/>
       </Link>
       <div className="info">
-        <Link to="#" className="username">{article.user.email.substring(0, article.user.email.indexOf('@'))}</Link>
+        <Link to={`/users/${article.user.id}`} className="username">{article.user.email.substring(0, article.user.email.indexOf('@'))}</Link>
         <div className="bio">{article.user.bio}</div>
       </div>
     </div>

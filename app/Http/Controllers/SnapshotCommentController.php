@@ -29,12 +29,14 @@ class SnapshotCommentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Snapshot  $snapshot
+     * @param  \App\Snapshot_Comment  $snapshot
      * @return \Illuminate\Http\Response
      */
-    public function show(Snapshot $snapshot)
+    public function show(Snapshot_Comment $snapshot)
     {
-        $comments = Snapshot_Comment::with('user')->where('snapshot_id', $snapshot->id)->get();
+        $comments = Snapshot_Comment::with('user')
+            ->where('snapshot_id', $snapshot->id)
+            ->get();
 
         return response($comments, 200);
     }
@@ -46,7 +48,7 @@ class SnapshotCommentController extends Controller
      * @param  \App\Snapshot_Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Snapshot $comment)
+    public function update(Request $request, Snapshot_Comment $comment)
     {
         $data = $request->validate([
             'snapshot_id' => 'required|string',
