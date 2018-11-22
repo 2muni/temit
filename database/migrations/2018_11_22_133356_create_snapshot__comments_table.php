@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateArticleCommentsTable extends Migration
+class CreateSnapshotCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateArticleCommentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('article__comments', function (Blueprint $table) {
+        Schema::create('snapshot__comments', function (Blueprint $table) {
             $table->increments('id');
             $table->text('comment');
-            $table->unsignedInteger('article_id');
-            $table->unsignedInteger('reply_to')->nullable();
+            $table->unsignedInteger('snapshot_id');
             $table->unsignedInteger('user_id');
-            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
-            $table->foreign('reply_to')->references('id')->on('article_comments')->onDelete('cascade');
+            $table->foreign('snapshot_id')->references('id')->on('articles')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
@@ -33,6 +31,6 @@ class CreateArticleCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('article__comments');
+        Schema::dropIfExists('snapshot__comments');
     }
 }

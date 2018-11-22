@@ -46,7 +46,7 @@ class FollowerController extends Controller
                         ->whereIn('user_id', $arr)
                         ->get();
 
-        $snapshots = Snapshot::with('user')
+        $snapshots = Snapshot::with('user', 'comments')
                         ->whereIn('user_id', $arr)
                         ->get();
 

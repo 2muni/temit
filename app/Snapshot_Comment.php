@@ -4,17 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Snapshot extends Model
+class Snapshot_Comment extends Model
 {
     protected $fillable = [
-        'body', 'uri', 'user_id'
+        'snapshot_id', 'comment', 'user_id'
     ];
-
-    public function comments()
+    public function snapshot()
     {
-        return $this->hasMany('App\Snapshot_Comment');
+        return $this->belongsTo('App\Snapshot');
     }
-
     public function user()
     {
         return $this->belongsTo('App\User');

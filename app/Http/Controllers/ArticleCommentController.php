@@ -20,7 +20,7 @@ class ArticleCommentController extends Controller
             'article_id' => 'required|string',
             'comment' => 'required|string',
             'reply_to' => 'string',
-            'user_id' => 'string'
+            'user_id' => 'required|string'
         ]);
 
         $comment = Article_Comment::create($data);
