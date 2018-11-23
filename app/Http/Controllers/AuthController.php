@@ -8,15 +8,6 @@ use Carbon\Carbon;
 use App\User;
 class AuthController extends Controller
 {
-    /**
-     * Create user
-     *
-     * @param  [string] name
-     * @param  [string] email
-     * @param  [string] password
-     * @param  [string] password_confirmation
-     * @return [string] message
-     */
     public function signup(Request $request)
     {
         $request->validate([
@@ -35,16 +26,6 @@ class AuthController extends Controller
         ], 201);
     }
   
-    /**
-     * Login user and create token
-     *
-     * @param  [string] email
-     * @param  [string] password
-     * @param  [boolean] remember_me
-     * @return [string] access_token
-     * @return [string] token_type
-     * @return [string] expires_at
-     */
     public function login(Request $request)
     {
         $request->validate([
@@ -72,11 +53,6 @@ class AuthController extends Controller
         ]);
     }
   
-    /**
-     * Logout user (Revoke the token)
-     *
-     * @return [string] message
-     */
     public function logout(Request $request)
     {
         $request->user()->token()->revoke();
@@ -84,14 +60,13 @@ class AuthController extends Controller
             'message' => 'Successfully logged out'
         ]);
     }
-  
-    /**
-     * Get the authenticated User
-     *
-     * @return [json] user object
-     */
+
     public function user(Request $request)
     {
-        return response()->json($request->user());
+        $user = User::with('followees', 'followers')
+        ->get()
+        ->find($request->user());
+
+        return response($user, 200);
     }
 }

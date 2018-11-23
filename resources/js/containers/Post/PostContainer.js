@@ -32,7 +32,7 @@ class PostContainer extends Component {
   }
 
   handleArticleRemove() {
-    if(this.props.user.id === this.props.articleData.user.id) {
+    if(this.props.currentUser.id === this.props.articleData.user.id) {
       confirm("게시글을 삭제하시겠습니까?") && 
       this.props.ArticleActions.removeRequest(this.props.article)
       .then(() => this.props.removeState === 'SUCCESS' && (window.location.href = `${window.location.origin}/board`))
@@ -41,10 +41,10 @@ class PostContainer extends Component {
 
   render() {
     return(
-      this.props.articleData ?
+      this.props.currentUser && this.props.articleData ?
         <Fragment>
           <PostHead
-            user={this.props.user}
+            user={this.props.currentUser}
             article={this.props.articleData}
             handleArticleRemove={this.handleArticleRemove}
           />
@@ -52,7 +52,7 @@ class PostContainer extends Component {
             article={this.props.articleData}
           />
           <PostCommentContainer
-            user={this.props.user}
+            user={this.props.currentUser}
             article={this.props.article}
           />
         </Fragment>
@@ -63,7 +63,8 @@ class PostContainer extends Component {
 
 const mapStateToProps = (state) => ({
   articleData: state.article.get.data,
-  removeState: state.article.remove.status
+  removeState: state.article.remove.status,
+  currentUser: state.authentication.status.currentUser
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -722,7 +722,6 @@
 
 .aside-nav .user-profile {
   height: 74px;
-  padding: 12px 0;
   border-bottom: 1px solid #E0E0E0;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1860,12 +1859,9 @@ nav .nav-wrapper {
   height: 2.5rem;
 }
 
-.snapshot-replies .reply .body-wrapper {
-  margin-left: .5rem;
-}
-
 .snapshot-replies .reply .body,
 .snapshot-replies .reply .body:focus {
+  margin-left: .5rem;
   padding: .5rem;
   -webkit-box-flex: 1;
       -ms-flex: 1;
@@ -1881,6 +1877,7 @@ nav .nav-wrapper {
 }
 
 .snapshot-replies .reply .options {
+  margin-left: .5rem;
   padding: .5rem;
   display: -webkit-box;
   display: -ms-flexbox;

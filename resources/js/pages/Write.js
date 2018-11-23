@@ -1,6 +1,5 @@
 import React from 'react';
 import EditorContainer from '../containers/post/EditorContainer'
-import { getCookie } from '../lib/cookie'
 
 const Write = ({ match, history }) => {
   const { id } = match.params;
@@ -9,7 +8,6 @@ const Write = ({ match, history }) => {
     <EditorContainer 
       article={id}
       history={history}
-      user={getCookie('user').currentUser}
       />
   );
 }

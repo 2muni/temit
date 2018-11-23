@@ -39,7 +39,7 @@ class EditorContainer extends Component {
     return new Promise((res, rej) => {
       const src = blob;
       let data = new FormData();
-      data.append('user_id', this.props.user.id);
+      data.append('user_id', this.props.currentUser.id);
       data.append('path', path);
   
       const reader = new FileReader();
@@ -47,7 +47,7 @@ class EditorContainer extends Component {
         const image = new Image();
         image.src = reader.result;
         image.onload = imageEvent => {
-          data.append('image', resize(768, image), this.props.user.name);
+          data.append('image', resize(768, image), this.props.currentUser.name);
           if(callback)
             res(axios.post('/api/images', data)
             .then((res) => callback(res.data)));
@@ -91,7 +91,7 @@ class EditorContainer extends Component {
     if(this.props.article) {
       this.props.ArticleActions.getRequest(this.props.article)
       .then(() => {
-        if(this.props.user.id == this.props.articleData.user.id) {
+        if(this.props.currentUser.id == this.props.articleData.user.id) {
           this.setState(
             produce(this.state, draft => {
               draft.post['title'] = this.props.articleData.title;
@@ -138,7 +138,7 @@ class EditorContainer extends Component {
   handleSubmit(e) {
     let data = new FormData();
     data.append('tags', this.state.tags);
-    data.append('user_id', this.props.user.id);
+    data.append('user_id', this.props.currentUser.id);
     data.append('title', this.state.post.title);
     data.append('body', this.state.post.body);
     if(this.state.post.thumbnail) {
@@ -181,7 +181,8 @@ class EditorContainer extends Component {
 
 const mapStateToProps = (state) => ({
   articleData: state.article.get.data,
-  postState: state.article.post.status
+  postState: state.article.post.status,
+  currentUser: state.authentication.status.currentUser
 });
 
 const mapDispatchToProps = (dispatch) => ({

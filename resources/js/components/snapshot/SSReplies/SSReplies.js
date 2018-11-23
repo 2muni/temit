@@ -11,7 +11,7 @@ const SSReplies = ({
   handleRemove,
 }) => (
   <div className="snapshot-replies">
-    {list.length > 0 && list.map((item, i) => (
+    {list.map((item, i) => (
       <SSReply
         key={i}
         data={item}

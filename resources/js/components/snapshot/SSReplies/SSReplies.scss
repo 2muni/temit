@@ -5,15 +5,14 @@
     width: 100%;
     display: flex;
     align-items: flex-start;
-
     img{
       display: inline-block;
       border-radius: 50%;
       width: 2.5rem;
       height: 2.5rem;
     }
-    .body-wrapper{ margin-left: .5rem; }
     .body, .body:focus{
+      margin-left: .5rem;
       padding: .5rem; 
       flex: 1;
       border-radius: 1rem;
@@ -21,6 +20,7 @@
       a{ font-weight: bold; margin-right: .5rem; }
     }
     .options{
+      margin-left: .5rem;
       padding: .5rem;
       display: flex;
       font-size: .9rem;

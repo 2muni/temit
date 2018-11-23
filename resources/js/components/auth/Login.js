@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 const Login = ({
   handleChange,
   handleSubmit,
+  handleKeyPress,
   state
 }) => (
   <div className="auth">
@@ -31,6 +32,7 @@ const Login = ({
             name="password"
             onChange={handleChange}
             value={state.password}
+            onKeyPress={handleKeyPress}
             required
           />
           </div>

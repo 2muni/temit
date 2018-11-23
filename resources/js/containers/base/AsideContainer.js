@@ -18,15 +18,15 @@ class AsideContainer extends Component {
   }
 
   componentDidMount() {
+    // this.props.currentUser && this.props.UserActions.userRequest(this.props.currentUser.id)
+    // .then(() => this.setState({
+    //   followees: this.props.user.followees
+    // }))
     window.addEventListener('scroll', this.handleFixed, false)
-    this.props.UserActions.userRequest(this.props.user.id)
-    .then(() => this.setState({
-      followees: this.props.currentUser.followees
-    }))
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return nextState.isFixed !== this.state.isFixed
+    return nextState.isFixed !== this.state.isFixed || nextProps.currentUser !== this.props.currentUser
   }
 
   componentWillUnmount() {
@@ -41,18 +41,22 @@ class AsideContainer extends Component {
   }
 
   render() {
-    return(
+    if(this.props.currentUser)return(
       <AsideNav
         isFixed={this.state.isFixed}
-        user={this.props.user}
+        user={this.props.currentUser}
         items={this.props.items}
       />
+    )
+    else return(
+      <React.Fragment></React.Fragment>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-  currentUser: state.user.get.user,
+  user: state.user.get.user,
+  currentUser: state.authentication.status.currentUser
 })
 
 const mapDispatchToProps = (dispatch) => ({

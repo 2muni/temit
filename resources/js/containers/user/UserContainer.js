@@ -5,6 +5,7 @@ import * as userActions from '../../store/modules/user';
 import { UserHead } from '../../components/user/UserHead';
 import { produce } from 'immer';
 import { resize } from '../../lib/tool';
+import { Preloader } from '../../components/etc';
 import axios from 'axios';
 
 class UserContainer extends Component {
@@ -129,7 +130,8 @@ class UserContainer extends Component {
   }
 
   render() {
-    if(this.state.user) return(
+    return(
+      this.props.currentUser && this.state.user ? 
       <Fragment>
         <UserHead
           currentUser={this.props.currentUser}
@@ -147,15 +149,14 @@ class UserContainer extends Component {
 
         </div>
       </Fragment>
-    )
-    else return(
-      <div>loading...</div>
+    : <Preloader/>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-  userData: state.user.get.user
+  userData: state.user.get.user,
+  currentUser: state.authentication.status.currentUser
 })
 
 const mapDispatchToProps = (dispatch) => ({

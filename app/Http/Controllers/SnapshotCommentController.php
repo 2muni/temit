@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Snapshot;
 use App\Snapshot_Comment;
 use Illuminate\Http\Request;
 
@@ -29,10 +30,10 @@ class SnapshotCommentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Snapshot_Comment  $snapshot
+     * @param  \App\Snapshot  $snapshot
      * @return \Illuminate\Http\Response
      */
-    public function show(Snapshot_Comment $snapshot)
+    public function show(Snapshot $snapshot)
     {
         $comments = Snapshot_Comment::with('user')
             ->where('snapshot_id', $snapshot->id)

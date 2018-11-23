@@ -27,11 +27,11 @@ class HomeContainer extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('scroll', this.onScroll, false);
-    this.props.UserActions.getActivityRequest(this.props.user.id)
+    this.props.currentUser && this.props.UserActions.getActivityRequest(this.props.currentUser.id)
     .then(() => this.setState({
       list: this.props.userActivity
     }))
+    window.addEventListener('scroll', this.onScroll, false);
   }
 
   componentWillUnmount() {
@@ -48,7 +48,7 @@ class HomeContainer extends Component {
   
   handleSubmit() {
     let data = new FormData();
-    data.append('user_id', this.props.user.id);
+    data.append('user_id', this.props.currentUser.id);
     data.append('body', this.state.body);
     if(this.state.preview) {
       this.requestImageURL(this.state.preview, 'snapshots')
@@ -80,12 +80,12 @@ class HomeContainer extends Component {
   requestImageURL(blob, path) {
     return new Promise((res, rej) => {
       let data = new FormData();
-      data.append('user_id', this.props.user.id);
+      data.append('user_id', this.props.currentUser.id);
       data.append('path', path);
       const image = new Image();
       image.src = blob;
       image.onload = imageEvent => {
-        data.append('image', resize(768, image), this.props.user.name);
+        data.append('image', resize(768, image), this.props.currentUser.name);
         res(axios.post('/api/images', data)
         .then((res) => (res.data)));
       }
@@ -102,11 +102,11 @@ class HomeContainer extends Component {
           body={this.state.body}
           preview={this.state.preview}
         />
-        {this.state.list ? this.state.list.map((item, i) => (
+        {this.props.currentUser && this.state.list ? this.state.list.map((item, i) => (
           <SnapshotContainer
             key={i}
             snapshot={item}
-            user={this.props.user}
+            user={this.props.currentUser}
           />
         ))
         : <Preloader/>}
@@ -117,7 +117,8 @@ class HomeContainer extends Component {
 
 const mapStateToProps = (state) => ({
   snapshotList: state.snapshot.get.data,
-  userActivity: state.user.getActivity.data
+  userActivity: state.user.getActivity.data,
+  currentUser: state.authentication.status.currentUser
 })
 
 const mapDispatchToProps = (dispatch) => ({

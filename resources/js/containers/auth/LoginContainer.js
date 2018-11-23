@@ -17,6 +17,7 @@ class LoginContainer extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   componentDidMount() {
@@ -27,6 +28,12 @@ class LoginContainer extends Component {
     this.setState(produce(this.state, draft => {
       draft[e.target.name] = e.target.value
     }))
+  }
+
+  handleKeyPress(e) {
+    if(e.key === 'Enter') {
+      this.handleSubmit();
+    }
   }
 
   handleSubmit() {
@@ -41,6 +48,7 @@ class LoginContainer extends Component {
         state={this.state}
         handleChange={this.handleChange}
         handleSubmit={this.handleSubmit}
+        handleKeyPress={this.handleKeyPress}
       />
     );
   }
