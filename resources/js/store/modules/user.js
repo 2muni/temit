@@ -82,11 +82,11 @@ export const unfollowRequest = (data) => (
       })
   }
 )
-
-export const getActivityRequest = (id) => (
+// activity pagination
+export const getActivityRequest = (id, page) => (
   dispatch => {
     dispatch(getActivity());
-    return axios.get(`/api/users/followers/${id}`)
+    return axios.post(`/api/users/followers/${id}`, page)
       .then((res) => {
         dispatch(getActivitySuccess(res.data))
       }).catch((err) => {

@@ -8,30 +8,48 @@ import * as snapshotActions from '../../store/modules/snapshot'
 import * as userActions from '../../store/modules/user'
 import { resize } from '../../lib/tool';
 import axios from 'axios';
+import { produce } from 'immer';
 
 class HomeContainer extends Component {
 
   constructor(props) {
     super(props)
 
+    this.page = 1;
     this.state = {
       isFixed: false,
+      isLoading: true,
       body: '',
       preview: '',
-      list: null
+      list: []
     }
     this.onScroll = this.onScroll.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.dataLoad = this.dataLoad.bind(this);
+    this.onScroll = this.onScroll.bind(this);
     this.addImage = this.addImage.bind(this);
   }
 
+  dataLoad() {
+    this.setState({ isLoading: true });
+    this.props.currentUser && 
+    this.props.UserActions.getActivityRequest(this.props.currentUser.id, { page: this.page })
+    .then(() => this.setState(produce(this.state, draft => {
+      
+      console.log(this.props.userActivity)
+      draft.list = this.state.list.concat(this.props.userActivity);
+      draft.isLoading = false;
+    })));
+  }
+
   componentDidMount() {
-    this.props.currentUser && this.props.UserActions.getActivityRequest(this.props.currentUser.id)
-    .then(() => this.setState({
-      list: this.props.userActivity
-    }))
+    this.dataLoad();
     window.addEventListener('scroll', this.onScroll, false);
+  }
+
+  componentDidUpdate(prevProps) {
+    if(prevProps.currentUser !== this.props.currentUser) this.dataLoad();
   }
 
   componentWillUnmount() {
@@ -39,6 +57,13 @@ class HomeContainer extends Component {
   }
 
   onScroll() {
+    if(
+      (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 800) &&
+      this.state.list.length && !this.state.isLoading
+    ) {
+      this.page++;
+      this.dataLoad();
+    }
   }
 
   handleChange(e) {
@@ -52,20 +77,32 @@ class HomeContainer extends Component {
     data.append('body', this.state.body);
     if(this.state.preview) {
       this.requestImageURL(this.state.preview, 'snapshots')
-      .then((uri) => data.append('uri', uri))
-      .then(() => {
-        this.props.SnapshotActions.postRequest(data)
-        .then(() => this.setState({
-          body: '',
-          preview: '',
-        }))
-      })
+        .then((uri) => data.append('uri', uri))
+        .then(() => {
+          this.props.SnapshotActions.postRequest(data)
+          .then(() => this.setState({
+            body: '',
+            preview: '',
+          }))
+          .then(() => {
+            this.props.currentUser && this.props.UserActions.getActivityRequest(this.props.currentUser.id)
+            .then(() => this.setState({
+              list: this.props.userActivity
+            }))
+          })
+        })
     }else {
       this.props.SnapshotActions.postRequest(data)
         .then(() => this.setState({
           body: '',
           preview: '',
         }))
+        .then(() => {
+          this.props.currentUser && this.props.UserActions.getActivityRequest(this.props.currentUser.id)
+          .then(() => this.setState({
+            list: this.props.userActivity
+          }))
+        })
     }
   }
 
@@ -102,14 +139,14 @@ class HomeContainer extends Component {
           body={this.state.body}
           preview={this.state.preview}
         />
-        {this.props.currentUser && this.state.list ? this.state.list.map((item, i) => (
+        {this.props.currentUser && this.state.list.map((item, i) => (
           <SnapshotContainer
             key={i}
             snapshot={item}
             user={this.props.currentUser}
           />
-        ))
-        : <Preloader/>}
+        ))}
+        {this.state.isLoading ? <Preloader/> : undefined }
       </div>
     );
   }

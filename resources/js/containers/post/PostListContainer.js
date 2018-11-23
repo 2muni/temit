@@ -5,14 +5,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as articleActions from '../../store/modules/article';
 import axios from 'axios';
-import produce from 'immer';
+import { produce } from 'immer';
 
 class PostListContainer extends Component {
 
   constructor(props) {
     super(props)
+    
     this.page = 1;
-
     this.state = {
       isLoading: true,
       list: [],
@@ -23,8 +23,6 @@ class PostListContainer extends Component {
   }
 
   componentDidMount() {
-    this.setState({ isLoading: true })
-    
     if(this.props.tag){
       axios.get(`/api/tags/${this.props.tag}`)
         .then((res) => this.setState(produce(this.state, draft => {
@@ -32,15 +30,14 @@ class PostListContainer extends Component {
           draft.tag = res.data.tag;
           draft.isLoading = false;
         })))
-        .then(() => window.addEventListener('scroll', this.onScroll, false))
     }else {
       this.props.ArticleActions.listRequest(this.page)
         .then(() => this.setState(produce(this.state, draft => {
           draft.list = this.props.articleList.data;
           draft.isLoading = false;
         })))
-        .then(() => window.addEventListener('scroll', this.onScroll, false))
     }
+    window.addEventListener('scroll', this.onScroll, false);
   }
   shouldComponentUpdate(nextProps, nextState) {
     return (
@@ -56,7 +53,7 @@ class PostListContainer extends Component {
       (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 800) &&
       this.state.list.length && !this.state.isLoading
     ) {
-      this.setState(produce(this.state, draft => { draft.isLoading = true }));
+      this.setState({isLoading: true });
       this.page++;
       this.props.ArticleActions.listRequest(this.page)
       .then(() => this.setState(produce(this.state, draft => {

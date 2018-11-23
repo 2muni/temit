@@ -16,9 +16,9 @@ const AsideNav = ({
         <Link to={`/users/${user.id}`}><div className="user-name">{user.name}</div></Link>
       </div>
       <ul className="aside-navitem">
-      {items.map((item, i)=>(
+      {/* {items.map((item, i)=>(
         <li key={i}><Link to={`${item.link}`}><Icon>{`${item.icon}`}</Icon>{`${item.label}`}</Link></li>
-      ))}
+      ))} */}
       </ul>
     </div>
   </aside>

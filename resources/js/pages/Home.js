@@ -4,15 +4,7 @@ import AsideContainer from '../containers/base/AsideContainer'
 
 const Home = () => (
     <div className="snapshot-wrapper">
-      <AsideContainer
-        items={[
-          {
-            link: '',
-            icon: 'create',
-            label: '새 스냅샷'
-          }
-        ]}
-      />
+      <AsideContainer/>
       <HomeContainer/>
     </div>
   )

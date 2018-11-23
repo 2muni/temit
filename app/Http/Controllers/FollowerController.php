@@ -35,7 +35,7 @@ class FollowerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Request $request, User $user)
     {   
         $arr = [$user->id];
         foreach($user->followees as $item) {
@@ -54,6 +54,8 @@ class FollowerController extends Controller
 
         $response = $collection
                     ->sortByDesc('created_at')
+                    ->values()
+                    ->forPage($request->page, 5)
                     ->values()
                     ->all();
 

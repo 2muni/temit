@@ -18,8 +18,8 @@ const Form = ({
       <div className="title">새로운 스냅샷 작성</div>
       <Button className="modal-action modal-close">뒤로가기</Button>
       {body ? 
-        <Button className="submit" onClick={handleSubmit}>작성하기</Button> :
-        <Button>작성하기</Button>
+        <Button className="submit " onClick={handleSubmit}>작성하기</Button> :
+        <Button className="modal-action modal-close">작성하기</Button>
       }
     </div>
     <div className="write-body">

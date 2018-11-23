@@ -24,7 +24,6 @@ class SnapshotContainer extends Component {
   componentDidMount() {
     if(this.props.snapshot.hasOwnProperty('uri'))
       this.props.CommentActions.listRequest(this.props.snapshot.id)
-      .then(() => console.log(this.props.commentData))
       .then(() => this.setState({ list: this.props.commentData }))
   }
 

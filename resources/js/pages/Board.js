@@ -7,15 +7,7 @@ const Post = ({ match }) => {
   
   return(
     <div className="content-wrapper">
-      <AsideContainer
-        items={[
-          {
-            link: '/write',
-            icon: 'create',
-            label: '글 쓰기',
-          }
-        ]}
-      />
+      <AsideContainer/>
       <PostListContainer tag={tag}/>
     </div>
   );

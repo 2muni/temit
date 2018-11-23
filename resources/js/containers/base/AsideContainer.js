@@ -41,15 +41,15 @@ class AsideContainer extends Component {
   }
 
   render() {
-    if(this.props.currentUser)return(
-      <AsideNav
-        isFixed={this.state.isFixed}
-        user={this.props.currentUser}
-        items={this.props.items}
-      />
-    )
-    else return(
-      <React.Fragment></React.Fragment>
+    return(
+      this.props.currentUser ? 
+        <AsideNav
+          isFixed={this.state.isFixed}
+          user={this.props.currentUser}
+          //items={this.props.items}
+        />
+      : <React.Fragment></React.Fragment>
+      
     )
   }
 }
