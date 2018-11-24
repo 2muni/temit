@@ -999,7 +999,7 @@ nav .nav-wrapper {
   border-left: 4px solid #38435A;
 }
 
-.article-content pre {
+.article-content .tui-editor-contents > pre {
   display: block;
   overflow-x: auto;
   padding: 0.5em;

@@ -20,7 +20,7 @@ const UserHead = ({
         <div className="edit-thumbnail circle"><Icon>add_a_photo</Icon></div>
         <img className="circle" src={edit.thumbnail}/>
     </label>
-    <input onChange={addImage} id="img" type="file" accept="image/*;capture=camera" style={{display: 'none'}}/>
+    <input onChange={addImage} id="img" type="file" accept="image/*" capture style={{display: 'none'}}/>
     <div className="user-info">
       <div className="btns">
         <Button className="cancel" onClick={handleToggle}>취소</Button>

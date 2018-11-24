@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as userActions from '../../store/modules/user';
+import * as authActions from '../../store/modules/authentication'
 import { UserHead } from '../../components/user/UserHead';
 import { produce } from 'immer';
 import { resize } from '../../lib/tool';
@@ -44,6 +45,7 @@ class UserContainer extends Component {
     .then(() => this.setState({ user: this.props.userData }))
   }
 
+
   handleToggle() {
     this.setState(
       produce(this.state, draft => {
@@ -78,10 +80,11 @@ class UserContainer extends Component {
     data.append('bio', this.state.edit.bio)
     data.append('thumbnail', this.state.edit.thumbnail)
     this.props.UserActions.editRequest(this.props.id, data)
-    .then(() => this.setState(
-      produce(this.state, draft => {
-        draft.isEdit = false;
-    })))
+    .then(() => 
+      this.props.AuthActions.userRequest()
+      .then(() => this.setState({ isEdit: false }))
+    )
+    
   }
 
   handleFollow() {
@@ -157,7 +160,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  UserActions: bindActionCreators(userActions, dispatch)
+  UserActions: bindActionCreators(userActions, dispatch),
+  AuthActions: bindActionCreators(authActions, dispatch)
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(UserContainer);
