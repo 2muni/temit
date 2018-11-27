@@ -5,7 +5,7 @@ import { Icon } from 'react-materialize'
 const AsideNav = ({
   isFixed,
   user,
-  items
+  followees,
 }) => (
   <aside className="aside-nav">
     <div className="fixed-frame" style={ isFixed ? {position: 'fixed', top: '11px'} : {position: 'static'} }>
@@ -16,9 +16,9 @@ const AsideNav = ({
         <Link to={`/users/${user.id}`}><div className="user-name">{user.name}</div></Link>
       </div>
       <ul className="aside-navitem">
-      {/* {items.map((item, i)=>(
-        <li key={i}><Link to={`${item.link}`}><Icon>{`${item.icon}`}</Icon>{`${item.label}`}</Link></li>
-      ))} */}
+      {followees.map((item, i)=>(
+        <li key={i}><Link to={`/users/${item.id}`}>{`${item.name}`}</Link></li>
+      ))}
       </ul>
     </div>
   </aside>

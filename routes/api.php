@@ -52,7 +52,7 @@ Route::get('/users/{user}', 'UserController@show');
 Route::put('/users/{user}', 'UserController@update');
 
 Route::post('/users/followers', 'FollowerController@store');
-Route::delete('/users/followers', 'FollowerController@destroy');
+Route::post('/users/followers/unfollow', 'FollowerController@destroy');
 Route::post('/users/followers/{user}', 'FollowerController@show');
 
 Route::post('/images', 'ImageUploadController@store');

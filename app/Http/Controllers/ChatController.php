@@ -37,7 +37,7 @@ class ChatController extends Controller
      */
     public function store(Request $request, $channel)
     {
-        $channel = Channel::where('name', $channel)->get()[0];
+        $channel = Channel::where('name', $channel)->first();
         $message = Message::forceCreate([
             'channel_id' => $channel->id,
             'name' => request('username'),
@@ -57,8 +57,8 @@ class ChatController extends Controller
      */
     public function show($channel)
     {
-        $channel = Channel::where('name', $channel)->get();
-        $message = Message::where('channel_id', $channel[0]->id)->get();
+        $channel = Channel::where('name', $channel)->first();
+        $message = Message::where('channel_id', $channel->id)->get();
         
         return $message;
     }

@@ -33,11 +33,10 @@ class HomeContainer extends Component {
 
   dataLoad() {
     this.setState({ isLoading: true });
+
     this.props.currentUser && 
-    this.props.UserActions.getActivityRequest(this.props.currentUser.id, { page: this.page })
+      this.props.UserActions.getActivityRequest(this.props.currentUser.id, { page: this.page })
     .then(() => this.setState(produce(this.state, draft => {
-      
-      console.log(this.props.userActivity)
       draft.list = this.state.list.concat(this.props.userActivity);
       draft.isLoading = false;
     })));

@@ -63,7 +63,7 @@ export const followRequest = (data) => (
   dispatch => {
     dispatch(follow());
     return axios.post('/api/users/followers', data)
-      .then(() => {
+      .then((res) => {
         dispatch(followSuccess())
       }).catch((err) => {
         dispatch(followFailure(err))
@@ -74,7 +74,7 @@ export const followRequest = (data) => (
 export const unfollowRequest = (data) => (
   dispatch => {
     dispatch(unfollow());
-    return axios.delete('/api/users/followers', data)
+    return axios.post('/api/users/followers/unfollow', data)
       .then((res) => {
         dispatch(unfollowSuccess())
       }).catch((err) => {

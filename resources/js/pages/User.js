@@ -7,7 +7,7 @@ const Uesr = ({ match, history }) => {
   return(
     <div className="user-wrapper">
       <UserContainer
-        id={id}
+        id={Number(id)}
         history={history}
       />
     </div>

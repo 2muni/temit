@@ -11,17 +11,12 @@ class AsideContainer extends Component {
 
     this.state = {
       isFixed: false,
-      followees: []
     }
 
     this.handleFixed = this.handleFixed.bind(this);
   }
 
   componentDidMount() {
-    // this.props.currentUser && this.props.UserActions.userRequest(this.props.currentUser.id)
-    // .then(() => this.setState({
-    //   followees: this.props.user.followees
-    // }))
     window.addEventListener('scroll', this.handleFixed, false)
   }
 
@@ -46,7 +41,7 @@ class AsideContainer extends Component {
         <AsideNav
           isFixed={this.state.isFixed}
           user={this.props.currentUser}
-          //items={this.props.items}
+          followees={this.props.currentUser.followees}
         />
       : <React.Fragment></React.Fragment>
       

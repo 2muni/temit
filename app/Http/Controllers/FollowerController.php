@@ -20,12 +20,12 @@ class FollowerController extends Controller
     public function store(Request $request)
     {         
         $data = $request->validate([
-            'parent_id' => 'required|string',
-            'follower_id' => 'required|string',
+            'parent_id' => 'required',
+            'follower_id' => 'required',
         ]);
-        
+            
         $response = Follower::firstOrCreate($data);
-
+            
         return Response($response, 201);
     }
 
@@ -59,7 +59,6 @@ class FollowerController extends Controller
                     ->values()
                     ->all();
 
-        //$response = User::with('articles', 'snapshots')->
         return Response($response, 201);
     }
 
@@ -72,11 +71,9 @@ class FollowerController extends Controller
     public function destroy(Request $request)
     {   
         
-        $parent_id = $request->parent_id;
-        $follower_id = $request->follower_id;
         
-        $response = Follower::where('parent_id', $parent_id)
-        ->where('follower_id', $follower_id)->delete();
+        $response = Follower::where('parent_id', $request['parent_id'])
+        ->where('follower_id', $request['follower_id'])->delete();
         
         return Response($response, 202);
     }

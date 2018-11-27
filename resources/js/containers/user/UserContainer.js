@@ -89,9 +89,8 @@ class UserContainer extends Component {
 
   handleFollow() {
     let data = new FormData();
-    data.append('parent_id', this.props.id);
-    data.append('follower_id', this.props.currentUser.id);
-    
+    data.append('parent_id', this.props.id)
+    data.append('follower_id', this.props.currentUser.id)
     if(!this.state.isFollowing) {
       this.props.UserActions.followRequest(data)
       .then(() => this.setState({ isFollowing: true }))

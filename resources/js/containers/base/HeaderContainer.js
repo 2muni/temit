@@ -27,6 +27,16 @@ class HeaderContainer extends Component {
     .then(() => { !this.props.status.valid && this.props.history.push('/login')})
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.status.currentUser !== this.props.status.currentUser || nextProps.location.pathname !== this.props.location.pathname
+  }
+
+  componentDidUpdate(nextProps, nextState) {
+    if(nextProps.location.pathname !== this.props.location.pathname)
+      this.props.AuthActions.userRequest()
+      .then(() => { !this.props.status.valid && this.props.history.push('/login')})
+  }
+
   handleLogout() {
     this.props.AuthActions.logoutRequest()
     createCookie('user', {
@@ -38,7 +48,6 @@ class HeaderContainer extends Component {
   render() {
     const path = /(login|register|write)/;
     const isHidden = path.test(this.props.location.pathname);
-    
     return (
       isHidden ? <Fragment></Fragment> : 
       <Header
