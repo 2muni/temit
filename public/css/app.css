@@ -853,6 +853,7 @@ nav .nav-wrapper {
       -ms-flex: 1;
           flex: 1;
   background-color: #fff;
+  overflow-y: auto;
 }
 
 .chat-input {

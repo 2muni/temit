@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import HeaderContainer from './containers/Base/HeaderContainer';
 import { Login, Register, Post, Write, Board, Home, User } from './pages'
-import Chat from './pages/Chat'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
@@ -26,7 +25,6 @@ if (document.getElementById('root')) {
               <Route path='/write/:id' component={Write}/>
               <Route path='/write' component={Write}/>
               <Route path='/users/:id' component={User}/>
-              <Route path='/chat' component={Chat}/>
               <Route path='/' component={Home}/>
             </Switch>
         </React.Fragment>

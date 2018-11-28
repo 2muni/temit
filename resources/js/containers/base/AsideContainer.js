@@ -3,6 +3,7 @@ import ChatContainer from './ChatContainer'
 import { AsideNav } from '../../components/base'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { produce } from 'immer'
 import * as userActions from '../../store/modules/user'
 
 class AsideContainer extends Component {
@@ -12,10 +13,11 @@ class AsideContainer extends Component {
 
     this.state = {
       isFixed: false,
-      enterdChats: [],
+      activeChats: [],
     }
 
     this.handleFixed = this.handleFixed.bind(this);
+    this.enterChatRoom = this.enterChatRoom.bind(this);
   }
 
   componentDidMount() {
@@ -23,7 +25,9 @@ class AsideContainer extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return nextState.isFixed !== this.state.isFixed || nextProps.currentUser !== this.props.currentUser
+    return nextState.isFixed !== this.state.isFixed || 
+           nextProps.currentUser !== this.props.currentUser ||
+           nextState.activeChats !== this.state.activeChats
   }
 
   componentWillUnmount() {
@@ -37,6 +41,16 @@ class AsideContainer extends Component {
       this.setState({ isFixed: true })
   }
 
+  enterChatRoom(e) {
+    for(let index in this.state.activeChats) {
+      if(e.target.dataset.room === this.state.activeChats[index])
+        return
+    }
+    this.setState(produce(this.state, draft => {
+      draft.activeChats.push(e.target.dataset.room);
+    }))
+  }
+
   render() {
     return(
       <React.Fragment>
@@ -46,11 +60,14 @@ class AsideContainer extends Component {
             isFixed={this.state.isFixed}
             user={this.props.currentUser}
             followees={this.props.currentUser.followees}
+            enterChatRoom={this.enterChatRoom}
           />
-          {this.state.enterdChats.map((room, i) => (
+          {this.state.activeChats.map((room, i) => (
             <ChatContainer
+              key={i}
               index={i}
-              room={room}
+              room={this.props.currentUser.followees[room].id * this.props.currentUser.id}
+              otherPerson={this.props.currentUser.followees[room]}
             />
           ))}
         </React.Fragment>
@@ -61,7 +78,6 @@ class AsideContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.user.get.user,
   currentUser: state.authentication.status.currentUser
 })
 

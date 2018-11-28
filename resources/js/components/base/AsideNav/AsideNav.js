@@ -6,6 +6,7 @@ const AsideNav = ({
   isFixed,
   user,
   followees,
+  enterChatRoom
 }) => (
   <aside className="aside-nav">
     <div className="fixed-frame" style={ isFixed ? {position: 'fixed', top: '11px'} : {position: 'static'} }>
@@ -18,8 +19,12 @@ const AsideNav = ({
       <ul className="aside-navitem">
       {followees.map((item, i)=>(
         <li key={i}>
-          <img className="circle" alt={item.name} src={item.thumbnail} />
-          <span className="followee-name">{`${item.name}`}</span>
+          <Link to={`/users/${item.id}`}>
+            <img className="circle" alt={item.name} src={item.thumbnail} />
+          </Link>
+          <span className="followee-name"
+            data-room={i}
+            onClick={enterChatRoom}>{`${item.name}`}</span>
         </li>
       ))}
       </ul>
