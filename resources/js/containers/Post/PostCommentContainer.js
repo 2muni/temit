@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react';
+import { PostComments } from '../../components/post/PostComment'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as commentActions from '../../store/modules/article_comment'
+
 import { produce } from 'immer'
-import { PostComments } from '../../components/post/PostComment'
 
 class PostCommentContainer extends Component {
 

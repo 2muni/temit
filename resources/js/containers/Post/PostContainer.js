@@ -2,10 +2,12 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as articleActions from '../../store/modules/article'
+
 import { Preloader } from '../../components/etc'
 import { PostHead } from '../../components/post/PostHead'
 import { PostBody } from '../../components/post/PostBody'
 import PostCommentContainer from './PostCommentContainer'
+
 import tui from 'tui-editor'
 require('tui-editor/dist/tui-editor-contents.css'); // editor content
 require('highlight.js/styles/vs2015.css'); // code block highlight
