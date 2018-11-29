@@ -6,7 +6,7 @@ import { produce } from 'immer';
 import { resize } from '../../lib/tool';
 import axios from 'axios';
 
-import { EditorNav } from '../../components/post/editor/EditorNav'
+import { EditorNav } from '../../components/post/Editor/EditorNav'
 
 import tui from 'tui-editor'
 require('codemirror/lib/codemirror.css') // codemirror
