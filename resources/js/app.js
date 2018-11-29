@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import HeaderContainer from './containers/base/HeaderContainer';
 import { Login, Register, Post, Write, Board, Home, User } from './pages'
+
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
