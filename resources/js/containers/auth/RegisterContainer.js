@@ -34,19 +34,8 @@ class RegisterContainer extends Component {
   handleSubmit() {
     this.props.AuthActions.registerRequest(this.state)
     .then(() => {
-      if(this.props.status === 'SUCCESS') {
-        this.props.AuthActions.loginRequest({
-          email: this.state.email,
-          password: this.state.password
-        }).then(() => this.props.history.push('/'))
-      }else {
-        this.setState({
-          name: '',
-          email: '',
-          password: '',
-          password_confirmation: ''
-        })
-      }
+      alert("인증 메일을 발송하였습니다.")
+      this.props.history.push('/login')
     })
   }
 

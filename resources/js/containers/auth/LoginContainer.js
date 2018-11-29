@@ -39,7 +39,12 @@ class LoginContainer extends Component {
   handleSubmit() {
     this.props.AuthActions.loginRequest(this.state)
     .then(() => this.props.AuthActions.userRequest())
-    .then(() => this.props.status === 'SUCCESS' && this.props.history.push('/'))
+    .then(() => {
+      if(this.props.user.email_verified_at)
+        this.props.status === 'SUCCESS' && this.props.history.push('/')
+      else
+        alert('인증 메일을 확인하세요.')
+      })
   }
 
   render() {
@@ -55,7 +60,8 @@ class LoginContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  status: state.authentication.login.status
+  status: state.authentication.login.status,
+  user: state.authentication.status.currentUser
 })
 
 const mapDispatchToProps = (dispatch) => ({

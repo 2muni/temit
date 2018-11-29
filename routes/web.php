@@ -10,6 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/user/verify/{token}', 'AuthController@verifyUser');
 
-Route::get('/{path?}', 'HomeController@index')->where('path', '.*')->name('/');
+Route::get('/{path?}', 'HomeController@index')
+  ->where('path', '.*')->name('/');
 

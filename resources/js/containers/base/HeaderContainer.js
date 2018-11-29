@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Header } from '../../components/base'
+import { Header } from '../../components/base/Header'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as authActions from '../../store/modules/authentication';
@@ -24,7 +24,7 @@ class HeaderContainer extends Component {
     else if(!loginData.isLoggedIn) return this.props.history.push('/login');
 
     this.props.AuthActions.userRequest()
-    .then(() => { !this.props.status.valid && this.props.history.push('/login')})
+    .then(() => { !this.props.status.valid && this.props.history.push('/login') })
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -33,8 +33,12 @@ class HeaderContainer extends Component {
 
   componentDidUpdate(nextProps, nextState) {
     if(nextProps.location.pathname !== this.props.location.pathname)
+    if(this.props.location.pathname !== '/register' &&
+       this.props.location.pathname !== '/login'){
+         console.log(this.props.status.currentUser)
       this.props.AuthActions.userRequest()
       .then(() => { !this.props.status.valid && this.props.history.push('/login')})
+    }
   }
 
   handleLogout() {

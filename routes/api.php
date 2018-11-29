@@ -30,6 +30,7 @@ Route::group([
     });
 });
 
+Route::post('/channels', 'ChatController@create');
 Route::get('/channels/{channel}/messages', 'ChatController@show');
 Route::post('/channels/{channel}/messages', 'ChatController@store');
 

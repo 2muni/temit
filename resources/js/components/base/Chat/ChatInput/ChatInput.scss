@@ -1,0 +1,17 @@
+.chat-input{
+  height: 1.5rem;
+  width: 100%;
+  padding: 0 .5rem;
+  border-top: 1px solid #a6a6a6;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  input[type=text]:not(.browser-default),
+  input[type=text]:not(.browser-default):focus:not([readonly]){
+    all:unset;
+    flex: 1;
+    height: 1rem;
+    font-size: 1rem;
+    &::placeholder{ color: #adadad }
+  }
+}

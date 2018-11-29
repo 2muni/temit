@@ -44,11 +44,13 @@ class ArticleController extends Controller
         ->orderBy('id', 'desc')->first()->id;
 
         $tags = explode(",", strtolower($request->tags));
-
+        
         foreach($tags as $tag) {
-            Tag::firstOrCreate(['tag' => $tag]);
-            $tag_id = Tag::where('tag', $tag)->first()->id;
-            Article_Tag::create(['article_id' => $article_id, 'tag_id' => $tag_id]);
+            if($tag){
+                Tag::firstOrCreate(['tag' => $tag]);
+                $tag_id = Tag::where('tag', $tag)->first()->id;
+                Article_Tag::create(['article_id' => $article_id, 'tag_id' => $tag_id]);
+            }
         }
 
         return $article_id;

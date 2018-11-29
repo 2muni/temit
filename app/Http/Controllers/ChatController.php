@@ -24,9 +24,11 @@ class ChatController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $response = Channel::firstOrCreate(['name' => $request->room]);
+
+        return response($response, 201);
     }
 
     /**
@@ -37,11 +39,12 @@ class ChatController extends Controller
      */
     public function store(Request $request, $channel)
     {
+
         $channel = Channel::where('name', $channel)->first();
         $message = Message::forceCreate([
             'channel_id' => $channel->id,
-            'name' => request('username'),
-            'body' => request('message'),
+            'user_id' => $request->user_id,
+            'body' => $request->body
         ]);
 
         event(new MessageSent((string)$channel->name, $message));

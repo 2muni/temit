@@ -70,6 +70,7 @@ export const userRequest = () => (
       }})
     .then((res) => {
       dispatch(userSuccess(res))
+      if(res.data.email_verified_at)
       createCookie('user', {
         isLoggedIn: true,
         currentUser: res.data

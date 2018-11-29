@@ -31,6 +31,10 @@ class User extends Authenticatable
     /**
      * Get the articles for the user
      */
+    public function verifyUser()
+    {
+        return $this->hasOne('App\VerifyUser');
+    }
     public function articles()
     {
         return $this->hasMany('App\Article');

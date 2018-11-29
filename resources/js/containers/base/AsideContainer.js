@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ChatContainer from './ChatContainer'
-import { AsideNav } from '../../components/base'
+import { AsideNav } from '../../components/base/AsideNav'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { produce } from 'immer'
@@ -66,8 +66,9 @@ class AsideContainer extends Component {
             <ChatContainer
               key={i}
               index={i}
-              room={this.props.currentUser.followees[room].id * this.props.currentUser.id}
+              currentUser={this.props.currentUser}
               otherPerson={this.props.currentUser.followees[room]}
+              room={this.props.currentUser.followees[room].id * this.props.currentUser.id}
             />
           ))}
         </React.Fragment>
