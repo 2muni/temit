@@ -1001,6 +1001,35 @@ nav .nav-wrapper {
   color: red;
 }
 
+.socials-wrapper i {
+  font-size: 1rem;
+}
+
+.socials-wrapper .head {
+  margin: 24px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.socials-wrapper .head .line {
+  background-color: #e0e0e0;
+  height: 1px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.socials-wrapper .head .text {
+  color: #888;
+  margin: 0 1rem;
+  font-size: .9rem;
+}
+
 .article-head {
   width: 100%;
 }

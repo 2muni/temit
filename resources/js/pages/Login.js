@@ -2,11 +2,12 @@ import React from 'react';
 import LoginContainer from '../containers/auth/LoginContainer'
 
 const Login = ({ match, history }) => {
-  const { id } = match.params;
+  const { responseURL } = match.params;
 
   return(
     <LoginContainer
       history={history}
+      responseURL={responseURL}
     />
   );
 }

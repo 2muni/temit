@@ -17,6 +17,7 @@ if (document.getElementById('root')) {
         <React.Fragment>
             <Route path='/' component={HeaderContainer}/>
             <Switch>
+              <Route path='/login/:responseURL' component={Login}/>
               <Route path='/login' component={Login}/>
               <Route path='/register' component={Register}/>
               <Route path='/board/:tag' component={Board}/>

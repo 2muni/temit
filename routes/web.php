@@ -12,6 +12,9 @@
 */
 Route::get('/user/verify/{token}', 'AuthController@verifyUser');
 
+Route::get('/google/redirect', 'SocialAuthGoogleController@redirect');
+Route::get('/google/callback', 'SocialAuthGoogleController@callback');
+
 Route::get('/{path?}', 'HomeController@index')
   ->where('path', '.*')->name('/');
 

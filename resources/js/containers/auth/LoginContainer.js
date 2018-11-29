@@ -3,14 +3,16 @@ import { Login } from '../../components/auth'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as authActions from '../../store/modules/authentication';
-import { getCookie } from '../../lib/cookie'
+import { createCookie, getCookie } from '../../lib/cookie'
 import produce from 'immer';
+import axios from 'axios'
 
 class LoginContainer extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
+      viaSocial: false,
       email: '',
       password: '',
     }
@@ -18,9 +20,16 @@ class LoginContainer extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
+    // this.handleSocial = this.handleSocial.bind(this);
   }
 
   componentDidMount() {
+    if(this.props.responseURL) {
+      this.setState({ viaSocial: true })
+      createCookie('token', JSON.parse(this.props.responseURL))
+      this.props.AuthActions.userRequest()
+      .then(() => this.props.history.push('/'))
+    }
     getCookie('user') && getCookie('user').isLoggedIn && this.props.history.push('/')
   }
 
@@ -36,6 +45,11 @@ class LoginContainer extends Component {
     }
   }
 
+  handleSocial(e){
+    axios.get(`/${e.target.dataset.target}/redirect`)
+      .then((res) => this.props.history.push(res))
+  }
+
   handleSubmit() {
     this.props.AuthActions.loginRequest(this.state)
     .then(() => this.props.AuthActions.userRequest())
@@ -49,12 +63,16 @@ class LoginContainer extends Component {
 
   render() {
     return(
-      <Login
-        state={this.state}
-        handleChange={this.handleChange}
-        handleSubmit={this.handleSubmit}
-        handleKeyPress={this.handleKeyPress}
-      />
+      <React.Fragment>
+      {!this.state.viaSocial ? 
+        <Login
+          state={this.state}
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+          handleKeyPress={this.handleKeyPress}
+        />
+      : undefined}
+      </React.Fragment>
     );
   }
 }
