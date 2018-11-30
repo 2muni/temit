@@ -1,9 +1,14 @@
-const server = require('http').Server();
+const express = require('express');
+
+const app = express();
+const server = app.listen(3000);
 
 const Redis = require('ioredis');
 const redis = new Redis();
 
-const io = require('socket.io')(server)
+const io = require('socket.io')(server, {
+  path: '/socket/chat/socket.io/'
+})
 
 redis.psubscribe('*');
 
@@ -13,8 +18,6 @@ redis.on('pmessage', (pattern, channel, message) => {
     console.log(message);
     io.emit(channel + ':' + message.event, message.data)
 });
-
-server.listen(3000);
 
 console.log('Server started');
 

@@ -22,7 +22,11 @@ class ChatContainer extends Component {
   }
 
   receiveMessages() {
-    const socket = socketIOClient(`http://localhost:3000`);
+    const socket = socketIOClient('/', {
+      secure: true,
+      rejectUnauthorized: false,
+      path: '/socket/chat/socket.io'
+    });
 
     socket.on(`${this.props.room}:App\\Events\\MessageSent`, data => {
       this.setState(produce(this.state, draft => {

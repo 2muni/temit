@@ -31,5 +31,8 @@
         "socket.io": "^2.1.1",
         "socket.io-client": "^2.1.1",
         "tui-editor": "^1.2.6"
+    },
+    "dependencies": {
+        "node-sass": "^4.10.0"
     }
 }
