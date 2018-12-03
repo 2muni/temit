@@ -38,14 +38,17 @@ const Login = ({
         />
         </div>
         <button onClick={handleSubmit} className="waves-effect waves-light btn">로그인</button>
-        <div className="socials-wrapper">
-          <div className="head">
+          <div className="login-divider">
             <div className="line"></div>
             <div className="text">또는</div>
             <div className="line"></div>
           </div>
-          <a href="/google/redirect" className="waves-effect waves-light btn">
-            Google 로그인
+        <div className="socials-wrapper">
+          <a href="/google/redirect" className="google waves-effect waves-light btn">
+            <i class="fab fa-google"></i>Google 로그인
+          </a>
+          <a href="/github/redirect" className="github waves-effect waves-light btn">
+            <i class="fab fa-github"></i>Github 로그인
           </a>
         </div>
       </div>

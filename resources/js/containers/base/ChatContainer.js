@@ -82,7 +82,9 @@ class ChatContainer extends Component {
       <div className="chat-warpper"
         style={{left: `${290+295*this.props.index}px`}}>
         <ChatHead
+          roomIndex={this.props.index}
           otherPerson={this.props.otherPerson}
+          quitChatRoom={this.props.quitChatRoom}
         />
         <ChatBody
           otherPerson={this.props.otherPerson}

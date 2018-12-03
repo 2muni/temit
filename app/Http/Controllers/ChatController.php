@@ -45,11 +45,10 @@ class ChatController extends Controller
             'channel_id' => $channel->id,
             'user_id' => $request->user_id,
             'body' => $request->body
-        ]);
+        ])->with('user')->get()->pop();
 
         event(new MessageSent((string)$channel->name, $message));
-    
-        return $message;
+
     }
 
     /**
@@ -61,7 +60,7 @@ class ChatController extends Controller
     public function show($channel)
     {
         $channel = Channel::where('name', $channel)->first();
-        $message = Message::where('channel_id', $channel->id)->get();
+        $message = Message::with('user')->where('channel_id', $channel->id)->get();
         
         return $message;
     }

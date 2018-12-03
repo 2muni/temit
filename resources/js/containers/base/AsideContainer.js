@@ -18,6 +18,7 @@ class AsideContainer extends Component {
 
     this.handleFixed = this.handleFixed.bind(this);
     this.enterChatRoom = this.enterChatRoom.bind(this);
+    this.quitChatRoom = this.quitChatRoom.bind(this);
   }
 
   componentDidMount() {
@@ -51,6 +52,12 @@ class AsideContainer extends Component {
     }))
   }
 
+  quitChatRoom(e) {
+    this.setState(produce(this.state, draft => {
+          draft.activeChats.splice(e.target.dataset.index, 1);
+        }))
+  }
+
   render() {
     return(
       <React.Fragment>
@@ -69,6 +76,7 @@ class AsideContainer extends Component {
               currentUser={this.props.currentUser}
               otherPerson={this.props.currentUser.followees[room]}
               room={this.props.currentUser.followees[room].id * this.props.currentUser.id}
+              quitChatRoom={this.quitChatRoom}
             />
           ))}
         </React.Fragment>

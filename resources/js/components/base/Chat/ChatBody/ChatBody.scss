@@ -10,11 +10,11 @@
 
 .message{
   display: flex;
-  a>img{ width: 2rem; }
+  .thumbnail{ width: 2rem; height: 2rem; }
 }
 
 .message-text{
-  margin-left: .5rem;
+  margin: 0 .5rem;
   padding: .5rem; 
   flex: 1;
   border-radius: 1rem;
@@ -22,6 +22,6 @@
 }
 
 .date{
-  margin-left: 1rem;
+  margin: 0 1rem;
   font-size: .8rem;
 }

@@ -25,7 +25,7 @@ class SocialAuthGoogleController extends Controller
             $existUser = User::where('email',$googleUser->email)->first();
             $token;
             $tokenResult;
-
+            
             if($existUser) {
                 $tokenResult = $existUser->createToken('Personal Access Token');
                 $token = $tokenResult->token;
@@ -36,6 +36,7 @@ class SocialAuthGoogleController extends Controller
                 $user->name = $googleUser->name;
                 $user->email = $googleUser->email;
                 $user->email_verified_at = now();
+                $user->thumbnail = $googleUser->avatar;
                 $user->password = md5(rand(1,10000));
                 $user->save();
                 

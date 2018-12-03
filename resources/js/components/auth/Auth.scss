@@ -39,24 +39,32 @@
   color: red;
 }
 
+.login-divider{
+  margin: 24px 0;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  .line{
+    background-color: #e0e0e0;
+    height: 1px;
+    flex: 1;
+  }
+  .text{
+    color: #888;
+    margin: 0 1rem;
+    font-size: .9rem;
+  }
+}
+
 .socials-wrapper{
-  i{
-    font-size: 1rem;
-  }
-  .head{
-    margin: 24px 0;
+  .btn{ 
+    margin-top: 0; 
     display: flex;
-    width: 100%;
     align-items: center;
-    .line{
-      background-color: #e0e0e0;
-      height: 1px;
-      flex: 1;
-    }
-    .text{
-      color: #888;
-      margin: 0 1rem;
-      font-size: .9rem;
-    }
+    justify-content: center;
   }
+  .btn+.btn{ margin-top: 1rem; }
+  .google{background-color: #c0392b; }
+  .github{background-color: #2c3e50; }
+  i{ font-size: 1.5rem; margin-right: 1rem; }
 }
