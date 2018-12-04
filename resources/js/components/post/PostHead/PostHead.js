@@ -10,6 +10,9 @@ const formatter = buildFormatter(koreanStrings)
 const PostHead = ({
   user,
   article,
+  isUpvoted,
+  cntUpvoted,
+  handleUpvote,
   handleArticleRemove,
 }) => (
   <div className="article-head">
@@ -27,12 +30,20 @@ const PostHead = ({
 
     <div className="date-and-likes">
       {article.updated_at > article.created_at ?
-        <div><TimeAgo date={article.updated_at} formatter={formatter} /><span>에 수정됨</span></div> : 
+        <div><TimeAgo date={article.updated_at} formatter={formatter} /><span>에 수정됨</span></div>
+        : 
         <TimeAgo date={article.created_at} formatter={formatter} /> }
-      <button className="like">
-        <Icon>favorite_border</Icon>
-        <span>{article.like}</span>
-      </button>
+      {isUpvoted ?
+        <button className="upvoted" onClick={handleUpvote}>
+          <Icon>favorite</Icon>
+          <span>{cntUpvoted}</span>
+        </button>
+        :
+        <button className="like" onClick={handleUpvote}>
+          <Icon>favorite_border</Icon>
+          <span>{cntUpvoted}</span>
+        </button>
+      }        
     </div>
 
     <div className="divider"/>

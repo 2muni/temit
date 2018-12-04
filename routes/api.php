@@ -34,13 +34,20 @@ Route::post('/channels', 'ChatController@create');
 Route::get('/channels/{channel}/messages', 'ChatController@show');
 Route::post('/channels/{channel}/messages', 'ChatController@store');
 
-Route::resource('/articles', 'ArticleController');
+Route::get('/articles', 'ArticleController@index');
+Route::post('/articles', 'ArticleController@store');
+Route::get('/articles/{article}', 'ArticleController@show');
+Route::put('/articles/{article}', 'ArticleController@update');
+Route::delete('/articles/{article}', 'ArticleController@destroy');
 
 Route::get('/articles/comments/{article}', 'ArticleCommentController@show');
 Route::post('/articles/comments', 'ArticleCommentController@store');
 Route::post('/articles/comments/{article}', 'ArticleCommentController@showReply');
 Route::put('/articles/comments/{comment}', 'ArticleCommentController@update');
 Route::delete('/articles/comments/{comment}', 'ArticleCommentController@destroy');
+
+Route::post('/articles/upvotes', 'ArticleUpvoteController@store');
+Route::delete('/articles/upvotes/{upvote}', 'ArticleUpvoteController@destroy');
 
 Route::resource('/snapshots', 'SnapshotController');
 

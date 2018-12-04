@@ -24,4 +24,8 @@ class Article extends Model
     {
         return $this->belongsToMany('App\Tag');
     }
+    public function upvotes()
+    {
+        return $this->hasMany('App\Article_Upvote');
+    }
 }

@@ -41,6 +41,13 @@
     i{ margin-right: 1rem; font-size: 1.5rem; }
     span{ font-size: 1rem;}
   }
+  
+  .upvoted{
+    @extend .like;
+    background-color: $color-1;
+    color: $bgColor;
+  }
+  
   .options{
     text-align: right;
     margin-top: .5rem;

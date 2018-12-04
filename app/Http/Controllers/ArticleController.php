@@ -9,26 +9,16 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $articles = Article::with('user', 'tags', 'comments')
-            ->orderBy('id', 'desc')
+        $articles = Article::with(
+            'user', 'tags', 'comments'
+            )->orderBy('id', 'desc')
             ->paginate(10);
             
         return $articles;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -56,28 +46,16 @@ class ArticleController extends Controller
         return $article_id;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Article  $article
-     * @return \Illuminate\Http\Response
-     */
     public function show(Article $article)
     {
-        $article = Article::with('user', 'tags')
-            ->get()
+        $article = Article::with(
+            'user', 'tags', 'upvotes'
+            )->get()
             ->find($article);
 
         return Response($article, 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Article  $article
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Article $article)
     {
         $data = $request->validate([
@@ -90,13 +68,7 @@ class ArticleController extends Controller
 
         return response($request, 200);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Article  $article
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy(Article $article)
     {
         $article->delete();

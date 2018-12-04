@@ -806,6 +806,16 @@ nav .nav-wrapper {
   padding: 0 15px;
 }
 
+nav .nav-wrapper li i {
+  padding: 0 1rem;
+  cursor: pointer;
+  color: #1f1f1f;
+}
+
+nav .nav-wrapper li i:hover {
+  color: #000;
+}
+
 .chat-header {
   height: 1.8rem;
   width: 100%;
@@ -1112,7 +1122,8 @@ nav .nav-wrapper {
           align-items: flex-end;
 }
 
-.article-head .like {
+.article-head .like,
+.article-head .upvoted {
   cursor: pointer;
   padding: .5rem .875rem;
   display: -webkit-box;
@@ -1127,18 +1138,26 @@ nav .nav-wrapper {
   border-radius: 1.5rem;
 }
 
-.article-head .like:hover {
+.article-head .like:hover,
+.article-head .upvoted:hover {
   color: #fff;
   background-color: #38435A;
 }
 
-.article-head .like i {
+.article-head .like i,
+.article-head .upvoted i {
   margin-right: 1rem;
   font-size: 1.5rem;
 }
 
-.article-head .like span {
+.article-head .like span,
+.article-head .upvoted span {
   font-size: 1rem;
+}
+
+.article-head .upvoted {
+  background-color: #38435A;
+  color: #fff;
 }
 
 .article-head .options {
@@ -1481,10 +1500,33 @@ nav .nav-wrapper {
   color: #000;
 }
 
+.post-column .content-head .subinfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.post-column .content-head .subinfo div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.post-column .content-head .subinfo .material-icons,
 .post-column .content-head .subinfo span,
 .post-column .content-head .subinfo time {
   font-size: .9rem;
   color: gray;
+}
+
+.post-column .content-head .subinfo .material-icons {
+  margin-right: .5rem;
 }
 
 .post-column .description {
@@ -2143,6 +2185,21 @@ nav .nav-wrapper {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.no-followees {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 2rem;
+  color: #7f8c8d;
 }
 
 .user-head {

@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as articleActions from '../../store/modules/article'
+import axios from 'axios'
 
 import { Preloader } from '../../components/etc'
 import { PostHead } from '../../components/post/PostHead'
@@ -16,7 +17,12 @@ class PostContainer extends Component {
 
   constructor(props) {
     super(props);
-
+    
+    this.state = {
+      isUpvoted: 0,
+      cntUpvoted: 0
+    }
+    this.handleUpvote = this.handleUpvote.bind(this)
     this.handleArticleRemove = this.handleArticleRemove.bind(this);
   }
 
@@ -31,6 +37,13 @@ class PostContainer extends Component {
   componentDidMount() {
     this.props.ArticleActions.getRequest(this.props.article)
       .then(() => this.tuiEditor(this.props.articleData.body))
+      .then(() => {
+        for(let index in this.props.articleData.upvotes) {
+          if(this.props.currentUser.id === this.props.articleData.upvotes[index].user_id)
+            this.setState({ isUpvoted: this.props.articleData.upvotes[index].id })
+        }
+        this.setState({ cntUpvoted: this.props.articleData.upvotes.length })
+      })
   }
 
   handleArticleRemove() {
@@ -40,6 +53,29 @@ class PostContainer extends Component {
       .then(() => this.props.removeState === 'SUCCESS' && (window.location.href = `${window.location.origin}/board`))
     }
   }
+  
+  handleUpvote() {
+    this.state.isUpvoted ? (
+      axios.delete(`/api/articles/upvotes/${this.state.isUpvoted}`)
+      .then(() => this.setState({
+        isUpvoted: 0,
+        cntUpvoted: this.state.cntUpvoted -1
+      }))
+      .then(()=>console.log('downvote'))
+
+    ):(
+      axios.post('/api/articles/upvotes', {
+        'user_id': this.props.currentUser.id,
+        'article_id': this.props.article
+      })
+      .then((res) => this.setState({
+        isUpvoted: res.data.id,
+        cntUpvoted: this.state.cntUpvoted +1
+      }))
+      .then(()=>console.log('upvote'))
+    )
+    
+  }
 
   render() {
     return(
@@ -48,6 +84,9 @@ class PostContainer extends Component {
           <PostHead
             user={this.props.currentUser}
             article={this.props.articleData}
+            isUpvoted={this.state.isUpvoted}
+            cntUpvoted={this.state.cntUpvoted}
+            handleUpvote={this.handleUpvote}
             handleArticleRemove={this.handleArticleRemove}
           />
           <PostBody

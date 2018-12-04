@@ -16,3 +16,11 @@
     align-items: center;
   }
 }
+
+.no-followees{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 2rem;
+  color: #7f8c8d;
+}

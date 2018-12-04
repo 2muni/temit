@@ -88,8 +88,14 @@
     }
 
     .subinfo{
-
-      span, time{ font-size: .9rem; color: gray; }
+      display: flex;
+      justify-content: space-between;
+      div{ display: flex; align-items: center; }
+      .material-icons, span, time {
+        font-size: .9rem;
+        color: gray;
+      }
+      .material-icons{ margin-right: .5rem; }
     }
   }
 

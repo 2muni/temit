@@ -18,7 +18,6 @@ class CreateArticlesTable extends Migration
             $table->string('title');
             $table->text('body');
             $table->string('thumbnail')->nullable();
-            $table->integer('like')->default(0);
             $table->boolean('is_temp')->default(false);
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

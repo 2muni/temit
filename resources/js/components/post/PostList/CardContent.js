@@ -4,6 +4,7 @@ import TimeAgo from 'react-timeago';
 import koreanStrings from 'react-timeago/lib/language-strings/ko'
 import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
 import marked from 'marked'
+import { Icon } from 'react-materialize'
 
 const formatter = buildFormatter(koreanStrings)
 
@@ -21,8 +22,15 @@ const CardContent = ({
       </div>
       <div className="subinfo">
       {post.updated_at > post.created_at ?
-        <div><TimeAgo date={post.updated_at} formatter={formatter} /><span>에 수정됨</span></div> : 
-        <TimeAgo date={post.created_at} formatter={formatter} /> }
+        <div>
+          <TimeAgo date={post.updated_at} formatter={formatter} /><span>에 수정됨</span>
+        </div>
+        : 
+        <TimeAgo date={post.created_at} formatter={formatter} /> 
+      }
+        <div>
+          <Icon>forum</Icon><span>{post.comments.length}개의 덧글 </span>
+        </div>
       </div>
     </div>
     <div className="description">
