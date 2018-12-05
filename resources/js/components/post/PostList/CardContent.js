@@ -29,7 +29,7 @@ const CardContent = ({
         <TimeAgo date={post.created_at} formatter={formatter} /> 
       }
         <div>
-          <Icon>forum</Icon><span>{post.comments.length}개의 덧글 </span>
+          <Icon>forum</Icon><span>{post.comments.length}개의 댓글 </span>
         </div>
       </div>
     </div>

@@ -848,18 +848,23 @@ nav .nav-wrapper li i:hover {
   font-size: .9rem;
 }
 
-.message {
+.chat-body .message {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.message .thumbnail {
+.chat-body .message .thumbnail {
   width: 2rem;
   height: 2rem;
 }
 
-.message-text {
+.chat-body .message + .message {
+  margin-top: .5rem;
+}
+
+.chat-body .message-text {
+  max-width: 200px;
   margin: 0 .5rem;
   padding: .5rem;
   -webkit-box-flex: 1;
@@ -867,15 +872,26 @@ nav .nav-wrapper li i:hover {
           flex: 1;
   border-radius: 1rem;
   background-color: #f5f5f5;
+  word-wrap: break-word;
 }
 
-.date {
+.chat-body .message-body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.chat-body .date {
   margin: 0 1rem;
   font-size: .8rem;
 }
 
 .chat-input {
-  height: 1.5rem;
+  height: 1.7rem;
   width: 100%;
   padding: 0 .5rem;
   border-top: 1px solid #a6a6a6;
@@ -888,29 +904,34 @@ nav .nav-wrapper li i:hover {
           align-items: center;
 }
 
-.chat-input input[type=text]:not(.browser-default),
-.chat-input input[type=text]:not(.browser-default):focus:not([readonly]) {
+.chat-input textarea,
+.chat-input textarea:focus {
   all: unset;
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  height: 1rem;
+  height: 1.5rem;
+  font-size: 1rem;
+  overflow-y: hidden;
+  word-wrap: break-word;
+}
+
+.chat-input textarea::-webkit-input-placeholder,
+.chat-input textarea:focus::-webkit-input-placeholder {
+  color: #adadad;
   font-size: 1rem;
 }
 
-.chat-input input[type=text]:not(.browser-default)::-webkit-input-placeholder,
-.chat-input input[type=text]:not(.browser-default):focus:not([readonly])::-webkit-input-placeholder {
+.chat-input textarea::-ms-input-placeholder,
+.chat-input textarea:focus::-ms-input-placeholder {
   color: #adadad;
+  font-size: 1rem;
 }
 
-.chat-input input[type=text]:not(.browser-default)::-ms-input-placeholder,
-.chat-input input[type=text]:not(.browser-default):focus:not([readonly])::-ms-input-placeholder {
+.chat-input textarea::placeholder,
+.chat-input textarea:focus::placeholder {
   color: #adadad;
-}
-
-.chat-input input[type=text]:not(.browser-default)::placeholder,
-.chat-input input[type=text]:not(.browser-default):focus:not([readonly])::placeholder {
-  color: #adadad;
+  font-size: 1rem;
 }
 
 .chat-warpper {
@@ -928,6 +949,7 @@ nav .nav-wrapper li i:hover {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  z-index: 999;
 }
 
 .btn,
@@ -955,6 +977,17 @@ nav .nav-wrapper li i:hover {
 .floatBtn {
   position: fixed;
   border-radius: 50%;
+}
+
+.content-wrapper {
+  width: 100%;
+  height: calc(100% - 64px);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .input-field input:focus,
@@ -1375,6 +1408,8 @@ nav .nav-wrapper li i:hover {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  padding: 0 15px;
+  margin: 47px 0;
 }
 
 .post-column .tag-header {
@@ -1475,6 +1510,7 @@ nav .nav-wrapper li i:hover {
   width: 100%;
   position: absolute;
   border: 5px solid #fff;
+  z-index: 100;
 }
 
 .post-column .content-head {
@@ -1822,27 +1858,6 @@ nav .nav-wrapper li i:hover {
   display: flex;
 }
 
-.content-wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  width: 100%;
-  height: calc(100% - 64px);
-}
-
-.content-wrapper .post-nav {
-  padding: 0 15px;
-  margin: 47px 0;
-}
-
-.content-wrapper .post-column {
-  padding: 0 15px;
-  margin: 47px 0;
-}
-
 .article-wrapper {
   max-width: 935px;
   margin: 0 auto;
@@ -2159,18 +2174,7 @@ nav .nav-wrapper li i:hover {
   margin-top: .5rem;
 }
 
-.snapshot-wrapper {
-  width: 100%;
-  height: calc(100% - 64px);
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
-
-.snapshot-wrapper .snapshot-column {
+.snapshot-column {
   margin: 50px 0;
   -webkit-box-flex: 1;
       -ms-flex: 1;

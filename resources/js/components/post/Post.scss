@@ -4,16 +4,6 @@
 @import './PostList/PostList';
 @import './Editor/Editor';
 
-.content-wrapper{
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  height: calc(100% - 64px);
-
-  .post-nav{ padding: 0 $padding; margin: 47px 0; }
-  .post-column { padding: 0 $padding; margin: 47px 0; }
-}
-
 .article-wrapper{
   max-width: 935px;
   margin: 0 auto;

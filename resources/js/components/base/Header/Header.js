@@ -3,6 +3,7 @@ import { Link } from  'react-router-dom'
 import { Icon } from 'react-materialize'
 
 const Header = ({
+  handleMenu,
   handleLogout,
 }) => (
   <header>
@@ -16,9 +17,9 @@ const Header = ({
           <li><Link to='/board'>게시판</Link></li>
           <li><Link to='/project'>프로젝트</Link></li>
           <li><a href='/login' onClick={handleLogout}>로그아웃</a></li>
-          <li data-menu="people"><Icon>people</Icon></li>
-          <li data-menu="message"><Icon>message</Icon></li>
-          <li data-menu="notifications"><Icon>notifications</Icon></li>
+          <li onClick={handleMenu} data-menu="people"><Icon>people</Icon></li>
+          <li onClick={handleMenu} data-menu="message"><Icon>message</Icon></li>
+          <li onClick={handleMenu} data-menu="notifications"><Icon>notifications</Icon></li>
         </ul>
       </div>
     </nav>

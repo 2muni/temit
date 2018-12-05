@@ -16,3 +16,10 @@
   position: fixed;
   border-radius: 50%;
 }
+
+.content-wrapper{
+  width: 100%;
+  height: calc(100% - 64px);
+  display: flex;
+  justify-content: space-between;
+}

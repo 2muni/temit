@@ -146,7 +146,7 @@ class HomeContainer extends Component {
               user={this.props.currentUser}
             />
         ))
-          :
+          : !this.state.isLoading &&
           <div className="no-followees">
             <p>현재 구독하신 사용자가 존재하지 않습니다...</p>
             <p>게시판에서 관심있는 사용자를 구독하여 실시간 채팅 및 새 글 알림을 받아보세요!</p>

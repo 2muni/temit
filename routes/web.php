@@ -11,10 +11,21 @@
 |
 */
 
-Route::get('/google/redirect', 'SocialAuthGoogleController@redirect');
-Route::get('/google/callback', 'SocialAuthGoogleController@callback');
-Route::get('/github/redirect', 'SocialAuthGithubController@redirect');
-Route::get('/github/callback', 'SocialAuthGithubController@callback');
+Route::group([
+    'prefix' => 'google'
+], function () {
+    Route::get('redirect', 'SocialAuthGoogleController@redirect');
+    Route::get('callback', 'SocialAuthGoogleController@callback');
+});
+
+Route::group([
+    'prefix' => 'github'
+], function () {
+    Route::get('redirect', 'SocialAuthGithubController@redirect');
+    Route::get('callback', 'SocialAuthGithubController@callback');
+});
+
+Route::get('/user/verify/{token}', 'AuthController@verifyUser');
 
 Route::get('/{path?}', 'HomeController@index')
   ->where('path', '.*')->name('/');

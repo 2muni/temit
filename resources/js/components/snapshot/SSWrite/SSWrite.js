@@ -28,7 +28,7 @@ const Form = ({
         id="text"
         rows={1}
         onKeyDown={handleHeight}
-        onKeyUp={handleHeight}
+        onBlur={handleHeight}
         value={body}
         onChange={handleChange}
         required

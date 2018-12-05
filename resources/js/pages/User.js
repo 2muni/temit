@@ -1,11 +1,13 @@
 import React from 'react';
 import UserContainer from '../containers/user/UserContainer'
+import AsideContainer from '../containers/base/AsideContainer'
 
 const Uesr = ({ match, history }) => {
   const { id } = match.params;
 
   return(
-    <div className="user-wrapper">
+    <div className="content-wrapper">
+      <AsideContainer/>
       <UserContainer
         id={Number(id)}
         history={history}

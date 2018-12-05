@@ -9,7 +9,7 @@ import { ChatInput } from '../../components/base/Chat/ChatInput'
 class ChatContainer extends Component {
   constructor(props) {
     super(props);
-
+    
     this.state = {
       messages: [],
       input: '',
@@ -25,7 +25,7 @@ class ChatContainer extends Component {
     const socket = socketIOClient('/', {
       secure: true,
       rejectUnauthorized: false,
-      path: '/socket/chat/socket.io'
+      path: '/socket/socket.io'
     });
 
     socket.on(`${this.props.room}:App\\Events\\MessageSent`, data => {
@@ -44,10 +44,11 @@ class ChatContainer extends Component {
     axios.post('/api/channels', { room: this.props.room })
       .then(() => this.receiveMessages())
   }
+  
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
     if(prevState.messages !== this.state.messages) {
-      const { scrollTop, scrollHeight } = document.querySelector('.chat-body');
+      const { scrollTop, scrollHeight } = document.querySelector('#chat-body'+this.props.roomIndex);
       return { scrollTop, scrollHeight };
     }else {
       return false;
@@ -56,10 +57,10 @@ class ChatContainer extends Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (snapshot) {
-      const { scrollTop } = document.querySelector('.chat-body');
+      const { scrollTop } = document.querySelector('#chat-body'+this.props.roomIndex);
       if (scrollTop !== snapshot.scrollTop) return;
-      const diff = document.querySelector('.chat-body').scrollHeight - snapshot.scrollHeight;
-      document.querySelector('.chat-body').scrollTop += diff;
+      const diff = document.querySelector('#chat-body'+this.props.roomIndex).scrollHeight - snapshot.scrollHeight;
+      document.querySelector('#chat-body'+this.props.roomIndex).scrollTop += diff;
     }
   }
 
@@ -73,20 +74,21 @@ class ChatContainer extends Component {
       message.append('user_id', this.props.currentUser.id)
       message.append('body', this.state.input)
       axios.post(this.endpoint, message)
-        .then(() => this.setState({ input: '' }))
+       .then(() => this.setState({ input: '' }))
     }
   }
 
   render() {
     return(
       <div className="chat-warpper"
-        style={{left: `${290+295*this.props.index}px`}}>
+        style={{left: `${290+295*this.props.positon}px`}}>
         <ChatHead
-          roomIndex={this.props.index}
+          roomIndex={this.props.roomIndex}
           otherPerson={this.props.otherPerson}
           quitChatRoom={this.props.quitChatRoom}
         />
         <ChatBody
+          roomIndex={this.props.roomIndex}
           otherPerson={this.props.otherPerson}
           messages={this.state.messages}
         />

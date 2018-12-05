@@ -6,22 +6,28 @@
   overflow-y: auto;
   font-size: .9rem;
 
-}
-
-.message{
-  display: flex;
-  .thumbnail{ width: 2rem; height: 2rem; }
-}
-
-.message-text{
-  margin: 0 .5rem;
-  padding: .5rem; 
-  flex: 1;
-  border-radius: 1rem;
-  background-color: #f5f5f5;
-}
-
-.date{
-  margin: 0 1rem;
-  font-size: .8rem;
+  .message{
+    display: flex;
+    .thumbnail{ width: 2rem; height: 2rem; }
+  }
+  .message+.message{margin-top: .5rem;}
+  
+  .message-text{
+    max-width: 200px;
+    margin: 0 .5rem;
+    padding: .5rem; 
+    flex: 1;
+    border-radius: 1rem;
+    background-color: #f5f5f5;
+    word-wrap: break-word;
+  }
+  .message-body{
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .date{
+    margin: 0 1rem;
+    font-size: .8rem;
+  }
 }

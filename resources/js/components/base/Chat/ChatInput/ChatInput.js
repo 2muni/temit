@@ -2,11 +2,13 @@ import React from 'react'
 
 const ChatInput = ({
   value,
+  onKeyUp,
+  onKeyDown,
+  onKeyPress,
   onChange,
-  onKeyPress
 }) => (
   <div className="chat-input">
-    <input type="text"
+    <textarea
       value={value}
       onChange={onChange}
       onKeyPress={onKeyPress}

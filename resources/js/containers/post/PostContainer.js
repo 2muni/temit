@@ -79,25 +79,29 @@ class PostContainer extends Component {
 
   render() {
     return(
-      this.props.currentUser && this.props.articleData ?
-        <Fragment>
-          <PostHead
-            user={this.props.currentUser}
-            article={this.props.articleData}
-            isUpvoted={this.state.isUpvoted}
-            cntUpvoted={this.state.cntUpvoted}
-            handleUpvote={this.handleUpvote}
-            handleArticleRemove={this.handleArticleRemove}
-          />
-          <PostBody
-            article={this.props.articleData}
-          />
-          <PostCommentContainer
-            user={this.props.currentUser}
-            article={this.props.article}
-          />
-        </Fragment>
-      : <Preloader/>
+        <div className="article-wrapper">
+          {this.props.currentUser && this.props.articleData ? 
+            <Fragment>
+              <PostHead
+                user={this.props.currentUser}
+                article={this.props.articleData}
+                isUpvoted={this.state.isUpvoted}
+                cntUpvoted={this.state.cntUpvoted}
+                handleUpvote={this.handleUpvote}
+                handleArticleRemove={this.handleArticleRemove}
+              />
+              <PostBody
+                article={this.props.articleData}
+              />
+              <PostCommentContainer
+                user={this.props.currentUser}
+                article={this.props.article}
+              />
+            </Fragment>
+          :
+            <Preloader/>
+          }
+        </div>
     );
   }
 }

@@ -9,6 +9,8 @@ use Carbon\Carbon;
 use App\User;
 use App\VerifyUser;
 use App\Mail\VerifyMail;
+use App\NotificationChannel;
+use App\NotificationMessage;
 
 class AuthController extends Controller
 {
@@ -34,8 +36,6 @@ class AuthController extends Controller
         ]);
 
         Mail::to($user->email)->send(new VerifyMail($user));
-
-            
 
         return response()->json([
             'message' => "$user->email Successfully created user!"
@@ -64,6 +64,8 @@ class AuthController extends Controller
             $token->expires_at = Carbon::now()->addWeeks(1);
         $token->save();
         
+        NotificationChannel::firstOrCreate(['user_id' => $user->id]);
+        
         return response()->json([
             'access_token' => $tokenResult->accessToken,
             'token_type' => 'Bearer',
@@ -84,7 +86,7 @@ class AuthController extends Controller
         $user = User::with('followees', 'followers')
         ->get()
         ->find($request->user());
-
+        
         return response($user, 200);
     }
 

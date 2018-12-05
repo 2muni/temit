@@ -9,7 +9,7 @@ const ChatHead = ({
     <div className="username">{otherPerson.name}</div>
     <div className="close"
       onClick={quitChatRoom}
-      data-index={`${roomIndex}`}>&times;</div>
+      data-room={`${roomIndex}`}>&times;</div>
   </div>
 )
 

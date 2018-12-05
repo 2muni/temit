@@ -6,7 +6,9 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
+  padding: 0 $padding;
+  margin: 47px 0;
+  
   .tag-header{
     font-size: 4rem;
     margin-bottom: 2rem;
@@ -68,6 +70,7 @@
       width: 100%;
       position: absolute;
       border: 5px solid #fff;
+      z-index: 100;
     }
   }
   .content-head{

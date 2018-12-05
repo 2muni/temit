@@ -25,12 +25,6 @@ class AsideContainer extends Component {
     window.addEventListener('scroll', this.handleFixed, false)
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextState.isFixed !== this.state.isFixed || 
-           nextProps.currentUser !== this.props.currentUser ||
-           nextState.activeChats !== this.state.activeChats
-  }
-
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleFixed, false)
   }
@@ -47,15 +41,18 @@ class AsideContainer extends Component {
       if(e.target.dataset.room === this.state.activeChats[index])
         return
     }
-    this.setState(produce(this.state, draft => {
-      draft.activeChats.push(e.target.dataset.room);
-    }))
+    if(this.state.activeChats.length<5)
+      this.setState(produce(this.state, draft => {
+        draft.activeChats.push(e.target.dataset.room);
+      }))
   }
 
   quitChatRoom(e) {
     this.setState(produce(this.state, draft => {
-          draft.activeChats.splice(e.target.dataset.index, 1);
-        }))
+      draft.activeChats.splice(
+        this.state.activeChats.indexOf(e.target.dataset.room), 1
+      );
+    }))
   }
 
   render() {
@@ -72,7 +69,8 @@ class AsideContainer extends Component {
           {this.state.activeChats.map((room, i) => (
             <ChatContainer
               key={i}
-              index={i}
+              positon={i}
+              roomIndex={room}
               currentUser={this.props.currentUser}
               otherPerson={this.props.currentUser.followees[room]}
               room={this.props.currentUser.followees[room].id * this.props.currentUser.id}

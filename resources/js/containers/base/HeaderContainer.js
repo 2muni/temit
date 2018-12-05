@@ -16,6 +16,7 @@ class HeaderContainer extends Component {
     }
 
     this.handleLogout = this.handleLogout.bind(this);
+    this.handleMenu = this.handleMenu.bind(this);
   }
 
   componentDidMount() {
@@ -48,6 +49,10 @@ class HeaderContainer extends Component {
       currentUser: ''
     })
   }
+  
+  handleMenu(e) {
+    console.log(e.target.dataset.menu)
+  }
 
   render() {
     const path = /(login|register|write)/;
@@ -56,6 +61,7 @@ class HeaderContainer extends Component {
       isHidden ? <Fragment></Fragment> : 
       <Header
         handleLogout={this.handleLogout}
+        handleMenu={this.handleMenu}
       />
     );
   }

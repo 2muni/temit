@@ -7,7 +7,7 @@ const Redis = require('ioredis');
 const redis = new Redis();
 
 const io = require('socket.io')(server, {
-  path: '/socket/chat/socket.io/'
+  path: '/socket/socket.io/'
 })
 
 redis.psubscribe('*');

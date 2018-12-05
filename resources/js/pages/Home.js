@@ -3,7 +3,7 @@ import HomeContainer from '../containers/home/HomeContainer'
 import AsideContainer from '../containers/base/AsideContainer'
 
 const Home = () => (
-    <div className="snapshot-wrapper">
+    <div className="content-wrapper">
       <AsideContainer/>
       <HomeContainer/>
     </div>
