@@ -61,8 +61,6 @@ class PostContainer extends Component {
         isUpvoted: 0,
         cntUpvoted: this.state.cntUpvoted -1
       }))
-      .then(()=>console.log('downvote'))
-
     ):(
       axios.post('/api/articles/upvotes', {
         'user_id': this.props.currentUser.id,
@@ -72,7 +70,6 @@ class PostContainer extends Component {
         isUpvoted: res.data.id,
         cntUpvoted: this.state.cntUpvoted +1
       }))
-      .then(()=>console.log('upvote'))
     )
     
   }

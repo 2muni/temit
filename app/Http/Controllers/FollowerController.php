@@ -8,7 +8,18 @@ use App\Article;
 use App\Snapshot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Events\NotificationSent;
+use App\NotificationChannel;
+use App\NotificationMessage;
+        // $channel = NotificationChannel::where('user_id', $channel)->first();
+        // $message = NotificationMessage::forceCreate([
+        //     'channel_id' => $channel->id,
+        //     'type' => $request->user_id,
+        //     'message' => $request->body
+        // ])->with('channel')->get()->pop();
 
+        // event(new NotificationSent((string)$channel->user_id, $message));
+        
 class FollowerController extends Controller
 {
     /**

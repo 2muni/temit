@@ -4,7 +4,18 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use App\Events\NotificationSent;
+use App\NotificationChannel;
+use App\NotificationMessage;
+        // $channel = NotificationChannel::where('user_id', $channel)->first();
+        // $message = NotificationMessage::forceCreate([
+        //     'channel_id' => $channel->id,
+        //     'type' => $request->user_id,
+        //     'message' => $request->body
+        // ])->with('channel')->get()->pop();
 
+        // event(new NotificationSent((string)$channel->user_id, $message));
+        
 class UserController extends Controller
 {
     /**
@@ -40,5 +51,14 @@ class UserController extends Controller
         $user->update($data);
 
         return response($user, 201);
+    }
+    
+    public function checkNotify(User $user)
+    {
+        $user->update(
+            ['notified_at'=>now()]
+        );
+        
+        return response ($user, 202);
     }
 }

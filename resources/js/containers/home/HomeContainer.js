@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { produce } from 'immer';
+import axios from 'axios'
+
+import { resize } from '../../lib/tool';
+import * as snapshotActions from '../../store/modules/snapshot'
+import * as userActions from '../../store/modules/user'
 import { SSWrite } from '../../components/snapshot/SSWrite';
 import { Preloader } from '../../components/etc'
 import SnapshotContainer from './SnapshotContainer'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import * as snapshotActions from '../../store/modules/snapshot'
-import * as userActions from '../../store/modules/user'
-import { resize } from '../../lib/tool';
-import axios from 'axios';
-import { produce } from 'immer';
 
 class HomeContainer extends Component {
 
@@ -33,9 +34,7 @@ class HomeContainer extends Component {
 
   dataLoad() {
     this.setState({ isLoading: true });
-
-    this.props.currentUser && 
-      this.props.UserActions.getActivityRequest(this.props.currentUser.id, { page: this.page })
+    this.props.currentUser && this.props.UserActions.getActivityRequest(this.props.currentUser.id, { page: this.page })
     .then(() => this.setState(produce(this.state, draft => {
       draft.list = this.state.list.concat(this.props.userActivity);
       draft.isLoading = false;
@@ -146,10 +145,12 @@ class HomeContainer extends Component {
               user={this.props.currentUser}
             />
         ))
-          : !this.state.isLoading &&
+        : 
+          !this.state.isLoading &&
           <div className="no-followees">
-            <p>현재 구독하신 사용자가 존재하지 않습니다...</p>
-            <p>게시판에서 관심있는 사용자를 구독하여 실시간 채팅 및 새 글 알림을 받아보세요!</p>
+            <p><h1>Temit에 오신 것을 환영합니다!</h1></p>
+            <p>관심있는 작성자를 구독하여 시작해보세요.</p>
+            <p>실시간 채팅 및 새 글 알림을 받을 수 있습니다.</p>
           </div>
         }
         {this.state.isLoading ? <Preloader/> : undefined }

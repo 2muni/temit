@@ -52,6 +52,7 @@ Route::post('/snapshots/comments', 'SnapshotCommentController@store');
 Route::put('/snapshots/comments/{comment}', 'SnapshotCommentController@update');
 Route::delete('/snapshots/comments/{comment}', 'SnapshotCommentController@destroy');
 
+Route::get('/users/{user}/check-notify', 'UserController@checkNotify');
 Route::get('/users/{user}', 'UserController@show');
 Route::put('/users/{user}', 'UserController@update');
 

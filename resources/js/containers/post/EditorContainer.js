@@ -107,7 +107,6 @@ class EditorContainer extends Component {
   }
 
   handleChange(e) {
-    console.log(this.state.tags.length)
     this.setState(
       produce(this.state, draft => {
         if(e.target.name === 'thumbnail') {
@@ -147,18 +146,18 @@ class EditorContainer extends Component {
         .then(() => {
           if(this.props.article)
             this.props.ArticleActions.editRequest(this.props.article, data)
-              .then(() => this.props.postState === 'SUCCESS' && (window.location.href = '/board'))
+              .then(() => this.props.postState === 'SUCCESS' && this.props.history.push('/board'))
           else
             this.props.ArticleActions.postRequest(data)
-              .then(() => this.props.postState === 'SUCCESS' && (window.location.href = '/board'))
+              .then(() => this.props.postState === 'SUCCESS' && this.props.history.push('/board'))
         })
     }else {
       if(this.props.article) {
         this.props.ArticleActions.editRequest(this.props.article, data)
-          .then(() => this.props.postState === 'SUCCESS' && (window.location.href = '/board'))
+          .then(() => this.props.postState === 'SUCCESS' && this.props.history.push('/board'))
       }else {
         this.props.ArticleActions.postRequest(data)
-          .then(() => this.props.postState === 'SUCCESS' && (window.location.href = '/board'))
+          .then(() => this.props.postState === 'SUCCESS' && this.props.history.push('/board'))
       }
     }
   }
