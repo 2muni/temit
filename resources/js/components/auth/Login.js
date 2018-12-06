@@ -45,10 +45,10 @@ const Login = ({
           </div>
         <div className="socials-wrapper">
           <a href="/google/redirect" className="google waves-effect waves-light btn">
-            <i class="fab fa-google"></i>Google 로그인
+            <i className="fab fa-google"></i>Google 로그인
           </a>
           <a href="/github/redirect" className="github waves-effect waves-light btn">
-            <i class="fab fa-github"></i>Github 로그인
+            <i className="fab fa-github"></i>Github 로그인
           </a>
         </div>
       </div>

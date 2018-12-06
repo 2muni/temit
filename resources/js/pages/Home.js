@@ -4,8 +4,8 @@ import AsideContainer from '../containers/base/AsideContainer'
 
 const Home = () => (
     <div className="content-wrapper">
-      <AsideContainer/>
       <HomeContainer/>
+      <AsideContainer/>
     </div>
   )
 

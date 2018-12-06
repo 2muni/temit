@@ -786,10 +786,6 @@
           flex: 1;
 }
 
-header {
-  height: 64px;
-}
-
 nav {
   all: unset;
   display: -webkit-box;
@@ -798,17 +794,16 @@ nav {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   background-color: #38435A;
-  width: 100%;
+  padding-left: 30px;
+  padding-right: 310px;
+  width: calc(100% - 340px);
   height: 50px;
-  border-bottom: 1px solid #23217d;
+  line-height: 50px;
+  border-bottom: 1px solid #001;
 }
 
 nav .logo {
-  margin: 0 1rem;
   font-size: 2rem;
 }
 
@@ -1215,13 +1210,13 @@ nav .menu {
           align-items: center;
   border: 1px solid #38435A;
   color: #38435A;
-  background-color: #fff;
+  background-color: #F6F8FA;
   border-radius: 1.5rem;
 }
 
 .article-head .like:hover,
 .article-head .upvoted:hover {
-  color: #fff;
+  color: #F6F8FA;
   background-color: #38435A;
 }
 
@@ -1238,7 +1233,7 @@ nav .menu {
 
 .article-head .upvoted {
   background-color: #38435A;
-  color: #fff;
+  color: #F6F8FA;
 }
 
 .article-head .options {
@@ -1260,7 +1255,6 @@ nav .menu {
 
 .article-thumbnail {
   margin-top: 2rem;
-  max-width: 100%;
   max-width: 100%;
 }
 
@@ -1907,14 +1901,17 @@ nav .menu {
 }
 
 .article-wrapper {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   max-width: 935px;
   margin: 0 auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -1923,6 +1920,7 @@ nav .menu {
       -ms-flex-direction: column;
           flex-direction: column;
   margin-top: 4rem;
+  height: calc(100vh - 51px - 4rem);
 }
 
 .snapshot-item {
@@ -2388,6 +2386,9 @@ nav .menu {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -2408,7 +2409,8 @@ body {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  background-color: #fff;
+  background-color: #F6F8FA;
+  overflow-y: scroll;
 }
 
 .modal {

@@ -17,6 +17,14 @@ const pointer = menu => {
   }
 }
 
+const DropMenu = ({ type }) => (
+  <div className="menu">
+    <div>{type}_1</div>
+    <div>{type}_2</div>
+    <div>{type}_3</div>
+  </div>
+)
+
 const Header = ({
   currentMenu,
   handleMenu,
@@ -45,13 +53,8 @@ const Header = ({
           <div style={ currentMenu ? {} : { display: 'none' }}
           className="menu-wrapper">
             <div className="menu-positioner">
-              <div className="menu-pointer"
-                style={{right: `${pointer(currentMenu)}px`}}/>
-              <div className="menu">
-                <div>{currentMenu}_1</div>
-                <div>{currentMenu}_2</div>
-                <div>{currentMenu}_3</div>
-              </div>
+              <div className="menu-pointer" style={{right: `${pointer(currentMenu)}px`}}/>
+              <DropMenu type={currentMenu}/>
             </div>
           </div>
         </li>

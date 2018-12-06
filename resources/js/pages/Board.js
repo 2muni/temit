@@ -7,8 +7,8 @@ const Post = ({ match }) => {
   
   return(
     <div className="content-wrapper">
-      <AsideContainer/>
       <PostListContainer tag={tag}/>
+      <AsideContainer/>
     </div>
   );
 }

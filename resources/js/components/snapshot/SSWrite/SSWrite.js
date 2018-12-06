@@ -60,7 +60,7 @@ const SSWrite = ({
         floating
         icon='add_a_photo'
         className='floatBtn circle'
-        large style={{bottom: '45px', right: '45px'}}
+        large style={{bottom: '45px', right: '335px'}}
       />}
     modalOptions={{
       inDuration: 100,

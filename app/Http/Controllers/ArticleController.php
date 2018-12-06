@@ -6,6 +6,7 @@ use App\Tag;
 use App\Article;
 use App\Article_Tag;
 use Illuminate\Http\Request;
+use App\User;
 use App\Events\NotificationSent;
 use App\NotificationChannel;
 use App\NotificationMessage;
@@ -45,17 +46,30 @@ class ArticleController extends Controller
                 Article_Tag::create(['article_id' => $article_id, 'tag_id' => $tag_id]);
             }
         }
+        $followers = User::with('followers')
+            ->where('id', $request->user_id)
+            ->first()
+            ->followers;
         
-        $channel = NotificationChannel::where('user_id', $request->user_id)->first();
-        $message = NotificationMessage::forceCreate([
-            'channel_id' => $channel->id,
-            'user_id' => $request->user_id,
-            'type' => 'POST',
-            'message' => $article_id
-        ])->with('channel')->get()->pop();
+        $rooms = [];
+        
+        foreach($followers as $follow) {
+            array_push($rooms, $follow->id);
+        }
+            
+        $channels = NotificationChannel::whereIn('user_id', $rooms)->get();
+        
+        foreach($channels as $channel) {
+            $message = NotificationMessage::forceCreate([
+                'channel_id' => $channel->id,
+                'user_id' => $request->user_id,
+                'type' => 'POST',
+                'source' => $article_id
+            ])->with('channel', 'user')->get()->pop();
+            
+            event(new NotificationSent((string)$channel->user_id, $message));
+        }
 
-        event(new NotificationSent((string)$channel->user_id, $message));
-        
         return $article_id;
     }
 

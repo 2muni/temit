@@ -6,12 +6,12 @@ const Post = ({ match, history }) => {
   const { id } = match.params;
 
   return(
-    <div className="content-wrapper">
-      <AsideContainer/>
+    <div className="content-wrapper" style={{backgroundColor: '#fff'}}>
       <PostContainer
         history={history}
         article={id}
       />
+      <AsideContainer/>
     </div>
   );
 }

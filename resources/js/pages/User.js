@@ -7,11 +7,11 @@ const Uesr = ({ match, history }) => {
 
   return(
     <div className="content-wrapper">
-      <AsideContainer/>
       <UserContainer
         id={Number(id)}
         history={history}
       />
+      <AsideContainer/>
     </div>
   );
 }

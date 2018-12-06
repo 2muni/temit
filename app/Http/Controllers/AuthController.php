@@ -64,8 +64,6 @@ class AuthController extends Controller
             $token->expires_at = Carbon::now()->addWeeks(1);
         $token->save();
         
-        NotificationChannel::firstOrCreate(['user_id' => $user->id]);
-        
         return response()->json([
             'access_token' => $tokenResult->accessToken,
             'token_type' => 'Bearer',
@@ -86,6 +84,8 @@ class AuthController extends Controller
         $user = User::with('followees', 'followers')
         ->get()
         ->find($request->user());
+        
+        NotificationChannel::firstOrCreate(['user_id' => $user->id]);
         
         return response($user, 200);
     }

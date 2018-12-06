@@ -18,6 +18,7 @@ body {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   background-color: $bgColor;
+  overflow-y: scroll;
 }
 
 .modal{

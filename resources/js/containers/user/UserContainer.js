@@ -130,25 +130,29 @@ class UserContainer extends Component {
 
   render() {
     return(
-      this.props.currentUser && this.state.user ? 
-      <Fragment>
-        <UserHead
-          currentUser={this.props.currentUser}
-          user={this.state.user}
-          isFollowing={this.state.isFollowing}
-          isEdit={this.state.isEdit}
-          edit={this.state.edit}
-          handleToggle={this.handleToggle}
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-          handleFollow={this.handleFollow}
-          addImage={this.addImage}
-        />
-        <div className="user-body">
-
-        </div>
-      </Fragment>
-    : <Preloader/>
+      <div className="user-wrapper">
+        {this.props.currentUser && this.state.user ? 
+          <Fragment>
+            <UserHead
+              currentUser={this.props.currentUser}
+              user={this.state.user}
+              isFollowing={this.state.isFollowing}
+              isEdit={this.state.isEdit}
+              edit={this.state.edit}
+              handleToggle={this.handleToggle}
+              handleChange={this.handleChange}
+              handleSubmit={this.handleSubmit}
+              handleFollow={this.handleFollow}
+              addImage={this.addImage}
+            />
+            <div className="user-body">
+    
+            </div>
+          </Fragment>
+        :
+          <Preloader/>
+        }
+      </div>
     )
   }
 }

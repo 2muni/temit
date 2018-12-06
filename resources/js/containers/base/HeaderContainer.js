@@ -15,11 +15,11 @@ class HeaderContainer extends Component {
   constructor(props) {
     super(props)
     
-    this.rooms=[]
-    
     this.state = {
       currentMenu:'',
-      notification:[]
+      notifications:[],
+      message:[],
+      people:[],
     }
     
     this.connectSocketChannel = this.connectSocketChannel.bind(this);
@@ -27,16 +27,16 @@ class HeaderContainer extends Component {
     this.handleMenu = this.handleMenu.bind(this);
   }
   
-  connectSocketChannel(index, channel) {
-    this.rooms.push(socketIOClient('/', {
+  connectSocketChannel(channel) {
+    const socket = socketIOClient('/', {
       secure: true,
       rejectUnauthorized: false,
       path: '/socket/socket.io'
-    }))
-    
-    this.rooms[index].on(`${channel}:App\\Events\\NotificationSent`, data => {
+    });
+
+    socket.on(`${channel}:App\\Events\\NotificationSent`, data => {
       this.setState(produce(this.state, draft => {
-       draft.notification.push(data.data)
+        draft.notifications.push(data.data)
       }))
       console.log(data.data)
     })
@@ -49,17 +49,7 @@ class HeaderContainer extends Component {
 
     this.props.AuthActions.userRequest()
     .then(() => { !this.props.status.valid && this.props.history.push('/login') })
-    .then(() => {
-      console.log(this.props.status.currentUser)
-      
-      this.connectSocketChannel(0, this.props.status.currentUser.id);
-      
-      const { followees } = this.props.status.currentUser;
-      
-      for(let index = 0; index < followees.length; index++) {
-        this.connectSocketChannel(index+1, followees[index].id);
-      }
-    })
+    .then(() => { this.connectSocketChannel(this.props.status.currentUser.id) })
     
     window.onclick = this.handleMenu;
   }
@@ -71,9 +61,10 @@ class HeaderContainer extends Component {
   }
 
   componentDidUpdate(nextProps, nextState) {
-    if(nextProps.location.pathname !== this.props.location.pathname
-    && this.props.location.pathname !== '/register'
-    && this.props.location.pathname !== '/login'){
+    if(nextProps.location.pathname !== this.props.location.pathname &&
+      this.props.location.pathname !== '/register' &&
+      this.props.location.pathname !== '/login'
+    ){
       this.props.AuthActions.userRequest()
       .then(() => {
         !this.props.status.valid && this.props.history.push('/login')
@@ -107,6 +98,7 @@ class HeaderContainer extends Component {
         currentMenu={this.state.currentMenu}
         handleLogout={this.handleLogout}
         handleMenu={this.handleMenu}
+        notifications={this.notifications}
       />
     );
   }

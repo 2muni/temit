@@ -18,7 +18,8 @@ class CreateNotificationMessagesTable extends Migration
             $table->unsignedInteger('channel_id');
             $table->unsignedInteger('user_id');
             $table->string('type');
-            $table->string('message');
+            $table->string('source');
+            $table->timestamp('read_at')->nullable();
             $table->foreign('channel_id')->references('id')->on('notification_channels')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
