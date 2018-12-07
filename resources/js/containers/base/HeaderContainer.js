@@ -36,28 +36,43 @@ class HeaderContainer extends Component {
 
     socket.on(`${channel}:App\\Events\\NotificationSent`, data => {
       this.setState(produce(this.state, draft => {
-        draft.notifications.push(data.data)
+        draft.notifications.unshift(data.data)
       }))
       console.log(data.data)
     })
   }
   
   componentDidMount() {
+    window.onclick = this.handleMenu;
     let loginData = getCookie('user');
     if(typeof loginData === "undefined") return this.props.history.push('/login');
     else if(!loginData.isLoggedIn) return this.props.history.push('/login');
-
-    this.props.AuthActions.userRequest()
-    .then(() => { !this.props.status.valid && this.props.history.push('/login') })
-    .then(() => { this.connectSocketChannel(this.props.status.currentUser.id) })
     
-    window.onclick = this.handleMenu;
+    this.props.AuthActions.userRequest()
+      .then(() => { !this.props.status.valid && this.props.history.push('/login') })
+      .then(() => { this.connectSocketChannel(this.props.status.currentUser.id) })
+      .then(() => {
+        axios.get(`/api/channels/${this.props.status.currentUser.id}/notifications?page=1`)
+          .then(() => {
+            axios.get(`/api/channels/${this.props.status.currentUser.id}/notifications?page=1`)
+              .then(res => this.setState(produce(this.state, draft => {
+                console.log(res.data.data)
+                draft.notifications = res.data.data;
+              })))
+          })
+      })
   }
+  
+  
+
+  
+  
 
   shouldComponentUpdate(nextProps, nextState) {
     return nextProps.status.currentUser !== this.props.status.currentUser || 
            nextProps.location.pathname !== this.props.location.pathname ||
-           nextState.currentMenu !== this.state.currentMenu
+           nextState.currentMenu !== this.state.currentMenu ||
+           nextState.notifications !== this.state.notifications
   }
 
   componentDidUpdate(nextProps, nextState) {
@@ -66,9 +81,15 @@ class HeaderContainer extends Component {
       this.props.location.pathname !== '/login'
     ){
       this.props.AuthActions.userRequest()
-      .then(() => {
-        !this.props.status.valid && this.props.history.push('/login')
-      })
+        .then(() => { !this.props.status.valid && this.props.history.push('/login') })
+        .then(() => { this.connectSocketChannel(this.props.status.currentUser.id) })
+        .then(() => {
+          axios.get(`/api/channels/${this.props.status.currentUser.id}/notifications?page=1`)
+            .then(res => this.setState(produce(this.state, draft => {
+              console.log(res.data.data)
+              draft.notifications = res.data.data;
+            })))
+        })
     }
   }
 
@@ -98,7 +119,7 @@ class HeaderContainer extends Component {
         currentMenu={this.state.currentMenu}
         handleLogout={this.handleLogout}
         handleMenu={this.handleMenu}
-        notifications={this.notifications}
+        notifications={this.state.notifications}
       />
     );
   }

@@ -11,14 +11,6 @@ use Illuminate\Support\Facades\DB;
 use App\Events\NotificationSent;
 use App\NotificationChannel;
 use App\NotificationMessage;
-        // $channel = NotificationChannel::where('user_id', $channel)->first();
-        // $message = NotificationMessage::forceCreate([
-        //     'channel_id' => $channel->id,
-        //     'type' => $request->user_id,
-        //     'message' => $request->body
-        // ])->with('channel')->get()->pop();
-
-        // event(new NotificationSent((string)$channel->user_id, $message));
         
 class FollowerController extends Controller
 {
@@ -35,9 +27,22 @@ class FollowerController extends Controller
             'follower_id' => 'required',
         ]);
             
-        $response = Follower::firstOrCreate($data);
+        $follower = Follower::firstOrCreate($data);
+        
+        $channel = NotificationChannel::where('user_id', $request->parent_id)->first();
+        $message = NotificationMessage::forceCreate([
+            'channel_id' => $channel->id,
+            'user_id' => $request->follower_id,
+            'type' => 'FOLLOW',
+            'source' => $request->follower_id
+        ])->with('channel', 'user')
+          ->where('user_id', $request->follower_id)
+          ->get()
+          ->pop();
             
-        return Response($response, 201);
+        event(new NotificationSent((string)$channel->user_id, $message));
+        
+        return Response($follower, 201);
     }
 
     /**
@@ -81,8 +86,6 @@ class FollowerController extends Controller
      */
     public function destroy(Request $request)
     {   
-        
-        
         $response = Follower::where('parent_id', $request['parent_id'])
         ->where('follower_id', $request['follower_id'])->delete();
         

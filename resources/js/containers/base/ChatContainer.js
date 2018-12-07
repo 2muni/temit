@@ -15,7 +15,7 @@ class ChatContainer extends Component {
       input: '',
     }
 
-    this.endpoint = `/api/channels/${this.props.room}/messages`
+    this.endpoint = `/api/channels/${this.props.room}/chats`
     this.receiveMessages = this.receiveMessages.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)

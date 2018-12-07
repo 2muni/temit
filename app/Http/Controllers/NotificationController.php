@@ -34,9 +34,12 @@ class NotificationController extends Controller
 
     public function show($channel)
     {
-        $channel = ChatChannel::where('user_id', $channel)->first();
-        $message = ChatMessage::with('channel')->where('channel_id', $channel->id)->get();
+        $channel = NotificationChannel::where('user_id', $channel)->first();
+        $message = NotificationMessage::with('channel', 'user')
+                   ->where('channel_id', $channel->id)
+                   ->orderBy('id', 'desc')
+                   ->paginate(15);
         
-        return $message;
+        return response($message, 200);
     }
 }

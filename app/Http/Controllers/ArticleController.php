@@ -15,12 +15,11 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        $articles = Article::with(
-            'user', 'tags', 'comments'
-            )->orderBy('id', 'desc')
-            ->paginate(10);
+        $articles = Article::with('user', 'tags', 'comments')
+                    ->orderBy('id', 'desc')
+                    ->paginate(10);
             
-        return $articles;
+        return response($articles, 200);
     }
 
     public function store(Request $request)
@@ -32,10 +31,7 @@ class ArticleController extends Controller
             'thumbnail' => 'string',
         ]);
 
-        Article::create($data);
-
-        $article_id = Article::with('user')
-        ->orderBy('id', 'desc')->first()->id;
+        $article = Article::create($data);
 
         $tags = explode(",", strtolower($request->tags));
         
@@ -43,12 +39,12 @@ class ArticleController extends Controller
             if($tag){
                 Tag::firstOrCreate(['tag' => $tag]);
                 $tag_id = Tag::where('tag', $tag)->first()->id;
-                Article_Tag::create(['article_id' => $article_id, 'tag_id' => $tag_id]);
+                Article_Tag::create(['article_id' => $article->id, 'tag_id' => $tag_id]);
             }
         }
+        
         $followers = User::with('followers')
-            ->where('id', $request->user_id)
-            ->first()
+            ->where('id', $request->user_id)->first()
             ->followers;
         
         $rooms = [];
@@ -64,13 +60,16 @@ class ArticleController extends Controller
                 'channel_id' => $channel->id,
                 'user_id' => $request->user_id,
                 'type' => 'POST',
-                'source' => $article_id
-            ])->with('channel', 'user')->get()->pop();
+                'source' => $article->id
+            ])->with('channel', 'user')
+              ->where('user_id', $request->user_id)
+              ->get()
+              ->pop();  
             
             event(new NotificationSent((string)$channel->user_id, $message));
         }
 
-        return $article_id;
+        return response($article, 201);
     }
 
     public function show(Article $article)
@@ -80,7 +79,7 @@ class ArticleController extends Controller
             )->get()
             ->find($article);
 
-        return Response($article, 200);
+        return response($article, 200);
     }
 
     public function update(Request $request, Article $article)
@@ -100,6 +99,6 @@ class ArticleController extends Controller
     {
         $article->delete();
 
-        return Response('Deleted Article', 200);
+        return response('Deleted Article', 200);
     }
 }

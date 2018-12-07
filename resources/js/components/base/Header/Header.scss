@@ -39,16 +39,63 @@ nav{
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
-    z-index: 0;
+    z-index: 5;
     top: -8px;
   }
   .menu{
+    line-height: 1.5rem;
     border: 1px solid rgba(100, 100, 100, .4);
     border-radius: 0 0 2px 2px;
     box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
-    width: 430px;
-    max-height: 540px;
     background-color: #fff;
-    padding: .5rem;
+
+  }
+  .header{
+    line-height: 1.5rem;
+    height: 1.5rem;
+    font-size: .9rem;
+    font-weight: bold;
+    padding: 0 1rem;
+    border-bottom: 1px solid $gray;
+  }
+  .list{
+    width: 385px;
+    max-height: 475px;
+    background-color: lighten($gray, 5%);
+    overflow-y: scroll;
+    &::-webkit-scrollbar { width: 8px; }
+    &::-webkit-scrollbar-button:start:decrement,
+    &::-webkit-scrollbar-button:end:increment {
+      display: block;
+      height: 0px;
+    }
+    &::-webkit-scrollbar-thumb {
+      height: 50px;
+      width: 50px;
+      background-color: lighten($color-1, 10%);
+      -webkit-border-radius: 8px;
+      border-radius: 8px;
+      -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,.1)
+    }
+  }
+  .menu-item + .menu-item{
+    border-top: 1px solid $gray;
+  }
+  .menu-item{
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    &:hover{ background-color: $gray }
+    img{ height: 40px; }
+    .message{
+      flex: 1;
+      margin-left: .5rem;
+      font-size: 1rem;
+      .date{
+        color: gray;
+        font-size: .9rem;
+      }
+    }
   }
 }

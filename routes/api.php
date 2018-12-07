@@ -33,8 +33,10 @@ Route::group([
 Route::resource('/articles', 'ArticleController');
 
 Route::post('/channels', 'ChatController@create');
-Route::post('/channels/{channel}/messages', 'ChatController@store');
-Route::get('/channels/{channel}/messages', 'ChatController@show');
+Route::post('/channels/{channel}/chats', 'ChatController@store');
+Route::get('/channels/{channel}/chats', 'ChatController@show');
+
+Route::get('/channels/{channel}/notifications', 'NotificationController@show');
 
 Route::get('/articles/comments/{article}', 'ArticleCommentController@show');
 Route::post('/articles/comments', 'ArticleCommentController@store');

@@ -64,17 +64,19 @@ export const loginRequest = data => (
 export const userRequest = () => (
   dispatch => {
     dispatch(user())
+    
     return axios.get('/api/auth/user', {
       headers: {
         'Authorization': getCookie('token').token_type+' '+getCookie('token').access_token
       }})
     .then((res) => {
       dispatch(userSuccess(res))
-      if(res.data.email_verified_at)
+      if(res.data.email_verified_at){
       createCookie('user', {
         isLoggedIn: true,
-        currentUser: res.data
+        currentUser: res.data.name
       })
+      }
     }).catch((err) => {
       dispatch(userFailure(err))
       createCookie('user', {

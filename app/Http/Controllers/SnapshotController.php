@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Snapshot;
 use Illuminate\Http\Request;
-
+use App\User;
+use App\Events\NotificationSent;
+use App\NotificationChannel;
+use App\NotificationMessage;
+        
 class SnapshotController extends Controller
 {
     /**
@@ -35,19 +39,41 @@ class SnapshotController extends Controller
      */
     public function store(Request $request)
     {   
-        $request->validate([
+        $data = $request->validate([
             'body' => 'required|string',
             'user_id' => 'required|string',
             'uri' => 'string',
         ]);
 
-        $response = Snapshot::create([
-            'body' => $request->body,
-            'user_id' => $request->user_id,
-            'uri' => $request->uri
-        ]);
+        $snapshot = Snapshot::create($data);
 
-        return Response($response, 201);
+        $followers = User::with('followers')
+            ->where('id', $request->user_id)->first()
+            ->followers;
+        
+        $rooms = [];
+        
+        foreach($followers as $follow) {
+            array_push($rooms, $follow->id);
+        }
+            
+        $channels = NotificationChannel::whereIn('user_id', $rooms)->get();
+        
+        foreach($channels as $channel) {
+            $message = NotificationMessage::forceCreate([
+                'channel_id' => $channel->id,
+                'user_id' => $request->user_id,
+                'type' => 'SNAPSHOT',
+                'source' => $snapshot->id
+            ])->with('channel', 'user')
+              ->where('user_id', $request->user_id)
+              ->get()
+              ->pop();  
+            
+            event(new NotificationSent((string)$channel->user_id, $message));
+        }
+
+        return response($snapshot, 201);
     }
 
     /**

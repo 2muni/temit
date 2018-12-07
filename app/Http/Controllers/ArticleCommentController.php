@@ -5,17 +5,11 @@ namespace App\Http\Controllers;
 use App\Article_Comment;
 use App\Article;
 use Illuminate\Http\Request;
+use App\User;
 use App\Events\NotificationSent;
 use App\NotificationChannel;
 use App\NotificationMessage;
-        // $channel = NotificationChannel::where('user_id', $channel)->first();
-        // $message = NotificationMessage::forceCreate([
-        //     'channel_id' => $channel->id,
-        //     'type' => $request->user_id,
-        //     'message' => $request->body
-        // ])->with('channel')->get()->pop();
 
-        // event(new NotificationSent((string)$channel->user_id, $message));
 class ArticleCommentController extends Controller
 {
     /**
@@ -27,13 +21,32 @@ class ArticleCommentController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'article_id' => 'required|string',
+            'article_id' => 'required',
             'comment' => 'required|string',
             'reply_to' => 'string',
-            'user_id' => 'required|string'
+            'user_id' => 'required'
         ]);
 
-        $comment = Article_Comment::create($data);
+        $comment = Article_Comment::create($data)
+                   ->with('user', 'article')
+                   ->where('user_id', $request->user_id)
+                   ->get()
+                   ->pop();
+                   
+        $article = $comment->article;
+        
+        $channel = NotificationChannel::where('user_id', $article->user_id)->first();
+        $message = NotificationMessage::forceCreate([
+            'channel_id' => $channel->id,
+            'user_id' => $request->user_id,
+            'type' => 'POST_COMMENT',
+            'source' => $article->id
+        ])->with('channel', 'user')
+          ->where('user_id', $request->user_id)
+          ->get()
+          ->pop();
+            
+        event(new NotificationSent((string)$channel->user_id, $message));
 
         return response($comment, 201);
     }

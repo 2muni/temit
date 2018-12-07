@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use App\Snapshot;
 use App\Snapshot_Comment;
 use Illuminate\Http\Request;
-
+use App\User;
+use App\Events\NotificationSent;
+use App\NotificationChannel;
+use App\NotificationMessage;
+        
 class SnapshotCommentController extends Controller
 {
     /**
@@ -17,13 +21,32 @@ class SnapshotCommentController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'snapshot_id' => 'required|string',
+            'snapshot_id' => 'required',
             'comment' => 'required|string',
-            'user_id' => 'required|string'
+            'user_id' => 'required'
         ]);
 
-        $comment = Snapshot_Comment::create($data);
-
+        $comment = Snapshot_Comment::create($data)
+                   ->with('user', 'snapshot')
+                   ->where('user_id', $request->user_id)
+                   ->get()
+                   ->pop();
+                   
+        $snapshot = $comment->snapshot;
+        
+        $channel = NotificationChannel::where('user_id', $snapshot->user_id)->first();
+        $message = NotificationMessage::forceCreate([
+            'channel_id' => $channel->id,
+            'user_id' => $request->user_id,
+            'type' => 'SNAPSHOT_COMMENT',
+            'source' => $snapshot->id
+        ])->with('channel', 'user')
+          ->where('user_id', $request->user_id)
+          ->get()
+          ->pop();  
+            
+        event(new NotificationSent((string)$channel->user_id, $message));
+        
         return response($comment, 201);
     }
 
