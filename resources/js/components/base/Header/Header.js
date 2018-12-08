@@ -9,7 +9,7 @@ import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
 const formatter = buildFormatter(koreanStrings)
 
 const lavels = [
-  'notifications', 'people'
+  'notifications', 'message', 'people'
 ]
 
 const pointer = menu => {
@@ -17,6 +17,7 @@ const pointer = menu => {
   const space = 54;
   
   switch(menu) {
+    case lavels[2]  : return position+space*2;
     case lavels[1]  : return position+space*1;
     default         : return position+space*0;
   }
@@ -27,7 +28,7 @@ const DropMenu = ({
   notifications,
 }) => {
   switch(menu) {
-    case lavels[1]  : return (
+    case lavels[2]  : return (
       <div className="menu">
         <div className="header">친구 요청</div>
         <div className="list">
@@ -43,6 +44,23 @@ const DropMenu = ({
         ))}
         </div>
       </div>  
+    );
+    case lavels[1]  : return (
+      <div className="menu">
+        <div className="header">최근 메시지</div>
+        <div className="list">
+        {notifications.map((item, i) => (
+          item.type==='CHAT' &&
+          <div key={i} className="menu-item">
+            <img className="circle" src={item.user.thumbnail}/>
+            <div className="message">
+              <div className="body">{item.user.name}</div>
+              <div>{item.source}</div>
+            </div>
+          </div>   
+        ))}
+        </div>
+      </div>   
     );
     default         : return (
       <div className="menu">
@@ -106,6 +124,11 @@ const Header = ({
       <ul>
         <li><Link to='/board'>게시판</Link></li>
         <li><Link to='/project'>프로젝트</Link></li>
+        <li onClick={handleMenu}>
+          <i style={ currentMenu === lavels[2] ? { color:'#fff' } : {}}
+             className="material-icons dropbtn" 
+          >{lavels[2]}</i>
+        </li>
         <li onClick={handleMenu}>
           <i style={ currentMenu === lavels[1] ? { color:'#fff' } : {}}
              className="material-icons dropbtn" 
