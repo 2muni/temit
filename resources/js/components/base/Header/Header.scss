@@ -86,6 +86,7 @@ nav{
     display: flex;
     align-items: center;
     padding: 1rem;
+    a{ all:unset; cursor: pointer; }
     &:hover{ background-color: $gray }
     img{ height: 40px; }
     .message{

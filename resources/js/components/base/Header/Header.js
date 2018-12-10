@@ -12,6 +12,10 @@ const lavels = [
   'notifications', 'message', 'people'
 ]
 
+const pagemove = (source) => {
+  
+}
+
 const pointer = menu => {
   let position = 19;
   const space = 54;
@@ -37,8 +41,10 @@ const DropMenu = ({
           <div key={i} className="menu-item">
             <img className="circle" src={item.user.thumbnail}/>
             <div className="message">
-              <div className="body">{item.user.name}님이 친구요청을 하였읍니다.</div>
-              <div className="date"><TimeAgo date={item.created_at} formatter={formatter} /></div>
+              <a href={`http://temit.2muni.com/users/${item.user.id}`}>
+                <div className="body">{item.user.name}님이 친구요청을 하였읍니다.</div>
+                <div className="date"><TimeAgo date={item.created_at} formatter={formatter} /></div>
+              </a>
             </div>
           </div>   
         ))}
@@ -72,8 +78,10 @@ const DropMenu = ({
               <div key={i} className="menu-item">
                 <img className="circle" src={item.user.thumbnail}/>
                 <div className="message">
-                  <div className="body">{item.user.name}님이 새로운 게시글을 작성하였습니다.</div>
-                  <div className="date"><TimeAgo date={item.created_at} formatter={formatter} /></div>
+                  <a href={`http://temit.2muni.com/post/${item.source}`}>
+                    <div className="body">{item.user.name}님이 새로운 게시글을 작성하였습니다.</div>
+                    <div className="date"><TimeAgo date={item.created_at} formatter={formatter} /></div>
+                  </a>
                 </div>
               </div>            
             );
@@ -81,8 +89,10 @@ const DropMenu = ({
               <div key={i} className="menu-item">
                 <img className="circle" src={item.user.thumbnail}/>
                 <div className="message">
-                  <div className="body">{item.user.name}님이 새로운 스냅샷을 추가하였습니다.</div>
-                  <div className="date"><TimeAgo date={item.created_at} formatter={formatter} /></div>
+                  <a href={`http://temit.2muni.com/`}>
+                    <div className="body">{item.user.name}님이 새로운 스냅샷을 추가하였습니다.</div>
+                    <div className="date"><TimeAgo date={item.created_at} formatter={formatter} /></div>
+                  </a>
                 </div>
               </div>            
             );
@@ -90,8 +100,10 @@ const DropMenu = ({
               <div key={i} className="menu-item">
                 <img className="circle" src={item.user.thumbnail}/>
                 <div className="message">
-                  <div className="body">{item.user.name}님이 게시글에 댓글을 남겼습니다.</div>
-                  <div className="date"><TimeAgo date={item.created_at} formatter={formatter} /></div>
+                  <a href={`http://temit.2muni.com/post/${item.source}`}>
+                    <div className="body">{item.user.name}님이 게시글에 댓글을 남겼습니다.</div>
+                    <div className="date"><TimeAgo date={item.created_at} formatter={formatter} /></div>
+                  </a>
                 </div>
               </div>            
             );
@@ -99,8 +111,10 @@ const DropMenu = ({
               <div key={i} className="menu-item">
                 <img className="circle" src={item.user.thumbnail}/>
                 <div className="message">
-                  <div className="body">{item.user.name}님이 스냅샷에 댓글을 남겼습니다.</div>
-                  <div className="date"><TimeAgo date={item.created_at} formatter={formatter} /></div>
+                  <a href={`http://temit.2muni.com/`}>
+                    <div className="body">{item.user.name}님이 스냅샷에 댓글을 남겼습니다.</div>
+                    <div className="date"><TimeAgo date={item.created_at} formatter={formatter} /></div>
+                  </a>
                 </div>
               </div>            
             );
@@ -123,7 +137,6 @@ const Header = ({
       <Link to="/" className="logo">temit</Link>
       <ul>
         <li><Link to='/board'>게시판</Link></li>
-        <li><Link to='/project'>프로젝트</Link></li>
         <li onClick={handleMenu}>
           <i style={ currentMenu === lavels[2] ? { color:'#fff' } : {}}
              className="material-icons dropbtn" 

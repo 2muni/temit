@@ -63,11 +63,6 @@ class HeaderContainer extends Component {
       })
   }
   
-  
-
-  
-  
-
   shouldComponentUpdate(nextProps, nextState) {
     return nextProps.status.currentUser !== this.props.status.currentUser || 
            nextProps.location.pathname !== this.props.location.pathname ||
