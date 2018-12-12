@@ -56,7 +56,7 @@ const ItemCounter = ({
       <div className={className}>
         { 
           notifications.map((item) => {
-            counter++;
+            (item.type !=='FOLLOW' && item.type !=='CHAT') && counter++;
           })
         }
         {counter}

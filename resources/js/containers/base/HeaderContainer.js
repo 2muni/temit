@@ -35,10 +35,14 @@ class HeaderContainer extends Component {
     });
 
     socket.on(`${channel}:App\\Events\\NotificationSent`, data => {
-      this.setState(produce(this.state, draft => {
-        draft.notifications.unshift(data.data)
-      }))
-      console.log(data.data)
+      if(this.state.notifications.length === 0)
+        this.setState(produce(this.state, draft => {
+          draft.notifications.unshift(data.data)
+        }))
+      else(this.state.notifications[this.state.notifications.length - 1].id !== data.data.id)
+        this.setState(produce(this.state, draft => {
+          draft.notifications.unshift(data.data)
+        }))
     })
   }
   
