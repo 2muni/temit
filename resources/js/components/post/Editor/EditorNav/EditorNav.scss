@@ -1,3 +1,9 @@
+.post-editor-nav-wrapper{
+  display: flex;
+  justify-content: space-between;
+  padding-right: 30px;
+  width: calc(100% - 60px);
+}
 .submit-card{
   background-color: $color-2;
   width: 100%;

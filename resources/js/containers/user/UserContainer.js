@@ -35,14 +35,13 @@ class UserContainer extends Component {
   componentDidMount() {
     this.props.UserActions.userRequest(this.props.id)
     .then(() => {
+      this.setState({ user: this.props.userData });
       this.props.userData.followers.map(( follower ) => {
         if(follower.id == this.props.currentUser.id) {
           this.setState({ isFollowing: true });
-          return;
         }
       })
     })
-    .then(() => this.setState({ user: this.props.userData }))
   }
 
 
@@ -129,6 +128,8 @@ class UserContainer extends Component {
   }
 
   render() {
+    console.log("CU", this.props.currentUser);
+    console.log("state", this.state.user)
     return(
       <div className="user-wrapper">
         {this.props.currentUser && this.state.user ? 

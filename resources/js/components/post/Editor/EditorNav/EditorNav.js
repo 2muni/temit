@@ -67,10 +67,9 @@ const EditorNav = ({
   handleChange,
   handleSubmit,
 }) => (
-  <nav>
-    <div className="nav-wrapper">
-      <Link to="/" className="brand-logo">temit</Link>
-      <div className="right">
+  <nav className="post-editor-nav-wrapper">
+      <Link to="/" className="logo">temit</Link>
+      <div className="modal-wrapper">
         <Modal
           trigger={<Button>작성하기</Button>}
           modalOptions={{
@@ -87,7 +86,6 @@ const EditorNav = ({
           /></div>
         </Modal>
       </div>
-    </div>
   </nav>
 )
 

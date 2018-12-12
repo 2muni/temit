@@ -1,10 +1,12 @@
 .aside-nav{
   width: 290px; 
-  padding: 0 $padding; margin: 47px 0;
-  
-  @media (max-width: 1024px) {
-    display: none;
-  }
+  padding: 47px $padding;
+  background-color: #fff;
+  border-left: 1px solid $gray;
+  min-height: calc(100vh - 52px);
+  // @media (max-width: 1024px) {
+  //   display: none;
+  // }
   .user-profile{
     height: 74px;
     border-bottom: 1px solid #E0E0E0;

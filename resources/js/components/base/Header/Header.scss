@@ -10,6 +10,22 @@ nav{
   line-height: 50px;
   border-bottom: 1px solid #001;
   .logo{ font-size: 2rem; }
+  .counter{
+    line-height: .8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: .8rem;
+    margin-top: 4px;
+    margin-left: 30px;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 4px;
+    position: absolute;
+    background-color: #e74c3c;
+  }
   li{
     i{ 
       padding: 0 1rem;
@@ -24,7 +40,7 @@ nav{
   }
   .menu-wrapper{
     position: relative;
-    z-index: 10;
+    z-index: 999;
   }
   .menu-positioner{
     position: absolute;

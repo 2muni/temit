@@ -11,7 +11,7 @@ const PostList = ({ list }) => (
       <CardContent post={post}/>
     </div>))}
       <Link to='/write'>
-        <Button floating icon='mode_edit' className='floatBtn circle' large style={{bottom: '45px', right: '45px'}}/>
+        <Button floating icon='mode_edit' className='floatBtn circle' large style={{bottom: '45px', right: '335px'}}/>
       </Link>
   </div>
 )

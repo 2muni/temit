@@ -146,18 +146,18 @@ class EditorContainer extends Component {
         .then(() => {
           if(this.props.article)
             this.props.ArticleActions.editRequest(this.props.article, data)
-              .then(() => this.props.postState === 'SUCCESS' && this.props.history.push('/board'))
+              .then(() => this.props.postState === 'SUCCESS' && (window.location.href = '/board'))
           else
             this.props.ArticleActions.postRequest(data)
-              .then(() => this.props.postState === 'SUCCESS' && this.props.history.push('/board'))
+              .then(() => this.props.postState === 'SUCCESS' && (window.location.href = '/board'))
         })
     }else {
       if(this.props.article) {
         this.props.ArticleActions.editRequest(this.props.article, data)
-          .then(() => this.props.postState === 'SUCCESS' && this.props.history.push('/board'))
+          .then(() => this.props.postState === 'SUCCESS' && (window.location.href = '/board'))
       }else {
         this.props.ArticleActions.postRequest(data)
-          .then(() => this.props.postState === 'SUCCESS' && this.props.history.push('/board'))
+          .then(() => this.props.postState === 'SUCCESS' && (window.location.href = '/board'))
       }
     }
   }

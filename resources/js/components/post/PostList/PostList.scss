@@ -9,6 +9,10 @@
   padding: 0 $padding;
   margin: 47px 0;
   
+  .floatBtn{
+    z-index: 900;
+  }
+  
   .tag-header{
     font-size: 4rem;
     margin-bottom: 2rem;
@@ -70,7 +74,7 @@
       width: 100%;
       position: absolute;
       border: 5px solid #fff;
-      z-index: 100;
+      z-index: 10;
     }
   }
   .content-head{

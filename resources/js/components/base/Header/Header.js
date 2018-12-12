@@ -12,9 +12,7 @@ const lavels = [
   'notifications', 'message', 'people'
 ]
 
-const pagemove = (source) => {
-  
-}
+let counter = 0;
 
 const pointer = menu => {
   let position = 19;
@@ -24,6 +22,46 @@ const pointer = menu => {
     case lavels[2]  : return position+space*2;
     case lavels[1]  : return position+space*1;
     default         : return position+space*0;
+  }
+}
+
+const ItemCounter = ({
+  menu,
+  notifications,
+  className,
+}) => {
+  counter = 0;
+  switch(menu) {
+    case lavels[2]: return (
+      <div className={className}>
+        { 
+          notifications.map((item) => {
+            item.type==='FOLLOW' && counter++;
+          })
+        }
+        {counter}
+      </div>  
+    );
+    case lavels[1]: return (
+      <div className={className}>
+        { 
+          notifications.map((item) => {
+            item.type==='CHAT' && counter++;
+          })
+        }
+        {counter}
+      </div>  
+    );
+    default       : return (
+      <div className={className}>
+        { 
+          notifications.map((item) => {
+            counter++;
+          })
+        }
+        {counter}
+      </div>  
+    );
   }
 }
 
@@ -42,7 +80,7 @@ const DropMenu = ({
             <img className="circle" src={item.user.thumbnail}/>
             <div className="message">
               <a href={`http://temit.2muni.com/users/${item.user.id}`}>
-                <div className="body">{item.user.name}님이 친구요청을 하였읍니다.</div>
+                <div className="body">{item.user.name}님이 구독하였습니다.</div>
                 <div className="date"><TimeAgo date={item.created_at} formatter={formatter} /></div>
               </a>
             </div>
@@ -138,16 +176,19 @@ const Header = ({
       <ul>
         <li><Link to='/board'>게시판</Link></li>
         <li onClick={handleMenu}>
+          <ItemCounter className={'counter'} menu={lavels[2]} notifications={notifications}/>
           <i style={ currentMenu === lavels[2] ? { color:'#fff' } : {}}
              className="material-icons dropbtn" 
           >{lavels[2]}</i>
         </li>
         <li onClick={handleMenu}>
+          <ItemCounter className={'counter'} menu={lavels[1]} notifications={notifications}/>
           <i style={ currentMenu === lavels[1] ? { color:'#fff' } : {}}
              className="material-icons dropbtn" 
           >{lavels[1]}</i>
         </li>
         <li onClick={handleMenu}>
+          <ItemCounter className={'counter'} menu={lavels[0]} notifications={notifications}/>
           <i style={ currentMenu === lavels[0] ? { color:'#fff' } : {}}
              className="material-icons dropbtn" 
           >{lavels[0]}</i>
