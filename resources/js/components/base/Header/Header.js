@@ -36,7 +36,7 @@ const ItemCounter = ({
       <div className={className}>
         { 
           notifications.map((item) => {
-            item.type==='FOLLOW' && counter++;
+            item.type==='FOLLOW' && !item.read_at && counter++;
           })
         }
         {counter}
@@ -46,7 +46,7 @@ const ItemCounter = ({
       <div className={className}>
         { 
           notifications.map((item) => {
-            item.type==='CHAT' && counter++;
+            item.type==='CHAT' && !item.read_at && counter++;
           })
         }
         {counter}
@@ -56,7 +56,7 @@ const ItemCounter = ({
       <div className={className}>
         { 
           notifications.map((item) => {
-            (item.type !=='FOLLOW' && item.type !=='CHAT') && counter++;
+            (item.type !=='FOLLOW' && item.type !=='CHAT' && !item.read_at) && counter++;
           })
         }
         {counter}

@@ -71,7 +71,8 @@ class HeaderContainer extends Component {
     return nextProps.status.currentUser !== this.props.status.currentUser || 
            nextProps.location.pathname !== this.props.location.pathname ||
            nextState.currentMenu !== this.state.currentMenu ||
-           nextState.notifications !== this.state.notifications
+           nextState.notifications !== this.state.notifications ||
+           nextState.currentMenu !== this.state.currentMenu
   }
 
   componentDidUpdate(nextProps, nextState) {
@@ -102,7 +103,9 @@ class HeaderContainer extends Component {
   
   handleMenu(e) {
     if(e.target.matches('.dropbtn')) {
-      this.setState({ currentMenu: e.target.innerText })
+      const menu = e.target.innerText
+      axios.post(`/api/channels/${this.props.status.currentUser.id}/notifications`, menu)
+      .then(() => this.setState({ currentMenu: menu }))
     }else {
       this.setState({ currentMenu: '' })
     }

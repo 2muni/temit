@@ -6,6 +6,7 @@ use App\Events\NotificationSent;
 use App\NotificationChannel;
 use App\NotificationMessage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class NotificationController extends Controller
 {
@@ -39,6 +40,17 @@ class NotificationController extends Controller
                    ->where('channel_id', $channel->id)
                    ->orderBy('id', 'desc')
                    ->paginate(15);
+        
+        return response($message, 200);
+    }
+    
+    public function read(Request $request, $channel)
+    {
+        $channel = NotificationChannel::where('user_id', $channel)->first();
+        $message = NotificationMessage::with('channel', 'user')
+                   ->where('channel_id', $channel->id)
+                   ->where('read_at', null)
+                   ->update(['read_at' => now()]);
         
         return response($message, 200);
     }

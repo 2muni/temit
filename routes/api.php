@@ -37,6 +37,7 @@ Route::post('/channels/{channel}/chats', 'ChatController@store');
 Route::get('/channels/{channel}/chats', 'ChatController@show');
 
 Route::get('/channels/{channel}/notifications', 'NotificationController@show');
+Route::post('/channels/{channel}/notifications', 'NotificationController@read');
 
 Route::get('/articles/comments/{article}', 'ArticleCommentController@show');
 Route::post('/articles/comments', 'ArticleCommentController@store');
